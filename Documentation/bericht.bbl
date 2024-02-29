@@ -1,0 +1,530 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{Barke.2015}{book}{}
+    \name{author}{4}{}{%
+      {{hash=BH}{%
+         family={Barke},
+         familyi={B\bibinitperiod},
+         given={Helena},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Siegeris},
+         familyi={S\bibinitperiod},
+         given={Juliane},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=FJ}{%
+         family={Freiheit},
+         familyi={F\bibinitperiod},
+         given={J{\"o}rn},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=K}{%
+         family={{Krefting Dagmar}},
+         familyi={K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {{Budrich UniPress Ltd}}%
+    }
+    \strng{namehash}{BH+1}
+    \strng{fullhash}{BHSJFJK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2015}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{isbn}{978-3863887094}
+    \field{title}{Gender und IT-Projekte: Neue Wege zu digitaler Teilhabe}
+    \field{year}{2015}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Bennekum.2001}{misc}{}
+    \name{author}{17}{}{%
+      {{hash=vBA}{%
+         prefix={van},
+         prefixi={v\bibinitperiod},
+         family={Bennekum},
+         familyi={B\bibinitperiod},
+         given={Arie},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MRC}{%
+         family={Martin},
+         familyi={M\bibinitperiod},
+         given={Robert\bibnamedelima C.},
+         giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Beck Kent}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Beedle Mike}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=C}{%
+         family={{Cockburn Alistair}},
+         familyi={C\bibinitperiod},
+      }}%
+      {{hash=C}{%
+         family={{Cunningham Ward}},
+         familyi={C\bibinitperiod},
+      }}%
+      {{hash=F}{%
+         family={{Fowler Martin}},
+         familyi={F\bibinitperiod},
+      }}%
+      {{hash=G}{%
+         family={{Grenning James}},
+         familyi={G\bibinitperiod},
+      }}%
+      {{hash=H}{%
+         family={{Highsmith Jim}},
+         familyi={H\bibinitperiod},
+      }}%
+      {{hash=H}{%
+         family={{Hunt Andrew}},
+         familyi={H\bibinitperiod},
+      }}%
+      {{hash=J}{%
+         family={{Jeffries Ron}},
+         familyi={J\bibinitperiod},
+      }}%
+      {{hash=K}{%
+         family={{Kern Jon}},
+         familyi={K\bibinitperiod},
+      }}%
+      {{hash=M}{%
+         family={{Marick Brian}},
+         familyi={M\bibinitperiod},
+      }}%
+      {{hash=M}{%
+         family={{Mellor Steve}},
+         familyi={M\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Schwaber Ken}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Sutherland Jeff}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=T}{%
+         family={{Thomas Dave}},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \name{editor}{17}{}{%
+      {{hash=vBA}{%
+         prefix={van},
+         prefixi={v\bibinitperiod},
+         family={Bennekum},
+         familyi={B\bibinitperiod},
+         given={Arie},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=MRC}{%
+         family={Martin},
+         familyi={M\bibinitperiod},
+         given={Robert\bibnamedelima C.},
+         giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Beck Kent}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=B}{%
+         family={{Beedle Mike}},
+         familyi={B\bibinitperiod},
+      }}%
+      {{hash=C}{%
+         family={{Cockburn Alistair}},
+         familyi={C\bibinitperiod},
+      }}%
+      {{hash=C}{%
+         family={{Cunningham Ward}},
+         familyi={C\bibinitperiod},
+      }}%
+      {{hash=F}{%
+         family={{Fowler Martin}},
+         familyi={F\bibinitperiod},
+      }}%
+      {{hash=G}{%
+         family={{Grenning James}},
+         familyi={G\bibinitperiod},
+      }}%
+      {{hash=H}{%
+         family={{Highsmith Jim}},
+         familyi={H\bibinitperiod},
+      }}%
+      {{hash=H}{%
+         family={{Hunt Andrew}},
+         familyi={H\bibinitperiod},
+      }}%
+      {{hash=J}{%
+         family={{Jeffries Ron}},
+         familyi={J\bibinitperiod},
+      }}%
+      {{hash=K}{%
+         family={{Kern Jon}},
+         familyi={K\bibinitperiod},
+      }}%
+      {{hash=M}{%
+         family={{Marick Brian}},
+         familyi={M\bibinitperiod},
+      }}%
+      {{hash=M}{%
+         family={{Mellor Steve}},
+         familyi={M\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Schwaber Ken}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=S}{%
+         family={{Sutherland Jeff}},
+         familyi={S\bibinitperiod},
+      }}%
+      {{hash=T}{%
+         family={{Thomas Dave}},
+         familyi={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BAv+1}
+    \strng{fullhash}{BAvMRCBBCCFGHHJKMMSST1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2001}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Manifesto for Agile Software Development}
+    \verb{url}
+    \verb https://agilemanifesto.org/
+    \endverb
+    \field{year}{2001}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{DiehlAndreas.2018}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=D}{%
+         family={{Diehl Andreas}},
+         familyi={D\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{D1}
+    \strng{fullhash}{D1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Das Agile Manifest -- Leits{\"a}tze und Werte agiler Teams}
+    \verb{url}
+    \verb https://digitaleneuordnung.de/blog/agiles-manifest/
+    \endverb
+    \field{year}{2018}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Fabris.2021}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=FV}{%
+         family={Fabris},
+         familyi={F\bibinitperiod},
+         given={Virginia},
+         giveni={V\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{FV1}
+    \strng{fullhash}{FV1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2021}
+    \field{labeldatesource}{}
+    \field{sortinit}{F}
+    \field{sortinithash}{F}
+    \field{title}{Scrum Board: {\"U}berwachen Sie Ihren Projektfortschritt!}
+    \verb{url}
+    \verb https://www.appvizer.de/magazin/organisation-planung/projektmanagemen
+    \verb t/scrum-board
+    \endverb
+    \field{year}{2021}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{.2020}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2020}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{title}{Kanban}
+    \verb{url}
+    \verb https://www.ionos.de/digitalguide/websites/web-entwicklung/kanban/
+    \endverb
+    \field{year}{2020}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Klanitz.}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=KT}{%
+         family={Klanitz},
+         familyi={K\bibinitperiod},
+         given={Torsten},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KT1}
+    \strng{fullhash}{KT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labeldatesource}{nodate}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{title}{Kanban}
+    \verb{url}
+    \verb refa.de/service/refa-lexikon/kanban#:~:text=Der%20Begriff%20Kanban%20
+    \verb stammt%20aus,Fertigung.
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Kooijman.}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=KS}{%
+         family={Kooijman},
+         familyi={K\bibinitperiod},
+         given={Sebastian},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KS1}
+    \strng{fullhash}{KS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labeldatesource}{nodate}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{title}{Ein Scrum Team zusammenstellen: Empfehlungen aus der Praxis}
+    \verb{url}
+    \verb https://agilescrumgroup.de/scrum-team/#:~:text=Scrum%20Regeln&text=De
+    \verb s%20Weiteren%20geht%20Scrum%20von,den%20Product%20Owner%20mit%20einge
+    \verb rechnet.
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Mai.2021}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=MJ}{%
+         family={Mai},
+         familyi={M\bibinitperiod},
+         given={Jochen},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MJ1}
+    \strng{fullhash}{MJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2021}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{Scrum-Methode: Agiles Projektmanagement im Sprint}
+    \verb{url}
+    \verb https://deutsche-projekt-akademie.de/2020/08/pm-verstehen-scrum-maste
+    \verb r-und-entwickler/#:~:text=Der%20Scrum%20Guide%20(die%20Scrum,gleichze
+    \verb itig%20im%20gleichen%20Projekt%20sein.
+    \endverb
+    \field{year}{2021}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Nguyen.2022}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=NM}{%
+         family={Nguyen},
+         familyi={N\bibinitperiod},
+         given={Maria},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{NM1}
+    \strng{fullhash}{NM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2022}
+    \field{labeldatesource}{}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{title}{Scrum Methode: Rugby im Projektmanagement}
+    \field{year}{2022}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Pfeffer.2019}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=PJ}{%
+         family={Pfeffer},
+         familyi={P\bibinitperiod},
+         given={Joachim},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PJ1}
+    \strng{fullhash}{PJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2019}
+    \field{labeldatesource}{}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{Scrum}
+    \verb{url}
+    \verb https://www.projektmagazin.de/glossarterm/scrum
+    \endverb
+    \field{year}{2019}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Purushotham.}{article}{}
+    \name{author}{2}{}{%
+      {{hash=PS}{%
+         family={Purushotham},
+         familyi={P\bibinitperiod},
+         given={Sowmya},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=PA}{%
+         family={Pulla},
+         familyi={P\bibinitperiod},
+         given={Amith},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PSPA1}
+    \strng{fullhash}{PSPA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labeldatesource}{nodate}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{Bridging the Gap Between Acceptance Citeria and Definition of
+  Done}
+    \verb{url}
+    \verb https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1076.5911&r
+    \verb ep=rep1&type=pdf
+    \endverb
+    \field{volume}{2013}
+    \verb{file}
+    \verb DOD vs AC:Attachments/DOD vs AC.pdf:application/pdf
+    \endverb
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Schwaber.2020}{misc}{}
+    \name{author}{2}{}{%
+      {{hash=SK}{%
+         family={Schwaber},
+         familyi={S\bibinitperiod},
+         given={Ken},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sutherland},
+         familyi={S\bibinitperiod},
+         given={Jeff},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \name{editor}{2}{}{%
+      {{hash=SK}{%
+         family={Schwaber},
+         familyi={S\bibinitperiod},
+         given={Ken},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Sutherland},
+         familyi={S\bibinitperiod},
+         given={Jeff},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SKSJ1}
+    \strng{fullhash}{SKSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2020}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Der Scrum Guide: Der g{\"u}ltige Leitfaden f{\"u}r Scrum: Die
+  Spielregeln}
+    \verb{url}
+    \verb https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-German
+    \verb .pdf
+    \endverb
+    \field{year}{2020}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+
+  \entry{Sutherland.2020}{misc}{}
+    \name{author}{2}{}{%
+      {{hash=SJ}{%
+         family={Sutherland},
+         familyi={S\bibinitperiod},
+         given={Jeff},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SK}{%
+         family={Schwaber},
+         familyi={S\bibinitperiod},
+         given={Ken},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SJSK1}
+    \strng{fullhash}{SJSK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2020}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{The 2020 Scrum Guide}
+    \verb{url}
+    \verb https://scrumguides.org/scrum-guide.html
+    \endverb
+    \field{year}{2020}
+    \warn{\item Invalid format of field 'urldate'}
+  \endentry
+\enddatalist
+\endinput

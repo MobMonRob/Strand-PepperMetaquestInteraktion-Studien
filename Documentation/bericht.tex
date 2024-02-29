@@ -1,0 +1,196 @@
+%&bericht
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Descr:       Vorlage für Berichte der DHBW-Karlsruhe
+%% Author:      Prof. Dr. Jürgen Vollmer, juergen.vollmer@dhbw-karlsruhe.de
+%% $Id: bericht.tex,v 1.25 2020/03/13 15:07:45 vollmer Exp $
+%%  -*- coding: utf-8 -*-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+   ngerman          % neue deutsche Rechtschreibung
+  ,a4paper 
+  ,oneside         % Papiergrösse
+% ,twoside          % Zweiseitiger Druck (rechts/links)
+% ,10pt             % Schriftgrösse
+% ,11pt
+  ,12pt
+  ,pdftex
+  ,parskip=half
+  ,headsepline
+  ,abstraction
+  ,footsepline  
+%  ,disable         % Todo-Markierungen auschalten
+]{report}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+% Bitte die Codierung Ihrer Dateien auswählen:
+% \usepackage[latin1]{inputenc}    % Für UNIX mit ISO-LATIN-codierten Dateien
+% \usepackage[applemac]{inputenc}  % Für Apple Mac
+% \usepackage[ansinew]{inputenc}   % Für Microsoft Windows
+\usepackage[utf8]{inputenc}        % UTF-8 codierte Dateien
+                                   % Dieses Dokument ist unter Unix erstellt, daher
+                                   % wird diese Input-Codierung benutzt.
+
+\usepackage{bericht}
+
+
+%% ACHTUNG, wenn man eine eigene Formatdatei (bericht.fmt) benutzt, werden Änderungen an bericht.sty
+%% erst wirksam, wenn die Format-Datei neu erzeugt wurde!!!
+%% Genauer alle Änderungen, die textuell vor der nächsten Zeile ".... endofdump...." stehen
+%% werden erst wirksam, wenn die Formatdatei neu erzeugt wurde
+\csname endofdump\endcsname
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Angaben zur Arbeit
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Autor}{Matthias Schuhmacher und Marlene Rieder}
+\newcommand{\MatrikelNummer}{4128647 und 8261867}
+\newcommand{\Kursbezeichnung}{tinf21b3 und tinf21b5}
+
+%\newcommand{\FirmenName}{Siemens AG}
+%\newcommand{\FirmenStadt}{Karlsruhe}
+%\newcommand{\FirmenLogoDeckblatt}{{\includegraphics[width=5cm]{Siemens_Logo_transp}}}
+
+% Falls es kein Firmenlogo gibt:
+%  \newcommand{\FirmenLogoDeckblatt}{}
+
+%\newcommand{\BetreuerFirma}{Boris Rojs}
+\newcommand{\BetreuerDHBW}{Prof. Dr. Marcus Strand}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Wird auf dem Deckblatt und in der Erklärung benutzt:
+%\newcommand{\Was}{Projekt-/Studien-/Bachleorarbeit}
+%\newcommand{\Was}{Projektarbeit}
+\newcommand{\Was}{Studienarbeit}
+%\newcommand{\Was}{Bachleorarbeit}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Titel}{Pepper VR – Teleopperation eines humanuiden Roboter auf Basis der Analyse menschlicher Bewegung}
+\newcommand{\AbgabeDatum}{20. Mai 2024}
+
+\newcommand{\Dauer}{300 Stunden}
+
+% \newcommand{\Abschluss}{Bachelor of Engineering}
+\newcommand{\Abschluss}{Bachelor of Science}
+
+%\newcommand{\Studiengang}{Informatik / Informationstechnik}
+ \newcommand{\Studiengang}{Informatik / Angewandte Informatik}
+
+\hypersetup{%%
+  pdfauthor={\Autor},
+  pdftitle={\Titel},
+  pdfsubject={\Was}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Wenn \includeonly{..} benutzt wird, werden nur diese Kaptitel ausgegeben.
+%\includeonly{
+ % abk
+%  Einleitung
+ %,Grundlagen
+ %,Die Projekte
+ %,Reflexion und Ausblick
+%,changelog%
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Benutzt man das "biblatex"-Paket, dann muß das hier stehen:
+% siehe auch die mit BIBLATEX markierten Zeilen in bericht.sty
+\bibliography{T1000.bib}
+\def\SymbReg{\textsuperscript{\textregistered}}
+\nocite{*}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\begin{center}
+\vspace*{-2cm}
+\includegraphics[width=4cm]{dhbw-logo}\\[2cm]
+{\Huge \Titel}\\[1cm]
+{\Huge\scshape \Was}\\[1cm]
+{\large für die Prüfung zum}\\[0.5cm]
+{\Large \Abschluss}\\[0.5cm]
+{\large des Studienganges \Studiengang}\\[0.5cm]
+{\large an der}\\[0.5cm]
+{\large Dualen Hochschule Baden-Württemberg Karlsruhe}\\[0.5cm]
+{\large von}\\[0.5cm]
+{\large\bfseries \Autor}\\[1cm]
+{\large Abgabedatum \AbgabeDatum}
+\vfill
+\end{center}
+\begin{tabular}{l@{\hspace{2cm}}l}
+Bearbeitungszeitraum	         & \Dauer 			\\
+Matrikelnummer	                 & \MatrikelNummer		\\
+Kurs			         & \Kursbezeichnung		\\
+%Ausbildungsfirma	         & \FirmenName			\\
+%			         & \FirmenStadt			\\
+%Betreuer der Ausbildungsfirma	 & \BetreuerFirma		\\
+Gutachter der Studienakademie	 & \BetreuerDHBW		\\
+\end{tabular}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{erklaerung.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+Das Ziel der vorliegenden Projektarbeit ist es, die agile Projektmanagement Methode Scrum auf Projekte der betrieblichen Ausbildung, im Speziellen auf das Umfeld der betrieblichen Ausbildung der Siemens AG, anzupassen. Dazu wurden zwei Projekte, die mit unterschiedlichen Ansätzen in der Ausbildungsabteilung durchgeführt wurden, betrachtet, Problematiken identifiziert und Lösungsansätze entwickelt. Aus den Betrachtungen geht hervor, dass das Scrum Framework grundsätzlich die Anforderungen der betrieblichen Ausbildungsabteilung der Siemens AG erfüllt, allerdings einige Anpassungen notwendig sind, auf welche im Kapitel 4 genauer eingegangen wird. Diese Arbeit richtet sich sowohl an bereits erfahrene Nutzer des Scrum Frameworks, als auch an Menschen die dieses Framework genauer kennenlernen möchten. Besonders widmet sich diese Arbeit an die Ausbilder im betrieblichen Umfeld, die an der Einführung eines neuen Projektmanagementansatzes interessiert sind und von den Erkenntnissen vergangener Projekte profitieren möchten.
+\newline
+\newline
+
+\noindent
+The goal of this project work was to adapt the agile project management method Scrum to projects of the company training, in particular to the environment of the company training of Siemens AG. For this purpose, two projects that were carried out with different approaches in the training department were examined, problems identified and solutions developed. From the observations it emerges that the Scrum framework basically meets the requirements of the corporate training department of Siemens AG, but that some adaptations are necessary, which will be discussed in more detail in Chapter 4. This work addresses both already experienced users of the Scrum framework and people who would like to get to know this framework in more detail. In particular, this work is dedicated to trainers in the operational environment who are interested in introducing a new project management approach and who would like to benefit from the findings of past projects.
+
+
+\end{abstract}
+
+\newpage
+\tableofcontents           % Inhaltsverzeichnis hier ausgeben
+\listoffigures             % Liste der Abbildungen
+%\listoftables              % Liste der Tabellen
+%\lstlistoflistings         % Liste der Listings
+%\listofequations           % Liste der Formeln
+
+% Jetzt kommt der "eigentliche" Text
+%\include{abk}              % Abkürzungsverzeichnis
+\include{Einleitung}
+\include{Grundlagen}
+\include{DieProjekte}
+\include{ReflexionUndAusblick}
+
+
+
+% Ab hier beginnt der Anhang
+\appendix
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+
+% Haben Sie das "biblatex"-Paket nicht installiert, benutzen Sie folgendes:
+% Ohne das "biblatex"-Paket (s. bericht.sty) produziert folgendes
+% "deutsche" Zitate in Literaturverzeichnissen gemaß der Norm DIN 1505,
+% Teil 2 vom Jan. 1984.
+% Die Zitatmarken werden alphabetisch nach Verfassern
+% sortiert und sind durch abgekürzte Verfasserbuchstaben plus
+% Erscheinungsjahr in eckigen Klammern gekennzeichnet.
+
+% \bibliographystyle{alphadin}
+% \bibliography{bericht}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+% BIBLATEX
+% Benutzt man das "biblatex"-Paket, muß man folgendes schreiben:
+\def\refname{Literaturverzeichnis}
+\printbibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+\end{document}
