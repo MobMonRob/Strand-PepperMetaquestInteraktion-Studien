@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8) (preloaded format=pdflatex 2022.8.18)  29 FEB 2024 10:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8) (preloaded format=pdflatex 2022.8.18)  14 MAR 2024 10:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1147,8 +1147,7 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Warning: Unused global option(s):
     [parskip,headsepline,abstraction,footsepline].
 
-(bericht.aux (Einleitung.aux) (Grundlagen.aux) (DieProjekte.aux)
-(ReflexionUndAusblick.aux))
+(bericht.aux (Einleitung.aux) (Grundlagen.aux))
 \openout1 = `bericht.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
@@ -1390,21 +1389,11 @@ been already used, duplicate ignored
                    \relax 
 l.146 \begin{abstract}
                        [1]
-Underfull \hbox (badness 10000) in paragraph at lines 147--150
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 147--150
-
- []
-
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.155 \end{abstract}
+l.148 \end{abstract}
                      [1] (bericht.toc)
 \tf@toc=\write6
 \openout6 = `bericht.toc'.
@@ -1414,7 +1403,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.159 \listoffigures
+l.152 \listoffigures
                                  % Liste der Abbildungen [1
 
 ] (bericht.lof)
@@ -1432,17 +1421,11 @@ No file Einleitung.tex.
 \openout2 = `Grundlagen.aux'.
 
 No file Grundlagen.tex.
-\openout2 = `DieProjekte.aux'.
-
-No file DieProjekte.tex.
-\openout2 = `ReflexionUndAusblick.aux'.
-
-No file ReflexionUndAusblick.tex.
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/12'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-92.
+85.
 (C:\Users\marle\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1451,20 +1434,20 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (2.34714pt too wide) in paragraph at lines 194--194
+Overfull \hbox (2.34714pt too wide) in paragraph at lines 187--187
 []$\T1/lmtt/m/n/12 https : / / www . appvizer . de / magazin / organisation -[]
  planung / projektmanagement /
  []
 
 
-Overfull \hbox (12.85854pt too wide) in paragraph at lines 194--194
+Overfull \hbox (12.85854pt too wide) in paragraph at lines 187--187
 [][]\T1/lmr/m/it/12 (-20) Kanban \T1/lmr/m/n/12 (-20) [2020]. \T1/lmr/m/sc/12 (
 -20) url\T1/lmr/m/n/12 (-20) : []$\T1/lmtt/m/n/12 https : / / www . ionos . de 
 / digitalguide / websites / web -[] entwicklung /
  []
 
 
-Overfull \hbox (2.20647pt too wide) in paragraph at lines 194--194
+Overfull \hbox (2.20647pt too wide) in paragraph at lines 187--187
 [][]\T1/lmr/m/sc/12 (-20) Pfeffer\T1/lmr/m/n/12 (-20) , Joa-chim [2019]. \T1/lm
 r/m/it/12 (-20) Scrum\T1/lmr/m/n/12 (-20) . \T1/lmr/m/sc/12 (-20) url\T1/lmr/m/
 n/12 (-20) : []$\T1/lmtt/m/n/12 https : / / www . projektmagazin . de / glossar
@@ -1479,24 +1462,17 @@ term /
 
 
 
-
-
-
-
-
-
-] [4] (bericht.aux (Einleitung.aux) (Grundlagen.aux) (DieProjekte.aux)
-(ReflexionUndAusblick.aux))
+] [4] (bericht.aux (Einleitung.aux) (Grundlagen.aux))
 Package logreq Info: Writing requests to 'bericht.run.xml'.
 \openout1 = `bericht.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35276 strings out of 477992
- 669185 string characters out of 2827466
- 1374247 words of memory out of 3000000
- 53298 multiletter control sequences out of 15000+600000
- 524895 words of font info for 111 fonts, out of 8000000 for 9000
+ 35200 strings out of 477992
+ 667264 string characters out of 2827466
+ 1369203 words of memory out of 3000000
+ 53254 multiletter control sequences out of 15000+600000
+ 523894 words of font info for 100 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  114i,7n,108p,1901b,2455s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C
@@ -1507,7 +1483,7 @@ C:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
 /Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:
 /Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:
 /Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on bericht.pdf (7 pages, 254789 bytes).
+Output written on bericht.pdf (7 pages, 252569 bytes).
 PDF statistics:
  122 PDF objects out of 1000 (max. 8388607)
  21 named destinations out of 1000 (max. 500000)
