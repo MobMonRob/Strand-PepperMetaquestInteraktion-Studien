@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8) (preloaded format=pdflatex 2022.8.18)  12 APR 2024 14:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8) (preloaded format=pdflatex 2022.8.18)  12 APR 2024 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1147,7 +1147,8 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Warning: Unused global option(s):
     [parskip,headsepline,abstraction,footsepline].
 
-(bericht.aux)
+(bericht.aux (Einleitung.aux) (Grundlagen.aux) (Technologieauswahl.aux)
+(Umsetzung.aux) (Fazit.aux) (Fortsetzung.aux))
 \openout1 = `bericht.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
@@ -1254,73 +1255,7 @@ Package biblatex Info: Data encoding 'utf8' specified.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'bericht.bbl' found.
- (bericht.bbl
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Barke.2015':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Bennekum.2001':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'DiehlAndreas.2018':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Fabris.2021':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with '.2020':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Klanitz.':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Kooijman.':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Mai.2021':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Nguyen.2022':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Pfeffer.2019':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Purushotham.':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Schwaber.2020':
-(biblatex)                - Invalid format of field 'urldate'.
-
-
-Package biblatex Warning: BibTeX reported the following issues
-(biblatex)                with 'Sutherland.2020':
-(biblatex)                - Invalid format of field 'urldate'.
-
-)
+ (bericht.bbl)
 Package biblatex Info: Reference section=0 on input line 108.
 Package biblatex Info: Reference segment=0 on input line 108.
 \c@lstlisting=\count460
@@ -1334,7 +1269,8 @@ Package microtype Info: Character `029' is missing
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
 28.
- (C:\Users\marle\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+
+(C:\Users\marle\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
@@ -1403,76 +1339,101 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.152 \listoffigures
-                                 % Liste der Abbildungen [1
-
-] (bericht.lof)
-\tf@lof=\write7
-\openout7 = `bericht.lof'.
-
-
-[2
+l.159 \include{Einleitung}
+                           [1
 
 ]
-Package microtype Info: Character `029' is missing
-(microtype)             in font `T1/lmr/m/sc/12'.
-(microtype)             Ignoring protrusion settings for this character.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-82.
- (C:\Users\marle\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
+\openout2 = `Einleitung.aux'.
 
-Overfull \hbox (2.34714pt too wide) in paragraph at lines 184--184
-[]$\T1/lmtt/m/n/12 https : / / www . appvizer . de / magazin / organisation -[]
- planung / projektmanagement /
- []
+ (Einleitung.tex
+Kapitel 1.
+) [2
 
 
-Overfull \hbox (12.85854pt too wide) in paragraph at lines 184--184
-[][]\T1/lmr/m/it/12 (-20) Kanban \T1/lmr/m/n/12 (-20) [2020]. \T1/lmr/m/sc/12 (
--20) url\T1/lmr/m/n/12 (-20) : []$\T1/lmtt/m/n/12 https : / / www . ionos . de 
-/ digitalguide / websites / web -[] entwicklung /
- []
+]
+\openout2 = `Grundlagen.aux'.
+
+ (Grundlagen.tex
+Kapitel 2.
+) [3
 
 
-Overfull \hbox (2.20647pt too wide) in paragraph at lines 184--184
-[][]\T1/lmr/m/sc/12 (-20) Pfeffer\T1/lmr/m/n/12 (-20) , Joa-chim [2019]. \T1/lm
-r/m/it/12 (-20) Scrum\T1/lmr/m/n/12 (-20) . \T1/lmr/m/sc/12 (-20) url\T1/lmr/m/
-n/12 (-20) : []$\T1/lmtt/m/n/12 https : / / www . projektmagazin . de / glossar
-term /
- []
 
-[3
 
-] [4] (bericht.aux)
+]
+\openout2 = `Technologieauswahl.aux'.
+
+ (Technologieauswahl.tex
+Kapitel 3.
+) [4
+
+
+
+
+]
+\openout2 = `Umsetzung.aux'.
+
+ (Umsetzung.tex
+Kapitel 4.
+) [5
+
+
+
+
+]
+\openout2 = `Fazit.aux'.
+
+ (Fazit.tex
+Kapitel 5.
+) [6
+
+
+
+
+]
+\openout2 = `Fortsetzung.aux'.
+
+ (Fortsetzung.tex
+Kapitel 6.
+) [7
+
+
+
+
+]
+
+LaTeX Warning: Empty bibliography on input line 186.
+
+(bericht.aux (Einleitung.aux) (Grundlagen.aux) (Technologieauswahl.aux)
+(Umsetzung.aux) (Fazit.aux) (Fortsetzung.aux))
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run BibTeX on the file(s):
+(biblatex)                bericht
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'bericht.run.xml'.
 \openout1 = `bericht.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 35154 strings out of 477992
- 665482 string characters out of 2827466
- 1364159 words of memory out of 3000000
- 53210 multiletter control sequences out of 15000+600000
- 524258 words of font info for 104 fonts, out of 8000000 for 9000
+ 34970 strings out of 477992
+ 663855 string characters out of 2827466
+ 1371862 words of memory out of 3000000
+ 53029 multiletter control sequences out of 15000+600000
+ 511822 words of font info for 81 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  114i,7n,108p,1901b,2455s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C
 :/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C
 :/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><
 C:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
-:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:
-/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:
-/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:
-/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb>
-Output written on bericht.pdf (7 pages, 253501 bytes).
+:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb>
+Output written on bericht.pdf (10 pages, 174265 bytes).
 PDF statistics:
- 122 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 500000)
- 31258 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 155 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
+ 24722 words of extra memory for PDF output out of 24883 (max. 10000000)
 
