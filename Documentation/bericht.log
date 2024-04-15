@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8) (preloaded format=pdflatex 2022.8.18)  12 APR 2024 14:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.8) (preloaded format=pdflatex 2022.8.18)  12 APR 2024 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1148,7 +1148,7 @@ LaTeX Warning: Unused global option(s):
     [parskip,headsepline,abstraction,footsepline].
 
 (bericht.aux (Einleitung.aux) (Grundlagen.aux) (Technologieauswahl.aux)
-(Umsetzung.aux) (Fazit.aux) (Fortsetzung.aux))
+(Umsetzung.aux) (Anwendungsgebiete.aux) (Fazit.aux) (Fortsetzung.aux))
 \openout1 = `bericht.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
@@ -1381,11 +1381,21 @@ Kapitel 4.
 
 
 ]
+\openout2 = `Anwendungsgebiete.aux'.
+
+ (Anwendungsgebiete.tex
+Kapitel 5.
+) [6
+
+
+
+
+]
 \openout2 = `Fazit.aux'.
 
  (Fazit.tex
-Kapitel 5.
-) [6
+Kapitel 6.
+) [7
 
 
 
@@ -1394,18 +1404,18 @@ Kapitel 5.
 \openout2 = `Fortsetzung.aux'.
 
  (Fortsetzung.tex
-Kapitel 6.
-) [7
+Kapitel 7.
+) [8
 
 
 
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 186.
+LaTeX Warning: Empty bibliography on input line 187.
 
 (bericht.aux (Einleitung.aux) (Grundlagen.aux) (Technologieauswahl.aux)
-(Umsetzung.aux) (Fazit.aux) (Fortsetzung.aux))
+(Umsetzung.aux) (Anwendungsgebiete.aux) (Fazit.aux) (Fortsetzung.aux))
 
 LaTeX Warning: There were undefined references.
 
@@ -1419,11 +1429,11 @@ Package logreq Info: Writing requests to 'bericht.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34970 strings out of 477992
- 663855 string characters out of 2827466
- 1371862 words of memory out of 3000000
- 53029 multiletter control sequences out of 15000+600000
- 511822 words of font info for 81 fonts, out of 8000000 for 9000
+ 35011 strings out of 477992
+ 665206 string characters out of 2827466
+ 1374384 words of memory out of 3000000
+ 53052 multiletter control sequences out of 15000+600000
+ 512186 words of font info for 85 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  114i,7n,108p,1901b,2455s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C
@@ -1431,9 +1441,9 @@ Here is how much of TeX's memory you used:
 :/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><
 C:/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
 :/Users/marle/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb>
-Output written on bericht.pdf (10 pages, 174265 bytes).
+Output written on bericht.pdf (11 pages, 178160 bytes).
 PDF statistics:
- 155 PDF objects out of 1000 (max. 8388607)
- 24 named destinations out of 1000 (max. 500000)
- 24722 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 170 PDF objects out of 1000 (max. 8388607)
+ 27 named destinations out of 1000 (max. 500000)
+ 24738 words of extra memory for PDF output out of 24883 (max. 10000000)
 
