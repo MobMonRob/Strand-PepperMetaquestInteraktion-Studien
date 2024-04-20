@@ -1,5 +1,87 @@
 \chapter{Grundlagen}
+\label{chap:Grundlagen}
+
 \section{Pepper}
+\label{sec:Pepper}
+\par Pepper ist ein humanoider Roboter, der entwickelt wurde, um die Gefühle und Gesten von Menschen zu analysieren und basierend auf diesen, darauf zu reagieren. Das Projekt entstand durch eine Zusammenarbeit des französischen Unternehmens Aldebaran Robotics \ac{SAS} und des japanischen Telekommunikations- und Medienkonzerns SoftBank Mobile Corp. Ziel diese Projektes war es, einen humanuiden ``Roboter-Gefährten'' oder einen ``persönlichen Roboter-Freund'' zu schaffen, der zunächst im Gewerbesektor in Verkaufsräumen, an Empfangstischen oder in Bildungs- und Gesundheitseinrichtungen eingesetzt werden sollte. Die Produktion wurde jedoch aufgrund geringer Nachfrage bis auf Weiteres pausiert.
+\par Das Konzept von Pepper distanziert sich von herkömmlichen Industrierobotern und reinen Spielzeugrobotern, indem er als informativer und kommunikativer Begleiter konzipiert wurde. Sein Aussehen, das im etwa an die Größe eines Kindes angelehnt ist, sowie ein freundliches Gesicht und eine kindliche Stimme sind im ästhetischen Konzept von ``kawaii'' (japanisch für ``niedlich'' oder auch ``liebenswert'') gehalten.
+\par Pepper wurde im Rahmen einer Präsentation am 5. Juni 2014 als der ``erste persönliche Roboter der Welt mit Emotionen'' vorgestellt. Die Vermarktung begann damit, dass SoftBank Pepper-Geräte in ihren Verkaufsräumen einsetzte, um Kunden zu unterhalten und zu informieren. Die Roboter sollte dabei den Umgang mit Kunden erlernen, um zukünftige Anwendungsmöglichkeiten zu erforschen. Verkauft wurde offiziell ab dem 3. Juli 2015 zu einem Preis von 198.000 Yen pro Einheit, zuzüglich monatlicher Gebühren für Zusatzleistungen. Im Laufe der Zeit wurde Pepper auch für den Einsatz in weiteren Unternehmen und Einrichtungen verfügbar gemacht.
+\par Pepper wird mit einer Grundausstattung an Anwendungen geliefert, jedoch sind für spezifische Anwendungen, individuell entwickelte Softwarelösungen erforderlich wie auch zum Beispiel in diesem. SoftBank ermöglichte unabhängigen Entwicklern durch die Veröffentlichung der Schnittstellen den Zugang zu einem Interface für Applikationsprogramme, um zusätzliche Anwendungen für Pepper zu erstellen. Das NAOqi-Framework welches für diesen Nutzen bereitgestellt wurde, beinhaltet eine \ac{API}, eine \ac{SDK} und weitere Tools, welche in den Sprachen Python und C++ uneingeschränkten Zugriff auf die Komponenten, Sensoren und Aktoren des Roboters bieten, dazu später Ausführlicheres in \autoref{sec:NAOqi}. Mit Hilfe diese Interfaces haben verschiedene Unternehmen integrierte Lösungen entwickelt, die Pepper beispielsweise bei der Kundenberatung unterstützen können.
+\par Das Design von Pepper ist dem Menschen ähnlich und umfasst einen Kopf mit integrierten Mikrofonen und Kameras sowie einen Torso mit weiteren Sensoren für Stabilität und Sicherheit. Der Roboter verfügt über verschiedene Mechaniken, die es ihm ermöglichen, sich flüssig zu bewegen und mit Personen zu interagieren. Durch die Verwendung von Kameras und bereitgestellter Software ist Pepper in der Lage, Emotionen bei seinen Gesprächspartnern zu erkennen und darauf zu reagieren, obwohl er selbst keine Mimik besitzt. Sicherheitsvorkehrungen wie Abstandssensoren und Stabilisatoren gewährleisten einen sicheren Einsatz von Pepper in verschiedenen Umgebungen. Diese können jedoch bedingt durch den Entwickler deaktiviert werden, um den Roboter in komplexeren oder laborähnlichen Umgebungen zu betreiben.
+
+\section{NAOqi}
+\label{sec:NAOqi}
+
+\subsection{Definition}
+\label{subsec:NAOqi}
+\par NAOqi ist die Bezeichnung für die Hauptsoftware, die auf dem Pepper Roboter ausgeführt wird und ihn intern steuert. Das NAOqi Framework ist das Programmiergerüst, welches zur Programmierung von NAO und Pepper Robotern verwendet wird. Es implementiert alle allgemeinen Anforderungen der Robotik, einschließlich: Parallelität, Ressourcen-Management, Synchronisation und Ereignisse. Dieses Framework ermöglicht eine homogene Kommunikation zwischen verschiedenen Modulen wie etwa die Bewegung, Audio oder Video sowie eine homogene Programmierung und einen homogenen Informationsaustausch. Das Framework ist:
+\begin{itemize}
+    \item plattformübergreifend, d.h. es ist möglich, damit auf Windows, Linux oder Mac zu entwickeln. Genaueres dazu im \autoref{subsubsec:UnterstützteBetriebssysteme}.
+    \item sprachübergreifend, mit einer identischen API für C++ und Python. Weitere Details dazu sind in \autoref{subsubsec:Sprachuebergreifend} aufgeführt.
+    \item bereit für Introspektion, was bedeutet, dass das Framework weiß, welche Funktionen in den verschiedenen Modulen verfügbar sind und wo. Für Details diesbezüglich siehe \autoref{subsubsec:Introspektion}.
+\end{itemize}
+
+\subsubsection{Sprachübergreifend}
+\label{subsubsec:Sprachuebergreifend}
+\par Software kann in C++ und Python entwickelt werden. Eine Übersicht über die Sprachen selbst in den Abschnitten \autoref{subsec:Cpp} und \autoref{subsec:Python}. In allen Fällen sind die Programmiermethoden genau die gleichen, alle vorhandenen \acp{API} können unabhängig von den unterstützten Sprachen aufgerufen werden:
+\begin{itemize}
+    \item Wird ein neues C++-Modul erstellt, können die C++-\ac{API}-Funktionen von überall aus aufgerufen werden,
+    \item Sind sie richtig definiert, können auch die \ac{API}-Funktionen eines Python-Moduls von überall aus aufgerufen werden.
+\end{itemize}
+\par In der Regel werden die Verhaltensweisen in Python und Ihre Dienste in C++ entwickelt.
+%TODO{Image of Sprachuebergreifend}
+
+\subsubsection{Introspektion}
+\label{subsubsec:Introspektion}
+\par Die Introspektion ist die Grundlage der Roboter-\ac{API}, der Fähigkeiten, der Überwachung und der Maßnahmen bei überwachten Funktionen. Der Roboter selbst kennt alle verfügbaren \ac{API}-Funktionen. Wird eine Bibliothek entladen, werden die entsprechenden \ac{API}-Funktionen automatisch ebenfalls entfernt. Eine in einem Modul definierte Funktion kann der \ac{API} mit einem \texttt{BIND\_METHOD} hinzugefügt werden.
+\par Wird eine Funktion gebunden, werder automatisch folgende Funktionen ausgeführt:
+\begin{itemize}
+    \item Funktionsaufruf in C++ und Python, wie in \autoref{subsubsec:Sprachuebergreifend} beschrieben
+    \item Erkennen der Funktion, wenn sie gerade ausgeführt wird
+    \item Funktion lokal oder aus der Ferne, z.B. von einem Computer oder einem anderen Roboter, ausführen weiter im Detail beschrieben in \autoref{subsubsec:VerteilterBaumUndKommunikation}
+    \item Generierung und Aufruf von \texttt{wait}, \texttt{stop}, \texttt{isRunning} in Funktionen
+\end{itemize}
+\par Die \ac{API} wird im Webbrowser angezeigt wenn auf das Gerät per \ac{URL} oder \ac{IP}-Addresse auf dem Port 9559 zugegriffen wird. In dieser Übersicht, zeigt der Roboter seine Modulliste, Methodenliste, Methodenparameter, Beschreibungen und Beispiele an. Der Browser zeigt auch parallele Methoden an, die überwacht, zum Warten veranlasst und gestoppt werden können.
+\par Die Introspektion und derer Implementation im NAOqi-Framework, ist also ein mächtiges Werkzeug, welches es ermöglicht, die Roboter-\ac{API} zu verstehen und zu verwenden aber auch zu überwachenund zu steuern.
+%TODO{Image of Introspektion}
+
+\subsubsection{Verteilter Baum und Kommunikation}
+\label{subsubsec:VerteilterBaumUndKommunikation}
+\par Eine Echtzeitanwendung kann aus einer einzelnen ausführbaren Datei oder einem Baum von mehreren Systemen wie etwa Robotern, Prozessen oder Modulen bestehen. Unabhängig davon sind die Aufrufmethoden immer dieselben. Eine ausführbare Datei kann durch eine Verbindung mit einem anderen Roboter mit \ac{IP}-Adresse und Port verbunden werden, sodass alle \ac{API}-Methoden von anderen ausführbaren Dateien sind auf die gleiche Weise verfügbar sind, genau wie bei einer lokalen Methode. NAOqi trifft dabei selbst die Wahl zwischen schnellem Direktaufruf \ac{LPC} und Fernaufruf \ac{RPC}.
+%TODO{Image of Verteilter Baum und Kommunikation}
+
+\subsubsection{Unterstützte Betriebssysteme}
+\label{subsubsec:UnterstützteBetriebssysteme}
+%TODO{Unterstützte Betriebssysteme}
+
+\subsection{NAOqi Vorgehensweise}
+\label{subsec:NAOqiVorgehensweise}
+\par Die NAOqi Software, welche auf dem Roboter läuft, ist ein Broker. Wenn dieser startet, lädt er eine Voreinstellungsdatei in den Speicher, in der festgelegt ist, welche Bibliotheken in dieser Konfiguration geladen werden sollen. Jede Bibliothek enthält ein oder mehrere Module, die den Broker benutzen, um ihre Methoden bereitzustellen.
+%TODO{Image of NAOqi Vorgehensweise0}
+\par Der Broker selbst bietet Nachschlagdienste an, so dass jedes Modul im Baum oder im Netzwerk jede Methode finden kann, die an dem Broker bekannt gegeben wurde.
+\par Das Laden von Modulen bildet dann einen Baum von Methoden, die mit Modulen verbunden sind, und von Modulen, die mit dem Broker verbunden sind.
+%TODO{Image of NAOqi Vorgehensweise1}
+
+\subsection{Broker}
+\label{subsec:Broker}
+
+
+
+
+
+
+
+\section{Robot Operating System}
+\label{sec:ROS}
+
+\section{Programming Languages}
+
+\subsection{C++}
+\label{subsec:Cpp}
+
+\subsection{Python}
+\label{subsec:Python}
+
 \section{Virtual Reality}
 \section{Entwicklung für Virtual Reality}
 \section{TCP}
