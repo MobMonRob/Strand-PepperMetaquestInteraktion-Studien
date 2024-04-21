@@ -113,7 +113,7 @@
 \begin{titlepage}
 \begin{center}
 \vspace*{-2cm}
-\includegraphics[width=4cm]{dhbw-logo}\\[2cm]
+\includegraphics[width=4cm]{Abbildungen/dhbw-logo.png}\\[2cm]
 {\Huge \Titel}\\[1cm]
 {\Huge\scshape \Was}\\[1cm]
 {\large für die Prüfung zum}\\[0.5cm]
@@ -137,6 +137,8 @@ Gutachter der Studienakademie	 & \BetreuerDHBW		\\
 \end{tabular}
 \end{titlepage}
 
+\include{Commands}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{erklaerung.tex}
@@ -150,13 +152,13 @@ Das Ziel der vorliegenden Studienarbeit ist es, eine Verbindung zwischen einer V
 
 \newpage
 \tableofcontents           % Inhaltsverzeichnis hier ausgeben
-%\listoffigures             % Liste der Abbildungen
-%\listoftables              % Liste der Tabellen
-%\lstlistoflistings         % Liste der Listings
-%\listofequations           % Liste der Formeln
+\listoffigures             % Liste der Abbildungen
+\listoftables              % Liste der Tabellen
+\lstlistoflistings         % Liste der Listings
+\listofequations           % Liste der Formeln
 
 % Jetzt kommt der "eigentliche" Text
-%\include{abk}              % Abkürzungsverzeichnis
+\include{abk}              % Abkürzungsverzeichnis
 
 \include{Einleitung}
 \include{Grundlagen}

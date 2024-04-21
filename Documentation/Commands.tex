@@ -1,0 +1,44 @@
+%%%%%%%%%%%%%%%NEWCOMMANDS_EXT%%%%%%%%%%%%%%%%%%%%
+%Simple way to include images beside the Text
+%  #1 right/left (R/L)
+%  #2 Caption / filename
+%  #3 Size in cm
+%  #4 Vertical offset (negative possible)
+%  #5 Source
+\def\wrapfig #1#2#3#4#5{
+    \StrSubstitute{#2}{-}{\medspace}[\text]
+    \begin{wrapfigure}{#1}{#3cm}
+        \vspace{#4cm}
+        \includegraphics[width=#3cm]{Abbildungen/#2}
+        \vspace{-1cm}
+        \caption{\text \if#5- \else \protect\cite{#5} \fi }
+        \label{#2}
+    \end{wrapfigure}
+}
+
+%Simple inclue for default images
+%  #1 Caption / filename
+%  #2 Size in cm
+%  #3 Source
+\def\normfig #1#2#3{
+    \StrSubstitute{#1}{-}{\medspace}[\text]
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=#2\textwidth]{Abbildungen/#1}
+        \caption{\text \if#3- \else \protect\cite{#3} \fi }
+        \label{#1}
+    \end{figure}
+}
+
+%Simple Listing
+%  #1 Caption
+%  #2 label / filename
+%  #3 Language (has to fit style)
+\def\code #1#2{
+    \begin{figure}[!ht]
+        \begin{framed}
+            \lstinputlisting[language=c++, caption=#1, label=#2]{code/#2}
+        \end{framed}
+    \end{figure}
+}
+
