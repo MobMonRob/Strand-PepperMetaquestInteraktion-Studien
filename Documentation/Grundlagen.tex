@@ -39,7 +39,7 @@ Normalerweise werden die Verhaltensweisen in Python und Ihre Dienste in C++ entw
 
 \subsubsection{Introspektion}\label{subsubsec:Introspektion}
 Die Introspektion ist die Grundlage der Roboter-\ac{API}, der Fähigkeiten, der Überwachung und der Maßnahmen bei überwachten Funktionen. Der Roboter selbst kennt alle verfügbaren \ac{API}-Funktionen. Wird eine Bibliothek entladen, werden die entsprechenden \ac{API}-Funktionen automatisch ebenfalls entfernt. Eine in einem Modul definierte Funktion kann der \ac{API} mit einem \texttt{BIND\_METHOD} hinzugefügt werden.\\
-Wird eine Funktion gebunden, werder automatisch folgende Funktionen ausgeführt:\\
+Wird eine Funktion gebunden, werden automatisch folgende Funktionen ausgeführt:\\
 \begin{itemize}
     \item Funktionsaufruf in C++ und Python, wie in \autoref{subsubsec:Sprachuebergreifend} beschrieben
     \item Erkennen der Funktion, wenn sie gerade ausgeführt wird
@@ -62,9 +62,35 @@ Das Laden von Modulen bildet dann einen Baum von Methoden, die mit Modulen verbu
 \normfig{NAOqi-Broker-Modul-Methoden}{0.5}{-}
 
 \subsubsection{NAOqi Proxy}\label{subsubsec:NAOqiProxy}
-Ein weiterer wichtiger Bestandteil des Broker ist der Proxy welcher grundlegend die Aufgabe eines Modules repräsentiert. Dies kann lokal oder entfernt enstehen der einzige Unterschied dabei ist, dass bei einer entfernten Refernz die \ac{IP} des entfernten Broker mit angegeben werden muss, gleich bleibt aber im internen, dass der Proxy die Methoden des Moduls an den Broker weiterleitet.\\
+Ein weiterer wichtiger Bestandteil des NAOqi Broker ist der Proxy welcher grundlegend die Aufgabe eines Modules, näher beschrieben im folgenden \autoref{subsec:NAOqiModule}, repräsentiert. Dies kann lokal oder entfernt enstehen der einzige Unterschied dabei ist, dass bei einer entfernten Refernz die \ac{IP} des entfernten Broker mit angegeben werden muss, gleich bleibt aber im internen, dass der Proxy die Methoden des Moduls an den Broker weiterleitet.\\
 
-\subsection{NAOqi Module}\label{subsubsec:NAOqiModule}
+\subsection{NAOqi Module}\label{subsec:NAOqiModule}
+Module sind die Grundbausteine der personalisierten Gestaltung von NAOqi. In ihnen kann der Nutzer eigene funktionaitäten implementieren und diese dem Broker bereitstellen. Ein Modul kann dabei aus einer oder mehreren Klassen bestehen, die wiederum Methoden enthalten.\\
+Standardmäßig ist jedes Modul eine Klasse innerhalb einer Bibliothek, welche über eine \texttt{autoload.ini}-Datei geladen wird, worauf die Modulklasse automatisch instanziiert wird.\\
+Weiter können auch Module von übergeordneten Module abgeleitet werden, ähnlich wie etwa bei der Vererbung in der objektorientierten Programmierung. Wird eine Klasse voneiner anderen abgeleitet, können die Methoden gebunden werden, wodurch ihre Namen und MethodenSignaturen direkt dem Broker bekannt gemacht werden.\\
+Weiter können, wie bereits erwähnt, Module sowohl lokal als auch entfernt implementiert werden. Ist es ein solches entferntes Modul, wird es als ausführbare Datei kompiliert, und kann auch außerhalb des Roboters ausgeführt werden.\\
+Unabhängig jedoch von der Lagerung der Module, enthält jedes Modul eine Bandbreite von Methoden, welche wie im \autoref{subsubsec:Introspektion} beschrieben, gebunden werden können und damit nach außen hin nutzbar gemacht werden. Es ist also unabhängig der Lagerung der Module möglich, diese in der gleichen Weise aufzurufen. Module passen sich also automatisch selbst an.\\
+
+\subsubsection{Entfernte Module}\label{subsubsec:EntfernteModule}
+Entfernte Module sind Module, die über das Netzwerk kommunizieren, dies kann auf demselben Robotter sein, also auch auf einem anderen Gerät im Netzwerk. Ein entferntes Modul braucht einen entfernten Broker, um mit anderen Modulen zu kommunizieren, da es selbst keinen eigenen besitzt. Broker sind dann für den gesamten Netzwerkteil verantwortlich. Über diesen Umweg über das Netzwerk können keine schnellen Zugriffe über Remote-Module durchgeführt werden wie etwa direkte Speicherzugriffe.\\
+Diese entfernten Module sind trivialer in der Handhabung, da sie außerhalb des Systems entwickelt und debugged werden. Dagegen sind sie aber in der Laufzeit selbst deutlich schwächer in den Punkten Geschwindigkeit und Speichernutzung, gegenüber iherer lokalen Gegenstücke. Diese Funktionalität der entfernten entwicklung spielt speziell in der Implementierung dieses Projektes eine grundlegende Rolle.\\
+
+\subsubsection{Lokale Module}\label{subsubsec:LokaleModule}
+Lokale Module werden als Bibliotheken kompiliert und nur auf dem Roboter verwendet. Dadurch sind sie schneller und effizienter in der Laufzeit als auch in der Speicherverwaltung, dagegen ist die Entwicklung und das Debugging auf dem Roboter selbst deutlich aufwendiger.\\
+Sie bestehen aus zwei oder mehr Module, welche auf dem Roboter im selben Prozess gestartet werden. Sie kommunizieren miteinander über denselben Broker.\\
+Da sich lokale Module im selben Prozess befinden, können diese Variablen gemeinsam nutzen und die Methoden des jeweils anderen ohne Serialisierung oder Vernetzung aufrufen. Dies ermöglicht die schnellstmögliche und maximal effiziente Kommunikation zwischen den Modulen.\\
+
+\subsection{NAOqi Speicherverwaltung}\label{subsec:NAOqiSpeicherverwaltung}
+Die Speicherverwaltung in NAOqi wird von dem Modul \texttt{ALMemory} übernommen. Dieses Modul ist ein Speicher welcher sowohl Daten als auch Ereignisse beinhaltet. Dieser Speicher wird von allen Modulen geteilt und ermöglicht es, Daten zwischen den Modulen auszutauschen. Zusätzlich werden in diesem Speicher auch alle Ereignisse zwischengespeichert, auf welchen dann die abonierten Module zugreifen können, sobald das Ereigniss ausgelöst wurde. Alle Module haben auf diesen Bereich sowohl Lese- als auch Schreibzugriff. Jedoch ist das \texttt{ALMemory} Modul kein Echtzeitsynchronisationstool. Abonieren auf Bewegungsdatendaten oder Echtzeitvariablen in diesem Speicher ist also risikobehaftet.\\
+Das Modul selbst ist ein Array aus sogenannten \texttt{ALValue}-Objekten, auf welche thread-sicher zugegriffen werden kann. In diese Speicherbausteine können alle gängigen Datentypen gelegt werden. Dazu zählen einfache Datentypen wie einzelne Bits, Ganzzahlen, Fließkommazahlen und Zeichenketten, aber auch komplexere Datenstrukturen wie Arrays, Matrizen und Binaries.\\
+Standardmäßig wird zwischen drei verschiedenen Datentypen unterschieden:\\
+\normfig{NAOqi-Framework-Speicherverwaltung}{0.5}{-}
+\begin{itemize}
+    \item Daten von Sensoren und Gelenken: diese Daten werden vom Roboter selbst in den Speicher geschrieben und haben keine Historie. Sie sin nicht größer als 32-Bit und können direkt per Pointer aufgerufen werden.
+    \item Ereignisse: auf welche aboniert werden muss. Sobald eines dieser Ereignisse ausgelöst wird, wird es im Speicher gespeichert und kann von den abonierten Modulen abgerufen werden. Im Gegensatz zu den Daten von Sensoren und Gelenken sowie den Micro-Ereignissen, haben diese Ereignisse eine Historie und können auch nach dem Auslösen noch abgerufen werden.
+    \item Micro-Ereignisse: Diese Ereignisse sind sehr kurzlebig und werden sofort nach dem Auslösen wieder gelöscht. Sie werden nicht im Speicher gespeichert und haben daher keine Historie.
+\end{itemize}
+
 
 \section{Robot Operating System}\label{sec:ROS}
 
