@@ -1,11 +1,13 @@
 \chapter{Grundlagen}\label{chap:Grundlagen}
 
+
 \section{Pepper}\label{sec:Pepper}
 Pepper ist ein humanoider Roboter, der entwickelt wurde, um die Gefühle und Gesten von Menschen zu analysieren und basierend auf diesen, darauf zu reagieren. Das Projekt entstand durch eine Zusammenarbeit des französischen Unternehmens Aldebaran Robotics \ac{SAS} und des japanischen Telekommunikations- und Medienkonzerns SoftBank Mobile Corp. Ziel diese Projektes war es, einen humanuiden ``Roboter-Gefährten'' oder einen ``persönlichen Roboter-Freund'' zu schaffen, der zunächst im Gewerbesektor in Verkaufsräumen, an Empfangstischen oder in Bildungs- und Gesundheitseinrichtungen eingesetzt werden sollte. Die Produktion wurde jedoch aufgrund geringer Nachfrage bis auf Weiteres pausiert.\\
 Das Konzept von Pepper distanziert sich von herkömmlichen Industrierobotern und reinen Spielzeugrobotern, indem er als informativer und kommunikativer Begleiter konzipiert wurde. Sein Aussehen, das im etwa an die Größe eines Kindes angelehnt ist, sowie ein freundliches Gesicht und eine kindliche Stimme sind im ästhetischen Konzept von ``kawaii'' (japanisch für ``niedlich'' oder auch ``liebenswert'') gehalten.\\
 Pepper wurde im Rahmen einer Präsentation am 5. Juni 2014 als der ``erste persönliche Roboter der Welt mit Emotionen'' vorgestellt. Die Vermarktung begann damit, dass SoftBank Pepper-Geräte in ihren Verkaufsräumen einsetzte, um Kunden zu unterhalten und zu informieren. Die Roboter sollte dabei den Umgang mit Kunden erlernen, um zukünftige Anwendungsmöglichkeiten zu erforschen. Verkauft wurde offiziell ab dem 3. Juli 2015 zu einem Preis von 198.000 Yen pro Einheit, zuzüglich monatlicher Gebühren für Zusatzleistungen. Im Laufe der Zeit wurde Pepper auch für den Einsatz in weiteren Unternehmen und Einrichtungen verfügbar gemacht.\\
 Pepper wird mit einer Grundausstattung an Anwendungen geliefert, jedoch sind für spezifische Anwendungen, individuell entwickelte Softwarelösungen erforderlich wie auch zum Beispiel in diesem. SoftBank ermöglichte unabhängigen Entwicklern durch die Veröffentlichung der Schnittstellen den Zugang zu einem Interface für Applikationsprogramme, um zusätzliche Anwendungen für Pepper zu erstellen. Das NAOqi-Framework welches für diesen Nutzen bereitgestellt wurde, beinhaltet eine \ac{API}, eine \ac{SDK} und weitere Tools, welche in den Sprachen Python und C++ uneingeschränkten Zugriff auf die Komponenten, Sensoren und Aktoren des Roboters bieten, dazu später Ausführlicheres in \autoref{sec:NAOqi}. Mit Hilfe diese Interfaces haben verschiedene Unternehmen integrierte Lösungen entwickelt, die Pepper beispielsweise bei der Kundenberatung unterstützen können.\\
 Das Design von Pepper ist dem Menschen ähnlich und umfasst einen Kopf mit integrierten Mikrofonen und Kameras sowie einen Torso mit weiteren Sensoren für Stabilität und Sicherheit. Der Roboter verfügt über verschiedene Mechaniken, die es ihm ermöglichen, sich flüssig zu bewegen und mit Personen zu interagieren. Durch die Verwendung von Kameras und bereitgestellter Software ist Pepper in der Lage, Emotionen bei seinen Gesprächspartnern zu erkennen und darauf zu reagieren, obwohl er selbst keine Mimik besitzt. Sicherheitsvorkehrungen wie Abstandssensoren und Stabilisatoren gewährleisten einen sicheren Einsatz von Pepper in verschiedenen Umgebungen. Diese können jedoch bedingt durch den Entwickler deaktiviert werden, um den Roboter in komplexeren oder laborähnlichen Umgebungen zu betreiben.\\
+
 
 \section{Publish and Subscribe}\label{sec:PublishAndSubscribe}
 Bevor wir uns mit den Technologien und Herangehensweisen des Pepper Roboters beziehungsweise dessen Betriebssystem beschäftigen, müssen wir uns mit dem Publish-Subscribe-Modell auseinandersetzen.\\
@@ -15,6 +17,7 @@ Subscriber können bestimmte Topics abonnieren, die ihren Gewünschten entsprech
 Im themenbasierten Ansatz erhalten Abonnenten alle Nachrichten zu den Topics, welche sie abonniert haben. Der Publisher definiert die verfügbaren Topics, aus welchen die Abonnenten selbst wählen können. Im inhaltsbasierten Ansatz dagegen, werden Nachrichten nur an die Abonnenten weitergeleitet, wenn sie den vom dessen festgelegten Kriterien entsprechen. Dabei ist der Abonnent für die Spezifikation dieser Kriterien verantwortlich\cite{itwissen_publish_subscribe_model}.\\
 Das Publish-Subscribe-Modell bietetdurch seine Herangehensweise eine hohe Flexibilität und Skalierbarkeit, und wird daher in verschiedenen Anwendungsbereichen eingesetzt. Es ermöglicht eine Entkopplung von Nachrichtenerzeugung und -verarbeitung, was gerade in der Entwicklung verteilter Systeme Prozesse erleichtert. Die vermutlich bekannteste Implementierung des Modell ist das MQTT-Protokoll, welches konzipiert wurde um Telemetriedeaten zwischen Sensoren und Servern zu übertragen speziell in unzuverlässigen Umgebungen\cite{elektronik_kompendium_publish_subscribe}.\\
 Weiter findet das Publish-Subscribe-Modell Anwendung in einer Vielzahl von weiteren Systemen und Technologien. Beispiele dafür sind der \ac{JMS}, der \ac{DDS} oder wie im Fall diese Projektes die \ac{MOM} zu denen auch \ac{ROS} gehört.\\
+
 
 \section{NAOqi}\label{sec:NAOqi}
 Im folgenden Abschnitt wird das NAOqi-Framework, welches auf dem Pepper Roboter läuft, genauer erläutert.\\
@@ -86,13 +89,87 @@ Das Modul selbst ist ein Array aus sogenannten \texttt{ALValue}-Objekten, auf we
 Standardmäßig wird zwischen drei verschiedenen Datentypen unterschieden:\\
 \normfig{NAOqi-Framework-Speicherverwaltung}{0.5}{-}
 \begin{itemize}
-    \item Daten von Sensoren und Gelenken: diese Daten werden vom Roboter selbst in den Speicher geschrieben und haben keine Historie. Sie sin nicht größer als 32-Bit und können direkt per Pointer aufgerufen werden.
+    \item Daten von Sensoren und Gelenken: diese Daten werden vom Roboter selbst in den Speicher geschrieben und haben keine Historie. Sie sind nicht größer als 32-Bit und können direkt per Pointer aufgerufen werden.
     \item Ereignisse: auf welche aboniert werden muss. Sobald eines dieser Ereignisse ausgelöst wird, wird es im Speicher gespeichert und kann von den abonierten Modulen abgerufen werden. Im Gegensatz zu den Daten von Sensoren und Gelenken sowie den Micro-Ereignissen, haben diese Ereignisse eine Historie und können auch nach dem Auslösen noch abgerufen werden.
     \item Micro-Ereignisse: Diese Ereignisse sind sehr kurzlebig und werden sofort nach dem Auslösen wieder gelöscht. Sie werden nicht im Speicher gespeichert und haben daher keine Historie.
 \end{itemize}
 
 
-\section{Robot Operating System}\label{sec:ROS}
+\section{Middleware}\label{sec:Middleware}
+Middleware ist eine Software, die zwischen Anwendungen und Betriebssystemen vermittelt. Sie ermöglicht die Kommunikation zwischen verschiedenen Anwendungen, die auf unterschiedlichen Plattformen oder in unterschiedlichen Netzwerken ausgeführt werden. Middleware bietet eine Reihe von Diensten, die die Verbindung von Anwendungen erleichtern, die eigentlich nicht dafür vorgesehen sind. Dadurch, sowie durch Bereitstellung von weiteren Diensten wie etwa Sicherheit, Skalierbarkeit und Zuverlässigkeit, rationalisiert Middleware die Entwicklung, Bereitstellung und Wartung von Anwendungen.\\
+Middleware existiert in verschiedenen Formen, wie etwa Nachrichtenbroker oder Transaktionsverarbeitungsmonitore, welche jeweils auf spezifische Kommunikationsformen zugeschnitten sind. Andere, wie etwa Webanwendungsserver oder Middleware für mobile Geräte, bieten ein breites Spektrum an Kommunikations- und Konnektivitätsfunktionen, die für die Entwicklung bestimmter Anwendungen im Mobilebereich unabdinglich sind. Wieder andere, wie etwa der Enterprise Service Bus (ESB), fungiert als zentraler Integrationsknotenpunkt, der alle Komponenten in einem Unternehmen miteinander verbindet. Zusätzlich können aber auch persönliche Middleware selbst entwickelt werden, für personalisierte Anwendungen.\\
+Der Begriff "Middleware" wurde geprägt, da die erste Generation dieser oft als "Vermittler" zwischen einem Anwendungs-Frontend zum Beispiel eines Clients und einer Backend-Ressource, in welcher Daten gespeichert oder verarbeitet werden, fungierte.\\
+Die moderne Middleware heutzutage beinhaltet jedoch durchaus einen weitaus breiteren Aufgabenbereich. Beispielsweise umfasst Portal-Middleware sowohl das Frontend der Anwendung als auch Tools für die Backend-Konnektivität, während Datenbank-Middleware in der Regel einen eigenen Datenspeicher enthält \cite{AzureMiddleware}.\\
+In diesem Projekt wird die Middleware \ac{ROS} 2 genutzt, welche speziell für die Entwicklung von Robotersoftware entwickelt wurde und daher eine Vielzahl von Funktionen und Diensten bietet, die speziell auf die Anforderungen derer zugeschnitten sind.\\
+
+
+\section{Robot Operating System 2}\label{sec:ROS2}
+\ac{ROS} 2 ist eine Middleware zur entwickeln von Software für Roboter. Sie ist stark typisiert und basiert auf einem anonymen Publish-Subscribe-Mechanismus, welcher die Weitergabe von Nachrichten zwischen verschiedenen Prozessen ermöglicht.\\
+Das Herzstück eines jeden \ac{ROS} 2-Systems ist der \ac{ROS}-Graph. Er bezieht sich auf das Netzwerk von Knoten in einem \ac{ROS}-System und die Verbindungen zwischen ihnen, über welche sie komunizieren \cite{ROSBasicConcepts}.\\
+Im Folgenden wird näher auf die in diesem Projekt verwendeten Konzepte und Technologien von \ac{ROS} 2 eingegangen.\\
+
+\subsection{Nodes}\label{subsec:ROS2Nodes}
+Eine Node, auch Knoten genannt, ist eine Nutzer-Bibliothek zur Kommunikation mit anderen Nodes. Diese können mit anderen Nodes, innerhalb eines Prozesses, in einem anderen Prozess oder auf einem anderen Rechner kommuniziert werden. Sie sind häufig die Einheit der Berechnung in einem \ac{ROS}-Graphen. Dabei sollte jede Node eine logische Aufgabe erfüllen.\\
+Nodes haben die Möglichkeit, bestimmte Topics zu veröffentlichen, um Daten an andere Nodes zu übermitteln oder bestimmte Themen zu abonnieren (subscriben), um Daten von anderen Nodes zu erhalten. Es ist möglich, dass Sie entweder als Service-Client agieren, um eine Berechnung in ihrem Namen durchzuführen, oder als Service-Server, um anderen Nodes Funktionen zur Verfügung zu stellen. Eine Node kann als Aktionsrechner fungieren, um eine weitere Node zu beauftragen, die Berechnung in ihrem Namen durchzuführen oder als Aktionsserver für wiederum weitere Nodes als Funktionen bereitzustellen. Nodes können zusätzlich konfigurierbare Parameter bereitstellen, um das Verhalten während der Laufzeit individuell anzupassen.\\
+Eine Node ist oft eine komplexe Kombination aus Publishern, Subscribern, Service-Servern, Services-Clients, Action-Servern und Action-Servern und werden über einen verteilten Erkennungsprozess identifiziert \cite{ROSNodes}.\\
+Eine solche Node wird in diesem Projekt für die Kommunikation und Übersetzung verschiedener Daten für den Pepper Roboter entwickelt.\\
+
+\subsection{Topics}\label{subsec:ROS2Topics}
+Topics sind ein Mechanismus, um Nachrichten zwischen Nodes zu übertragen. Sie sind asynchron, strikt typisiert, anonym und ermöglichen die Kommunikation zwischen Nodes, ohne dass diese voneinander Kenntnis haben müssen. Dies ist möglich durch die Nutzung des Publish-Subscribe-Prinzip. Dieses wurde zwar schon in den Abschnitten \autoref{sec:NAOqi} und speziell \autoref{sec:PublishAndSubscribe} erläutert, wird jedoch hier noch einmal im Kontext von \ac{ROS} 2 aufgegriffen.\\
+In \ac{ROS} 2 können Nodes sowohl Produzenten sein und Daten in ein Topic veröffentlichen, als auch Konsumenten, die Daten aus einem Topic abonnieren. Die Nodes selbst können dabei beliebig viele Topics abonnieren oder veröffentlichen.\\
+Dabei ist der Begriff Topic lediglich der Name unter dem die Nachrichten veröffentlicht und auch abgerufen werden können. Die Nachrichten selbst sind dabei in einem strikt typisierten Format, welches als Message bezeichnet und definiert wird und im \autoref{subsubsec:ROS2Messages} ganuer erläutert wird.\\
+Werfen wir jedoch zunächst einen genaueren Blick auf die Deteils der Bedeutungen der Anonymität und der strikten typisierung im Kontext von \ac{ROS} 2:\\
+
+\subsubsection{Anonymität}\label{subsubsec:ROS2Anonymitaet}
+Die Anonymität in \ac{ROS} 2 bezieht sich darauf, dass die Nodes, die Daten in ein Topic veröffentlichen oder von einem Topic abonnieren, nicht wissen, welche anderen Nodes ebenfalls auf dieses Topic zugreifen und primär von welcher Node sie überhaupt stammen. Dies ermöglicht eine lose Kopplung zwischen den Nodes, da sie nicht auf die Existenz oder den Zustand der anderen Nodes angewiesen sind. Dadurch werden \ac{ROS} 2 Systeme flexibel und Nodes können durch die genannte Entkopplung völlig frei entwickelt, ausgetauscht und aus technischer Sicht auch gelöscht werden.\\
+
+\subsubsection{Strikte Typisierung}\label{subsubsec:ROS2StrikteTypisierung}
+\ac{ROS} 2 Nodes können zwar sowohl in Python als auch in C++ entwickelt werden, was zumindest auf Seiten der Python-Entwicklung eine dynamische Typisierung implizieren könnte, jedoch bildet sich diese Freiheit nicht auf die Nachrichten (Messages) ab, da diese auch im Raum der in C++ strikt typisiert ist, genutzt werden müssen. Dadurch ergeben sich die in den Interfaces definierten, strikten Typen, die von den Nodes eingehalten werden müssen. Dies ermöglicht eine einfache und effiziente Kommunikation zwischen den Nodes, sollten diese auch in verschiedenen Sprachen implementiert sein, da die Nachrichten immer in einem festen Format vorliegen und die Nodes sich darauf verlassen können, dass die Nachrichten korrekt sind.\\
+Weiter werden die Nachrichten auch semantisch strikt typisiert, was bedeutet, dass die Nachrichten auch inhaltlich korrekt sind und die Nodes sich darauf verlassen können, dass die Nachrichten die erwarteten Daten enthalten. Ein anschauliches Beispiel dafür sind die sogenannten \ac{IMU}-Messages. Sie enthalten als Datentyp ein dreidimensionales Array aus Fließkommazahlen, welche die Beschleunigung, die Winkelgeschwindigkeit und die Magnetfeldstärke eines Sensors in den drei Raumrichtungen beschreiben. Also ist nicht nur der Datentyp strikt festgelegt, sondern auch die einzelnen Werte und deren Reihenfolge, die in den Arrays enthalten sind \cite{ROSTopics}.\\
+
+\subsection{Interfaces}\label{subsec:ROS2Interfaces}
+\ac{ROS} 2 kommuniziert typischerweise über verschiedene Schnittstellen (Interfaces), die als Messages, Services und Actions bezeichnet werden. \ac{ROS} 2 verwendet dabei eine vereinfachte Beschreibungssprache, um die Interfaces zu definieren, die als \ac{IDL} bezeichnet wird. Diese Beschreibungssprache wird verwendet, um die Interfaces in verschiedenen Programmiersprachen zu generieren \cite{ROSInterfaces}.\\
+Dabei bietet \ac{ROS} 2 drei Typen von Interfaces welche folgend erläutert werden:\\
+
+\subsubsection{Messages}\label{subsubsec:ROS2Messages}
+Messages werden in Topics genutzt und sind einfache Textdateien, die die Felder einer \ac{ROS}-Nachricht beschreiben. Diese Nachrichten werden verwendet, um Source-Code für die Nachrichten zu generieren, die in verschiedenen Programmiersprachen verwendet werden können.\\
+Die Messages sind eine Möglichkeit für Nodes, Daten über das Netzwerk mit weiteren Nodes auszutauschen, auch wenn keine Antwort erwartet wird. Als Beispiel kann eine Node eine Nachricht veröffentlichen, die die Daten eines Sensors enthält, und eine andere Node kann diese Nachricht abonnieren, ohne dass die erste Node eine Antwort erwartet oder überhaupt von der Existenz der zweiten Node weiß.\\
+Die \texttt{.msg}-Dateien, welche die Messages beschreiben, werden in einem separaten Verzeichnis im \ac{ROS}-Paket unter \texttt{msg/} abgelegt. Sie beinhalten die Felder der Nachricht und Konstanten. Inhalt dieser Felder können nahezu alle gängigen Datentypen sein, wie etwa Ganzzahlen (Integer), Fließkommazahlen (Float), einzelne Zeichen (Char), Zeichenketten (String) aber auch statische Arrays. Einzige Einschränkung sind hierbei die Regelungen (Conventions) von \ac{ROS} 2, welche die Verwendung von alphabetischen Zeichen zu Beginn und Unterstrichen zur Trennung einzelner Wörter im Namen der Felder vorschreiben.\\
+Ein typischer Eintrag einer solchen Datei könnte, beispielhaft für die verschiedenen Felder, etwa wie folgt aussehen:\\
+\code{ROS 2 Message}{ROS-2-Message.msg}
+
+\subsubsection{Services}\label{subsubsec:ROS2Services}
+Services sind im Gesensatz zu den Messages eine synchrone Kommunikation zwischen zwei Nodes. Ein Node sendet eine Anfrage an einen anderen Node und wartet auf dessen Antwort.\\
+Sie werden ebenfalls in einem separaten Verzeichnis im \ac{ROS}-Paket unter \texttt{srv/} als \texttt{.srv} Datei abgelegt und beschreiben die Anfrage und die Antwort, die von einem Service bereitgestellt wird. Auch hier folgt der Inhalt der Datei einem festgelegtem Schema ähnlich dessen der Message Dateien, mit dem Zusatz, dass hier getrennt von einer Zeile mit drei Bindestrichen als Inhalt \texttt{---}, auch die zu erwartende Antwort definiert wird.\\
+Eine einfach gehaltene \texttt{.srv}-Datei könnte also etwa wie folgt aussehen:\\
+\code{ROS 2 Service}{ROS-2-Service.srv}
+Auch hier können wie bei den Messages auch komplexere Datenstrukturen, Konstanten und Standardwerte genutzt werden.\\
+
+\subsubsection{Actions}\label{subsubsec:ROS2Actions}
+Actions sind eine Erweiterung der Services, die es ermöglichen, asynchrone, lang laufende Prozesse mit beidseitiger Kommunikation zu definieren. Im Gegensatz zu den Services, bei denen die Antwort direkt erwartet wird, können Actions mehrere Sekunden bis Minuten dauern. Diese Action kann in diesem Zeitraum auch unterbrochen und wieder aufgenommen werden, oder sogar ganz abgebrochen werden.\\
+Auch Actions werden in einem separaten Verzeichnis im \ac{ROS}-Paket unter \texttt{action/} als \texttt{.action} Datei abgelegt und beschreiben in einer ähnlichen Weise wie die Services und die Messages das erwartete Verhalten. In Gegensatz zu den beiden anderen Schnittstellen, wird hier jedoch nicht die Anfrage und die Antwort definiert, sondern ein Ziel, eine Rückmeldung und ein Feedback, welche im Schema gehalten durch einen Dreifachbindestrich \texttt{---} getrennt werden.\\
+Nehmne wir zur Veranschaulichung die \texttt{Fibonacci} \texttt{.action}-Datei als Beispiel:\\
+\code{ROS 2 Action}{ROS-2-Action.action}
+Es wird ein \texttt{Int32} abgeschickt und daraufhin ein Array aus wiederum \texttt{Int32} erwartet, mit den berechneten Werten. Während der Berechnung wird ein Feedback in Form eines \texttt{Int32} zurückgegeben, mit dem Stand bis zu einem bestimmten Zeitpunkt.\\
+
+
+\subsection{Parameter}\label{subsec:ROS2Parameter}
+Parameter in \ac{ROS} 2 sind direkt verbunden mit den einzelnen Nodes. Sie werden genutzt, um die Konfiguration der Nodes beim Start un zur Laufzeit zu verwalten, ohne den darunterliegenden Code anpassen zu müssen. Die Lebenszeit der Parameter ist dabei an die Lebenszeit der Nodes gebunden, was bedeutet, dass die Parameter beim Start der Nodes geladen werden und beim Beenden der Nodes verfallen. Eine Node kann jedoch eine Art Persistenz implementieren um die Parameter zu speichern und wieder zu verwenden.\\
+Jeder dieser Parameter besteht aus einem Schlüssel (Key), einem Wert (Value) und einer Beschreibung (Descriptor). Während der Schlüssel ein \texttt{String} ist und den Parameter identifiziert, ist der Wert der eigentliche Inhalt des Parameters und wird zunächst als Typ definiert. Die Beschreibung ist optional und Standardmäßig \texttt{NULL}. Sie dient dazu, den Parameter zu beschreiben und zu dokumentieren, wie Typ-Informationen, Wertebereiche, Nutzungsdeteils und weitere Informationen welche zur Nutzung relevant sein können.\\
+Zu Beginn der Laufzeit muss einen Node definieren welche Parameter diese aktzeptiert, und ob diese optional oder zwingend sind. Dies reduziert die Anfälligkeit auf Fehler in der Konfiguration im späteren Verlauf der Laufzeit. Die Parameter können dann auch zur Laufzeit über die \ac{API} der Nodes abgerufen, gesetzt und gelöscht werden. Einige Arten von Nodes können auch Parameter aktzeptieren bevor diese bekannt sind. Dazu stellt \ac{ROS} 2 den Parameter \texttt{allow\_undeclared\_parameters} zur Verfügung, welcher es bei aktivierung ermöglicht, dass Parameter gesetzt werden können, auch wenn sie nicht explizit in der Parameterliste der Node definiert sind. Dies ist allerdings nur möglich bei neu hinzugefügten Parametern, bereits vorhandene Parameter können nicht zur Laufzeit verändert werden. Dies würde die Grundlage der strikten Typisierung und der semantischen Korrektheit der Parameter verletzen und damit das gesamte System instabillisieren. Versuche dies trotzdem zu tun, werfen einen Fehler und die Node wird sofort terminiert.\\
+Soll der Wert eines Parameters zur Laufzeit geändert werden, gibt es dazu zwei Möglichkeiten:\\
+\begin{itemize}
+    \item Die \texttt{set\_parameters} Methode, welche über die \ac{API} der Node aufgerufen wird und die Parameterwerte ändert. Diese Methode setzt die gewünschten Parameterwerte und gibt die tatsächlich gesetzten Werte zurück, auch wenn die Node die Werte nicht akzeptiert hat. Dies ermöglicht es, die Parameterwerte zu überprüfen und gegebenenfalls zu korrigieren oder gar abzulehnen.\\
+    \item Die \texttt{on\_parameter\_event} Methode, welche aufgerufen wird, wenn sich ein Parameterwert ändert. Dadurch wird es der Node und dem User ermöglicht, auf Änderungen der Parameterwerte zu reagieren welche von anderen Nodes oder von der \ac{CLI} zur Laufzeit vorgenommen wurden.\\
+\end{itemize}
+Zur allgemeinen Interaktion mit den Parametern, bietet \ac{ROS} 2 neben den bereits genannten, eine Vielzahl von \ac{API}-Methoden, auch \ac{API}-Services genannt, um die Parameter zu verwalten. Diese werden standardmäßig bei Initiierung einer Node geladen und bereitgestellt \cite{ROSParameters}.\\
+
+\subsection{Start}\label{subsec:ROS2Start}
+
+
+\subsection{Nutzer Bibliotheken}\label{subsec:ROS2NutzerBibliotheken}
+
+
 
 \section{Programming Languages}
 
