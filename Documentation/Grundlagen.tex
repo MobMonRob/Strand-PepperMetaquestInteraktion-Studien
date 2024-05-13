@@ -212,6 +212,41 @@ Die Sprache wird auch von einer großen und aktiven Community, die zur Entwicklu
 Python ist aufgrund seiner Lesbarkeit, Benutzerfreundlichkeit und großartigen Bibliotheksunterstützung eine beliebte Wahl für eine breite Palette von Anwendungen. Seine klare Syntax und Benutzerfreundlichkeit machen es zu einer Sprache für Anfänger und erfahrene Experten, aber auch zu einem leistungsstarken Werkzeug für eine Vielzahl von Anwendungen.\\
 
 
+\section{Kinematische Grundlagen}\label{sec:KinematischeGrundlagen}
+
+\subsection{DH-Parameter}\label{subsec:DHParameter}
+Die Denavit-Hartenberg-Parameter (DH-Parameter) sind eine Methode zur Beschreibung der Kinematik eines Roboters. Sie wurden von Jacques Denavit und Richard Hartenberg in den 1950er Jahren entwickelt und sind seitdem zu einem Standardwerkzeug in der Robotik geworden. Die DH-Parameter beschreiben die Beziehung zwischen den Gelenken eines Roboters und den Koordinatensystemen, die sie verbinden. Sie ermöglichen es, die Position und Orientierung eines Endeffektors in Bezug auf die Gelenkwinkel des Roboters zu berechnen.\\
+Die DH-Parameter bestehen aus vier Parametern, die für jedes Gelenk des Roboters definiert werden. Diese Parameter sind:
+\begin{itemize}
+    \item $a_i$ - der Abstand zwischen den Gelenken $i-1$ und $i$ entlang der gemeinsamen Normalen (X-Achse).
+    \item $\alpha_i$ - der Winkel zwischen den Gelenken $i-1$ und $i$ entlang der gemeinsamen Normalen (X-Achse).
+    \item $d_i$ - der Abstand zwischen den Gelenken $i-1$ und $i$ entlang der gemeinsamen Tangente (Z-Achse).
+    \item $\theta_i$ - der Winkel zwischen den Gelenken $i-1$ und $i$ entlang der gemeinsamen Tangente (Z-Achse).
+\end{itemize}
+%\TODO DH-Bild einfügen\\
+Die DH-Parameter werden in einer Tabelle dargestellt, die die Beziehung zwischen den Gelenken und den Koordinatensystemen beschreibt. Diese Tabelle wird als DH-Parameter-Tabelle bezeichnet und enthält die DH-Parameter für jedes Gelenk des Roboters. Die DH-Parameter-Tabelle wird verwendet, um die Transformationsmatrizen zwischen den Koordinatensystemen zu berechnen, die die Position und Orientierung des Endeffektors beschreiben \cite{msi_robo_vorlesung}.\\
+%\TODO DH-Tabelle einfügen\\
+
+\subsection{Trajektion}\label{subsec:Trajektion}
+Im physikalischen Sinne ist eine Trajektorie die Bahn, die ein Objekt durchläuft, wenn es sich bewegt \cite{wiki-trajektorie}. Dieses Prinzip kann so direkt in der Robotik verwendet werden, denn auch in der Robotik wird darunter die Bewegung eines Roboters von einem Startpunkt zu einem Zielpunkt bezeichnet, also die Berechnung einer Bahn. Die Trajektion kann entweder linear oder gekrümmt sein, je nach den Anforderungen der Anwendung. Die Trajektion wird oft durch eine Trajektorie beschrieben, die die Position und Orientierung des Roboters über die Zeit beschreibt.\\
+Die Trajektorie kann durch verschiedene Methoden berechnet werden, darunter geometrische Methoden, numerische Methoden und optimierungsorientierte Methoden. Geometrische Methoden basieren auf der Geometrie des Roboters und verwenden trigonometrische Beziehungen, um die Trajektorie zu berechnen. Numerische Methoden verwenden iterative Verfahren, um die Trajektorie schrittweise zu approximieren. Optimierungsorientierte Methoden formulieren das Problem der Trajektorie als Optimierungsproblem und verwenden Optimierungsalgorithmen, um die Trajektorie zu berechnen.\\
+Die wohl einfachsten Trajektorien sind lineare Trajektorien, bei denen der Roboter von einem Startpunkt zu einem Zielpunkt in einer geraden Linie bewegt wird. Diese Trajektorien sind einfach zu berechnen und zu implementieren, aber sie sind oft nicht optimal, da sie nicht die Dynamik des Roboters berücksichtigen. Andere Trajektorien, wie etwa gekrümmte Trajektorien, berücksichtigen die Dynamik des Roboters und sind oft komplexer zu berechnen und zu implementieren, weswegen in diesem Projekt primär die lineare Trajektion verwendet wird.\\
+%\TODO Trajektorie-Bild einfügen\\
+
+\subsection{Interpolation}\label{subsec:Interpolation}
+Unter Interpolation versteht man in der Robotik die Berechnung von Zwischenwerten zwischen zwei Punkten, um eine kontinuierliche Bewegung des Roboters zu ermöglichen. Die Interpolation wird oft verwendet, um die Gelenkwinkel des Roboters schrittweise zu ändern, um eine Trajektorie zu berechnen. Die Interpolation kann dabei genau wie auch die Trajektion linear oder gekrümmt sein, je nach den Anforderungen der Anwendung.\\
+Die Berechnung der Interpolation 
+%\TODO Interpolation-Bild einfügen\\
+
+
+\subsection{Inverse Kinematik}\label{subsec:InverseKinematik}
+Die inverse Kinematik ist ein mathematisches Problem, bei dem die Gelenkwinkel eines Roboters berechnet werden, um eine bestimmte Position und Orientierung des Endeffektors zu erreichen. Sie ist das Gegenstück zur direkten Kinematik, bei der die Position und Orientierung des Endeffektors aus den Gelenkwinkeln berechnet werden.\\
+%\TODO Direkte vs. Inverse Kinematik Bild einfügen\\
+Das Problem der inversen Kinematik ist in der Regel nicht trivial, da es oft mehrere Lösungen gibt oder die Lösung nicht eindeutig ist. Es gibt verschiedene Methoden zur Lösung des Problems der inversen Kinematik, darunter geometrische Methoden, numerische Methoden und optimierungsorientierte Methoden.\\
+Geometrische Methoden basieren auf der Geometrie des Roboters und verwenden trigonometrische Beziehungen, um die Gelenkwinkel zu berechnen. Numerische Methoden verwenden iterative Verfahren, um die Gelenkwinkel schrittweise zu approximieren. Optimierungsorientierte Methoden formulieren das Problem der inversen Kinematik als Optimierungsproblem und verwenden Optimierungsalgorithmen, um die Gelenkwinkel zu berechnen.\\
+Die Wahl der Methode hängt von der Komplexität des Roboters, der Genauigkeit der Lösung und den Anforderungen der Anwendung ab. In der Praxis werden oft Kombinationen verschiedener Methoden verwendet, um das Problem der inversen Kinematik zu lösen.\\
+Aus Software-Sicht werden in verschiedenen Sprachen, verschiedene Bibliotheken angeboten, die die Berechnung von inversen Kinematiken erleichtern. Da in diesem Projekt für die Berechnung der inversen Kinematik des Pepper-Roboters die Sprache Python verwendet wird, bietet sich hier der Nutzen der Bibliothek \texttt{visual\_kinematics} an. Diese Bibliothek bietet eine einfache und intuitive Schnittstelle zur Berechnung der inversen Kinematik von Robotern auf Basis deren DH-Parameter. Des Weiteren bietet diese Bibliothek auch triviale methoden zur Interpolation und zur Trajektion \cite{visual_kinematics}.\\
+
 \section{Virtual Reality}
 
 \section{Entwicklung für Virtual Reality}
