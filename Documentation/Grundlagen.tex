@@ -99,7 +99,7 @@ Standardmäßig wird zwischen drei verschiedenen Datentypen unterschieden:\\
 \section{Middleware}\label{sec:Middleware}
 Middleware ist eine Software, die zwischen Anwendungen und Betriebssystemen vermittelt. Sie ermöglicht die Kommunikation zwischen verschiedenen Anwendungen, die auf unterschiedlichen Plattformen oder in unterschiedlichen Netzwerken ausgeführt werden. Middleware bietet eine Reihe von Diensten, die die Verbindung von Anwendungen erleichtern, die eigentlich nicht dafür vorgesehen sind. Dadurch, sowie durch Bereitstellung von weiteren Diensten wie etwa Sicherheit, Skalierbarkeit und Zuverlässigkeit, rationalisiert Middleware die Entwicklung, Bereitstellung und Wartung von Anwendungen.\\
 Middleware existiert in verschiedenen Formen, wie etwa Nachrichtenbroker oder Transaktionsverarbeitungsmonitore, welche jeweils auf spezifische Kommunikationsformen zugeschnitten sind. Andere, wie etwa Webanwendungsserver oder Middleware für mobile Geräte, bieten ein breites Spektrum an Kommunikations- und Konnektivitätsfunktionen, die für die Entwicklung bestimmter Anwendungen im Mobilebereich unabdinglich sind. Wieder andere, wie etwa der \ac{ESB}, fungiert als zentraler Integrationsknotenpunkt, der alle Komponenten in einem Unternehmen miteinander verbindet. Zusätzlich können aber auch persönliche Middleware selbst entwickelt werden, für personalisierte Anwendungen.\\
-Der Begriff "Middleware" wurde geprägt, da die erste Generation dieser oft als "Vermittler" zwischen einem Anwendungs-Frontend zum Beispiel eines Clients und einer Backend-Ressource, in welcher Daten gespeichert oder verarbeitet werden, fungierte. Dabei kann, auch wie in \autoref{img:Middleware} gezeigt, das Betriebsystem das Backend sein und eine Anwendung das Frontend.\\
+Der Begriff ``Middleware'' wurde geprägt, da die erste Generation dieser oft als ``Vermittler'' zwischen einem Anwendungs-Frontend zum Beispiel eines Clients und einer Backend-Ressource, in welcher Daten gespeichert oder verarbeitet werden, fungierte. Dabei kann, auch wie in \autoref{img:Middleware} gezeigt, das Betriebsystem das Backend sein und eine Anwendung das Frontend.\\
 \normfig{Middleware}{0.5}{-}
 Die moderne Middleware heutzutage beinhaltet jedoch durchaus einen weitaus breiteren Aufgabenbereich. Beispielsweise umfasst Portal-Middleware sowohl das Frontend der Anwendung als auch Tools für die Backend-Konnektivität, während Datenbank-Middleware in der Regel einen eigenen Datenspeicher enthält \cite{AzureMiddleware}.\\
 In diesem Projekt wird die Middleware \ac{ROS} 2 genutzt, welche speziell für die Entwicklung von Robotersoftware entwickelt wurde und daher eine Vielzahl von Funktionen und Diensten bietet, die speziell auf die Anforderungen derer zugeschnitten sind.\\
@@ -180,7 +180,7 @@ Rclcpp nutzt alle Funktionen von C++ und C++17, um die Schnittstelle so einfach 
 Die \ac{ROS}-Client-Bibliothek für Python (rclpy) ist das Python-Gegenstück zur C++-Client-Bibliothek. Wie die C++-Client-Bibliothek auch, baut auch rclpy für seine Implementierung auf der \ac{rcl} C \ac{API} auf. Die Schnittstelle bietet ein idiomatisches Python-Erlebnis, das native Python-Typen und -Muster wie Listen und Kontextobjekte verwendet. Durch die Verwendung der \ac{rcl}-\ac{API} in der Implementierung bleibt die Konsistenz mit den anderen Client-Bibliotheken in Bezug auf Funktionsgleichheit und Verhalten erhalten. Die Python-Client-Bibliothek stellt nicht nur idiomatische Python-Bindungen für die \ac{rcl}-\ac{API} und Python-Klassen für jede Nachricht bereit, sondern kümmert sich auch um das Ausführungsmodell, indem sie \texttt{threading.Thread} oder eine ähnliche Methode verwendet, um die Funktionen der \ac{rcl}-\ac{API} auszuführen.\\
 Wie auch bei C++ generiert sie benutzerdefinierten Python-Code für jede \c{ROS}-Nachricht, mit der der Benutzer interagiert, aber im Gegensatz zu C++ konvertiert sie schließlich das native Python-Nachrichtenobjekt in die C-Version der Nachricht. Alle Operationen erfolgen mit der Python-Version der Nachrichten, bis sie an die \ac{ROS}-Schicht weitergegeben werden müssen. Dann werden sie in die einfache C-Version der Nachricht umgewandelt, damit sie an die \ac{ROS}-C-\ac{API} weitergegeben werden kann. Dies wird nach Möglichkeit vermieden, wenn die Kommunikation zwischen Herausgebern und Abonnements im selben Prozess erfolgt, um die Konvertierung in und aus Python zu reduzieren.\\
 
-\subsubsection{Weitete}\label{subsubsec:ROS2Weitete}
+\subsubsection{Weitere}\label{subsubsec:ROS2Weitere}
 Neben den von \ac{ROS} 2 bereitgestellten Client-Bibliotheken, gibt es auch weitere von der Community entwickelte Bibliotheken. Diese Bibliotheken bieten zusätzliche Unterstützung für weitere Sprachen, sind dadurch jedoch nicht so tief in das System integriert, werden teilweise nicht aktiv weiterentwickelt und teilweise sogar schon als Projekt eingestellt.\\
 Zu diesen Bibliotheken zählen:\\
 \begin{itemize}
@@ -198,6 +198,18 @@ Zu diesen Bibliotheken zählen:\\
 \end{itemize}
 
 
+\section{Colcon}\label{sec:Colcon}
+Colcon ist ein Kommandozeilenwerkzeug zur Verbesserung des Arbeitsablaufs beim Erstellen, Testen und Verwenden mehrerer Softwarepakete. Es automatisiert den Prozess, übernimmt die Bestellung und richtet die Umgebung für die Nutzung der Pakete ein \cite{colcon_docs}. Der Fokus der Software liegt primär auf:\\
+\begin{itemize}
+    \item Das Werkzeug sollte das Builden, Testen und Verwenden mehrerer Pakete vereinfachen.
+    \item Es sollte möglich sein, Unterstützung für jede Art von Build-System mit Hilfe von Erweiterungen hinzuzufügen. Colcon-core bündelt nur Python-Unterstützung, um sich selbst zu booten.
+    \item Es sollte möglich sein, eine beliebige Menge von Paketen zu bauen, ohne dass Änderungen an den Quellen erforderlich sind. Falls nötig, können fehlende Informationen von außen nachgeliefert werden.
+    \item Nach dem Build der Pakete müssen diese sofort nutzbar sein, was das Einrichten der notwendigen Umgebungsvariablen und weiteren Abhängigkeiten einschließt.
+    \item Die gesamte bereitgestellte Funktionalität sollte so offengelegt werden, dass sie von anderen Erweiterungen wiederverwendet werden kann.
+    \item Die Aufteilung in mehrere Python-Pakete wird genutzt, um Modularität und lose Kopplung zu fördern. Sie wird auch verwendet, um die Erweiterbarkeit zu demonstrieren und zu zeigen, dass bestimmte Funktionen nicht ``speziell'' sind, sondern von außen beigesteuert werden können.
+\end{itemize}
+
+
 \section{Programming Languages}
 Wie bereits in \autoref{subsec:ROS2NutzerBibliotheken} erwähnt, bietet \ac{ROS} 2 die Möglichkeit, Nodes in verschiedenen Programmiersprachen zu schreiben. Dabei sind die beiden Hauptprogrammiersprachen, die von \ac{ROS} 2 unterstützt werden, C++ und Python.\\
 
@@ -211,6 +223,10 @@ Python ist eine interpretierte High-Level-Programmiersprache, die erstmals 1991 
 Die Sprache wird auch von einer großen und aktiven Community, die zur Entwicklung vieler nützlicher Bibliotheken und Werkzeuge für die Sprache beigetragen hat. Diese Bibliotheken stehen für eine Vielzahl von Anwendungen zur Verfügung, z.B. für die Datenanalyse, wissenschaftliche Berechnungen und maschinelles Lernen. Zu den gängigen Bibliotheken und Tools für Python gehören \texttt{NumPy} und \texttt{Pandas} für die Datenanalyse, \texttt{TensorFlow} und \texttt{PyTorch} für maschinelles Lernen, \texttt{Django} und \texttt{Flask} für die Webentwicklung sowie \texttt{Matplotlib} und \texttt{Seaborn} für die Datenvisualisierung \cite{PythonDataScienceHandbook}.\\
 Python ist aufgrund seiner Lesbarkeit, Benutzerfreundlichkeit und großartigen Bibliotheksunterstützung eine beliebte Wahl für eine breite Palette von Anwendungen. Seine klare Syntax und Benutzerfreundlichkeit machen es zu einer Sprache für Anfänger und erfahrene Experten, aber auch zu einem leistungsstarken Werkzeug für eine Vielzahl von Anwendungen.\\
 
+\subsubsection{pyBullet}\label{subsubsec:pyBullet}
+\texttt{pyBullet} ist eine Python-Bibliothek, die eine einfache Schnittstelle zur Simulation von Robotern und anderen physikalischen Systemen bietet. Sie basiert auf der Bullet Physics Engine, einer Open-Source-Physik-Engine, die für die Simulation von starren Körpern, Flüssigkeiten, Stoffen und anderen physikalischen Phänomenen verwendet wird. \texttt{pyBullet} ermöglicht es, Robotermodelle zu erstellen, ihre Kinematik und Dynamik zu simulieren und ihre Bewegung zu steuern.\\
+Für eben diese Berechnung der inversen Kinematik wird auf Grund der einfachen Handhabung und der guten Dokumentation \texttt{pyBullet} verwendet. Die Bibliothek bietet eine Vielzahl von Funktionen und Methoden, die es ermöglichen, die Gelenkwinkel eines Roboters zu berechnen, um eine bestimmte Position und Orientierung des Endeffektors zu erreichen. Die einizige Voraussetzung ist, dass das Modell des Roboters in \texttt{pyBullet} geladen und konfiguriert ist. Dazu wird das Modell in einer \texttt{.urdf}-Datei, siehe \autoref{subsec:DarstellungKinematik}, beschrieben und in \texttt{pyBullet} geladen. Anschließend können die Gelenkwinkel des Roboters berechnet werden, um die gewünschte Position und Orientierung des Endeffektors zu erreichen.\\
+
 
 \section{Kinematische Grundlagen}\label{sec:KinematischeGrundlagen}
 
@@ -223,29 +239,67 @@ Die DH-Parameter bestehen aus vier Parametern, die für jedes Gelenk des Roboter
     \item $d_i$ - der Abstand zwischen den Gelenken $i-1$ und $i$ entlang der gemeinsamen Tangente (Z-Achse).
     \item $\theta_i$ - der Winkel zwischen den Gelenken $i-1$ und $i$ entlang der gemeinsamen Tangente (Z-Achse).
 \end{itemize}
-%\TODO DH-Bild einfügen\\
+\normfig{DH-Parameter-Beispiel}{0.7}{wiki_DH_parameters}
 Die DH-Parameter werden in einer Tabelle dargestellt, die die Beziehung zwischen den Gelenken und den Koordinatensystemen beschreibt. Diese Tabelle wird als DH-Parameter-Tabelle bezeichnet und enthält die DH-Parameter für jedes Gelenk des Roboters. Die DH-Parameter-Tabelle wird verwendet, um die Transformationsmatrizen zwischen den Koordinatensystemen zu berechnen, die die Position und Orientierung des Endeffektors beschreiben \cite{msi_robo_vorlesung}.\\
-%\TODO DH-Tabelle einfügen\\
+\begin{table}
+    \centering
+    \begin{tabular}[H]{r|c|c|c|c}
+        \textbf{Gelenk} & \textbf{$a_i$} & \textbf{$\alpha_i$} & \textbf{$d_i$} & \textbf{$\theta_i$} \\
+        \hline
+        1 & $a_1$ & $\alpha_1$ & $d_1$ & $\theta_1$ \\
+        2 & $a_2$ & $\alpha_2$ & $d_2$ & $\theta_2$ \\
+        3 & $a_3$ & $\alpha_3$ & $d_3$ & $\theta_3$ \\
+    \end{tabular}
+    \label{tab:DH-Parameter}
+    \caption{Eine DH-Parameter-Tabelle}
+\end{table}
 
 \subsection{Trajektion}\label{subsec:Trajektion}
 Im physikalischen Sinne ist eine Trajektorie die Bahn, die ein Objekt durchläuft, wenn es sich bewegt \cite{wiki-trajektorie}. Dieses Prinzip kann so direkt in der Robotik verwendet werden, denn auch in der Robotik wird darunter die Bewegung eines Roboters von einem Startpunkt zu einem Zielpunkt bezeichnet, also die Berechnung einer Bahn. Die Trajektion kann entweder linear oder gekrümmt sein, je nach den Anforderungen der Anwendung. Die Trajektion wird oft durch eine Trajektorie beschrieben, die die Position und Orientierung des Roboters über die Zeit beschreibt.\\
 Die Trajektorie kann durch verschiedene Methoden berechnet werden, darunter geometrische Methoden, numerische Methoden und optimierungsorientierte Methoden. Geometrische Methoden basieren auf der Geometrie des Roboters und verwenden trigonometrische Beziehungen, um die Trajektorie zu berechnen. Numerische Methoden verwenden iterative Verfahren, um die Trajektorie schrittweise zu approximieren. Optimierungsorientierte Methoden formulieren das Problem der Trajektorie als Optimierungsproblem und verwenden Optimierungsalgorithmen, um die Trajektorie zu berechnen.\\
 Die wohl einfachsten Trajektorien sind lineare Trajektorien, bei denen der Roboter von einem Startpunkt zu einem Zielpunkt in einer geraden Linie bewegt wird. Diese Trajektorien sind einfach zu berechnen und zu implementieren, aber sie sind oft nicht optimal, da sie nicht die Dynamik des Roboters berücksichtigen. Andere Trajektorien, wie etwa gekrümmte Trajektorien, berücksichtigen die Dynamik des Roboters und sind oft komplexer zu berechnen und zu implementieren, weswegen in diesem Projekt primär die lineare Trajektion verwendet wird.\\
-%\TODO Trajektorie-Bild einfügen\\
+\normfig{Trajektorie}{0.8}{inproceedings}
 
 \subsection{Interpolation}\label{subsec:Interpolation}
-Unter Interpolation versteht man in der Robotik die Berechnung von Zwischenwerten zwischen zwei Punkten, um eine kontinuierliche Bewegung des Roboters zu ermöglichen. Die Interpolation wird oft verwendet, um die Gelenkwinkel des Roboters schrittweise zu ändern, um eine Trajektorie zu berechnen. Die Interpolation kann dabei genau wie auch die Trajektion linear oder gekrümmt sein, je nach den Anforderungen der Anwendung.\\
-Die Berechnung der Interpolation 
-%\TODO Interpolation-Bild einfügen\\
-
+Unter Interpolation versteht man in der Robotik die Berechnung von Zwischenwerten zwischen zwei Punkten, um eine kontinuierliche Bewegung des Roboters zu ermöglichen. Die Interpolation wird oft verwendet, um die Gelenkwinkel des Roboters schrittweise zu ändern, um eine Trajektorie zu berechnen.\\
+Die Interpolation kann durch verschiedene Methoden berechnet werden, darunter lineare Interpolation, kubische Interpolation und splinebasierte Interpolation.
+\begin{itemize}
+    \item Lineare Interpolation berechnet die Zwischenwerte linear zwischen den beiden Punkten. Dies resultiert wie in \autoref{img:Lineare-Interpolation} in einer geraden Linie zwischen den beiden Punkten was in den Punkten selbst starke Beschleunigungen und Verzögerungen zur Folge hat.
+        \normfig{Lineare-Interpolation}{0.3}{wiki_interpolation_mathematik}
+    \item Polynomial Interpolation, oder Interpolation über höhere Polynome, berechnet die Zwischenwerte der Punkte durch eine Funktion \textit{n}-ten Grades. Wie in \autoref{img:Polynomial-Interpolation} gezeigt ermöglicht dies eine deutlöich glattere und kontinuierlichere Interpolation als die lineare Interpolation.
+        \normfig{Polynomial-Interpolation}{0.3}{wiki_interpolation_mathematik}
+    \item Splinebasierte Interpolation berechnet die Zwischenwerte durch die Verwendung von Splines. In \autoref{img:Spline-Interpolation} ist gezeigt wie eine solche Interpolation auf kubischer Basis aussehen könnte. Gut zu erkennen ist hier, dass diese Art der Interpolation eine glatte und kontinuierliche Kurve.
+        \normfig{Spline-Interpolation}{0.3}{wiki_interpolation_mathematik}
+\end{itemize}
+Welche dieser Arten der Interpolation verwendet wird, hängt im Endeffekt von den Anforderungen der Anwendung ab.\\
 
 \subsection{Inverse Kinematik}\label{subsec:InverseKinematik}
 Die inverse Kinematik ist ein mathematisches Problem, bei dem die Gelenkwinkel eines Roboters berechnet werden, um eine bestimmte Position und Orientierung des Endeffektors zu erreichen. Sie ist das Gegenstück zur direkten Kinematik, bei der die Position und Orientierung des Endeffektors aus den Gelenkwinkeln berechnet werden.\\
-%\TODO Direkte vs. Inverse Kinematik Bild einfügen\\
+\normfig{Inverse-Kinematik}{1}{wiki_inverse_kinematics}
 Das Problem der inversen Kinematik ist in der Regel nicht trivial, da es oft mehrere Lösungen gibt oder die Lösung nicht eindeutig ist. Es gibt verschiedene Methoden zur Lösung des Problems der inversen Kinematik, darunter geometrische Methoden, numerische Methoden und optimierungsorientierte Methoden.\\
 Geometrische Methoden basieren auf der Geometrie des Roboters und verwenden trigonometrische Beziehungen, um die Gelenkwinkel zu berechnen. Numerische Methoden verwenden iterative Verfahren, um die Gelenkwinkel schrittweise zu approximieren. Optimierungsorientierte Methoden formulieren das Problem der inversen Kinematik als Optimierungsproblem und verwenden Optimierungsalgorithmen, um die Gelenkwinkel zu berechnen.\\
 Die Wahl der Methode hängt von der Komplexität des Roboters, der Genauigkeit der Lösung und den Anforderungen der Anwendung ab. In der Praxis werden oft Kombinationen verschiedener Methoden verwendet, um das Problem der inversen Kinematik zu lösen.\\
-Aus Software-Sicht werden in verschiedenen Sprachen, verschiedene Bibliotheken angeboten, die die Berechnung von inversen Kinematiken erleichtern. Da in diesem Projekt für die Berechnung der inversen Kinematik des Pepper-Roboters die Sprache Python verwendet wird, bietet sich hier der Nutzen der Bibliothek \texttt{visual\_kinematics} an. Diese Bibliothek bietet eine einfache und intuitive Schnittstelle zur Berechnung der inversen Kinematik von Robotern auf Basis deren DH-Parameter. Des Weiteren bietet diese Bibliothek auch triviale methoden zur Interpolation und zur Trajektion \cite{visual_kinematics}.\\
+
+\subsection{Darstellung einer Kinematik}\label{subsec:DarstellungKinematik}
+
+\subsubsection{URDF}\label{subsubsec:URDF}
+\ac{URDF} ist ein \ac{XML}-Format, das in \ac{ROS} verwendet wird, um die physische Beschreibung und die kinematische Struktur eines Roboters zu definieren. Es enthält Informationen über die Größe, Form, Farbe und Position der verschiedenen Teile des Roboters sowie über die Gelenke, die diese Teile verbinden. Eine \ac{URDF}-Datei besteht aus einer Reihe von Elementen, darunter:
+\begin{itemize}
+    \item \textbf{Link}: Ein Link repräsentiert eine starre Komponente des Roboters. Jeder Link hat eine Masse und eine Trägheit, die für die physikalische Simulation des Roboters verwendet werden.
+    \item \textbf{Joint}: Ein Joint verbindet zwei Links und definiert, wie sie sich relativ zueinander bewegen können. Es gibt verschiedene Arten von Gelenken, darunter feste Gelenke, Drehgelenke und Schiebegelenke.
+    \item \textbf{Transmission}: Ein Transmission-Element definiert die mechanische Verbindung zwischen einem Motor und einem Gelenk.
+\end{itemize}
+
+\subsubsection{SRDF}\label{subsubsec:SRDF}
+\ac{SRDF} ist ein weiteres \ac{XML}-Format, das in \ac{ROS} verwendet wird, um semantische Informationen über einen Roboter zu speichern, die über die physische Beschreibung in der URDF hinausgehen. Es wird hauptsächlich von der MoveIt-Bibliothek verwendet, um Informationen für die Bewegungsplanung zu speichern. Eine solche \ac{SRDF}-Datei enthält folgende Elemente, darunter:
+\begin{itemize}
+    \item \textbf{Group}: Eine Gruppe ist eine Sammlung von Gelenken und Links, die zusammen bewegt werden können. Gruppen werden oft verwendet, um die Arme, Beine oder andere bewegliche Teile eines Roboters zu repräsentieren.
+    \item \textbf{End Effector}: Ein End Effector ist ein spezieller Link, der zum Interagieren mit der Umgebung verwendet wird, zum Beispiel eine Roboterhand oder ein Werkzeug.
+    \item \textbf{Collision Matrix}: Die Collision Matrix definiert, welche Paare von Links ignoriert werden sollen, wenn Kollisionen erkannt werden. Dies ist nützlich, um falsche Kollisionen zu vermeiden, die durch die Nähe von Teilen des Roboters entstehen können.
+\end{itemize}
+Zusammen bieten \ac{URDF} und \ac{SRDF} eine vollständige Beschreibung eines Roboters, die sowohl seine physische Struktur als auch seine semantischen Informationen umfasst. Diese Beschreibungen können dann von verschiedenen \ac{ROS}-Tools und -Bibliotheken verwendet werden, um Aufgaben wie Bewegungsplanung, Kollisionserkennung und Simulation durchzuführen.
+
+
 
 \section{Virtual Reality}
 
