@@ -1,5 +1,34 @@
 \chapter{Umsetzung}
-\section{Pepper}
-\subsection{}
 \section{MetaQuest3}
-\section{Verbindung}
+\section{ROS-Topics}\label{sec:ros-topics}
+Die allgemeine Datenkommunikation des Projektes wird zwischen den Komponenten ausschließlich über \ac{ROS}-Topics abgewickelt und über \ac{ROS} verwaltet. Welche dabei standardmäßig von welchen Komponenten angeboten werden und welche noch zusätzlich hinzugefügt werden müssen werden im folgenden Abschnitt beschrieben.\\
+\subsection{Videostream und Kamerabilder}
+Einen Videostream wie man ihn von einem normalen Video-Player kennt, ist in \ac{ROS} nicht direkt möglich. Stattdessen wird der Stream als eine Abfolge von Bildern übertragen. Diese Bilder werden in einer Node, die Zugriff auf die Kamera hat, aufgenommen, nach Bedarf verarbeitet und schließlich über ein \ac{ROS}-Topic veröffentlicht.\\
+Dieser pseudo-Stream wird standardmäßig von der \textit{NAOqi\_bridge} bereitgestellt. Dadurch ist nicht nur der Zugriff auf die front-Kamera des Roboters gegeben, sondern alle Kameras und Sensoren des Roboters. Bei den Kameras kann zwischen der front-Kamera und der bottom-Kamera gewählt werden, wobei die NAOqi\_bridge die Bilder der Kameras in verschiedenen Topics veröffentlicht wodurch verschiedene Features der Kameras genutzt werden können.\\
+Die verschiedenen Topics sind kaskadiert aufgebaut und liegen unter dem Topic \textit{/naoqi\_bridge/camera/front/} und \textit{/naoqi\_bridge/camera/bottom/} wobei für das Projekt nur die Frontkamera relevant ist. Sie bietet folgende Topics an:
+\begin{itemize}
+    \item \textit{image\_raw} - Das unverarbeitete Bild der Kamera in voller Auflösung und Farbtiefe
+    \item \textit{image\_raw/compressed} - Das komprimierte Bild der Kamera komprimiert durch die \ac{JPEG}-Kompression
+    \item \textit{image\_raw/theora} - Das komprimierte Bild der Kamera im Theora-Format ebenfalls komprimiert mit Theora
+\end{itemize}
+Das Projekt nutzt das Topic \textit{image\_raw/compressed} um die Bilder der Kamera zu empfangen. Eine direkte Übertragung der Bilder unkomprimiert, ist in der Theorie zwar möglich ist aber für eine \ac{AR} Anwendung nicht von Vorteil, da die Bilder in der Regel nicht in voller Auflösung benötigt werden und die Übertragung der Bilder unkomprimiert zu einer hohen Netzwerkauslastung führen würde, was wiederum die Latenz der Bilder erhöhen und die Anzahl der Bilder pro Sekunde begrenzen würde. Dies wiederum würde im Umkehrschluss die Qualität der \ac{AR} Anwendung drastisch verschlechtern und ein magelhaftes Erlebnis bieten, welches bis hin zur Übelkeit des Nutzers reichen könnte.\\
+Die Bilder werden von der NAOqi\_bridge in einem festen Intervall von 30 Bildern pro Sekunde veröffentlicht. Diese Rate ist bekannt als die niedrigste Rate, die der Mensch als flüssige Bewegung wahrnimmt und damit für die Anwendung ausreichend.\\
+Mit einer \ac{HD} Auflösung von 1280x720 Pixel, 8-Bit Farbtiefe und einer angenommenen Kompressionsrate von 0.5 durch \ac{JPEG}, ergibt sich bei den genannten 30 Bildern pro Sekunde unkomprimiert eine Datenrate von etw. 663Mbit/s und mit Kompression etwa 331.5Mbit/s.\\
+\begin{equation}
+    1280px \cdot 720px \cdot 8bit \cdot 30fps = 663Mbit/s
+    \label{eq:datenrate}
+\end{equation}
+\begin{equation}
+    633Mbit/s \cdot 0.5 = 331.5Mbit/s
+    \label{eq:datenrate-komprimiert}
+\end{equation}
+
+\subsection{Teleoperationspositionen}
+Der Roboter selbst besitzt drei maßgebende Kinematiken, welche für die Teleoperation genutzt werden. Diese sind die beiden Arme  \textit{LArm} und \textit{RArm} und der Kopf \textit{Head}. Eine Ausnahme bildet das Fahrwerk, welches nicht direkt über Teleoperation gesteruert wir, aber trotzdem eine unabdingliche Rolle für die Teleoperation und dem Nutzen des Roboters spielt. Über die NAOqi\_bridge können Positionen der einzelnen Gelenke der Kinematiken abgefragt und gesetzt werden, was für das Fahrwerk und das Kopfgelenk direkt genutzt werdenk kann, jedoch für die Arme aber durch die hohe Anzahl an Gelenken zuerst weiter verarbeitet werden muss.\\
+Die Rohdaten für die gewünschte Position der Kinematiken werden von der MetaQuest3 Anwendung beziehungsweise Node bereitgestellt und über das Topic \textit{/AR/position/} mit den sub-Topics \textit{/LController}, \textit{/RController} und \textit{/Head} veröffentlicht. Wiederum eine Ausnahme bildet das Fahrwerk, welches indirekt seine Daten aus den Kontroller-Knöpfen der MetaQuest3 bezieht und unter dem Topic \textit{/AR/button/} veröffentlicht.\\
+%TODO Positions Topics und Buttons
+
+
+
+
+\section{Pepper}
