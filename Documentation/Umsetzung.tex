@@ -1,11 +1,13 @@
 \chapter{Umsetzung}
 \section{MetaQuest3}
+
 \section{ROS-Topics}\label{sec:ros-topics}
 Die allgemeine Datenkommunikation des Projektes wird zwischen den Komponenten ausschließlich über \ac{ROS}-Topics abgewickelt und über \ac{ROS} verwaltet. Welche dabei standardmäßig von welchen Komponenten angeboten werden und welche noch zusätzlich hinzugefügt werden müssen werden im folgenden Abschnitt beschrieben.\\
-\subsection{Videostream und Kamerabilder}
+\subsection{Videostream und Kamerabilder}\label{subsec:Videostream}
+(nicht vollständig Implementiert)\\\\
 Einen Videostream wie man ihn von einem normalen Video-Player kennt, ist in \ac{ROS} nicht direkt möglich. Stattdessen wird der Stream als eine Abfolge von Bildern übertragen. Diese Bilder werden in einer Node, die Zugriff auf die Kamera hat, aufgenommen, nach Bedarf verarbeitet und schließlich über ein \ac{ROS}-Topic veröffentlicht.\\
 Dieser pseudo-Stream wird standardmäßig von der \textit{NAOqi\_bridge} bereitgestellt. Dadurch ist nicht nur der Zugriff auf die front-Kamera des Roboters gegeben, sondern alle Kameras und Sensoren des Roboters. Bei den Kameras kann zwischen der front-Kamera und der bottom-Kamera gewählt werden, wobei die NAOqi\_bridge die Bilder der Kameras in verschiedenen Topics veröffentlicht wodurch verschiedene Features der Kameras genutzt werden können.\\
-Die verschiedenen Topics sind kaskadiert aufgebaut und liegen unter dem Topic \textit{/naoqi\_bridge/camera/front/} und \textit{/naoqi\_bridge/camera/bottom/} wobei für das Projekt nur die Frontkamera relevant ist. Sie bietet folgende Topics an:
+Die verschiedenen Topics sind kaskadiert aufgebaut und liegen unter dem Topic \textit{/pepper\_robot/camera/front/}, \textit{/pepper\_robot/camera/bottom/} und \textit{/naoqi\_bridge/camera/depth}  wobei für das Projekt nur die Frontkamera relevant ist. Sie bietet folgende Topics an:
 \begin{itemize}
     \item \textit{image\_raw} - Das unverarbeitete Bild der Kamera in voller Auflösung und Farbtiefe
     \item \textit{image\_raw/compressed} - Das komprimierte Bild der Kamera komprimiert durch die \ac{JPEG}-Kompression
@@ -24,11 +26,187 @@ Mit einer \ac{HD} Auflösung von 1280x720 Pixel, 8-Bit Farbtiefe und einer angen
 \end{equation}
 
 \subsection{Teleoperationspositionen}
+(nicht vollständig Implementiert)\\\\
 Der Roboter selbst besitzt drei maßgebende Kinematiken, welche für die Teleoperation genutzt werden. Diese sind die beiden Arme  \textit{LArm} und \textit{RArm} und der Kopf \textit{Head}. Eine Ausnahme bildet das Fahrwerk, welches nicht direkt über Teleoperation gesteruert wir, aber trotzdem eine unabdingliche Rolle für die Teleoperation und dem Nutzen des Roboters spielt. Über die NAOqi\_bridge können Positionen der einzelnen Gelenke der Kinematiken abgefragt und gesetzt werden, was für das Fahrwerk und das Kopfgelenk direkt genutzt werdenk kann, jedoch für die Arme aber durch die hohe Anzahl an Gelenken zuerst weiter verarbeitet werden muss.\\
-Die Rohdaten für die gewünschte Position der Kinematiken werden von der MetaQuest3 Anwendung beziehungsweise Node bereitgestellt und über das Topic \textit{/AR/position/} mit den sub-Topics \textit{/LController}, \textit{/RController} und \textit{/Head} veröffentlicht. Wiederum eine Ausnahme bildet das Fahrwerk, welches indirekt seine Daten aus den Kontroller-Knöpfen der MetaQuest3 bezieht und unter dem Topic \textit{/AR/button/} veröffentlicht.\\
-%TODO Positions Topics und Buttons
+Die Rohdaten für die gewünschte Position der Kinematiken werden von der MetaQuest3 Anwendung beziehungsweise Node bereitgestellt und über das Topic \textit{/AR/position/} mit den sub-Topics \textit{/LController}, \textit{/RController} und \textit{/Head} veröffentlicht. Wiederum eine Ausnahme bildet das Fahrwerk, welches indirekt seine Daten aus den Kontroller-Knöpfen der MetaQuest3 bezieht und unter dem Topic \textit{/AR/button} veröffentlicht.\\
+Eine Position besteht sowohl aus der aktuellen und relativen Position der Komponente zu der Brille, als auch aus der aktuellen Winkel der Komponente. Diese beiden Werte werden in der Anwendung in einem festen Format gespeichert und über die Topics, einzeln für jede Kinematik-Gruppe veröffentlicht. Die dazugehörige Nachricht ist in Listing \autoref{lst:position-msg} zu sehen.\\
+\begin{lstlisting}[language=Python, caption=Positions Topic, label=lst:position-msg]
+    float64 x
+    float64 y
+    float64 z
+    float64 roll
+    float64 pitch
+    float64 yaw
+\end{lstlisting}
+Im Gegensatz dazu die Winkel um die Achsen x, y und z, zu benennen ist es in der Robotik üblich diese als Roll, Pitch und Yaw zu bezeichnen. Diese Werte sind daher auch in der Nachricht als \textit{roll}, \textit{pitch} und \textit{yaw} zu finden. Sie werden statt in Winkel 0-360Grad in Radiant angegeben und können von -$\pi$ bis $\pi$ reichen. Die Positionen werden ebenfalls gemäß dem Standard in Metern angegeben und können in dem im Headset genullten Koordinatensystem frei bewegt werden.\\
+Wieder die Ausnahme bildet das Fahrwerk, welches nicht in einem 3D Raum bewegt wird, sondern nur in einer Ebene. Daher wird die Position des Fahrwerks nur in x und y angegeben und die Winkel nur in yaw. Die restlichen Werte werden ignoriert und für die Berechnung auf 0 gesetzt.\\
+
+\section{Streaming-Node}\label{sec:Streaming-Node}
+(nicht vollständig Implementiert)\\\\
+Für die Übertragung der Kamerabilder wie sie in \autoref{subsec:Videostream} beschrieben sind, wird eine eigene Node für die MetaQuest3 erstellt. Sie hat die einzig und alleinige Aufgabe die Kamerabilder des Pepper, aus der, von der NAOqi\_bridge zur Verfügung gestellten Topic \textit{/pepper\_robot/camera/front/compressed} aufzunehmen, in einem möglichst kleinen Zwischenspeicher (Buffer) zu speichern und mit möglichst geringer Latenz an die Brille weiter zu senden.\\
+Dazu wird in der \ac{AR}-App (die \ac{ROS} Node), die Topic \textit{/pepper\_robot/camera/front/image\_raw/compressed} abonniert. Die Bilder werden von dieser Topic so schnell wie es \ac{ROS} ermöglicht abgegriffen, und ind den Buffer geschrieben. Dadurch kann es zwar vorkommen, dass das selbe Bild mehrere male aus der Topic gelesen wird, jedoch ist es eine einfache Methode die Bilder zu übertragen und die Latenz gering zu halten um wiederum den pseudo-Stream so flüssig und responsiv zu gestalten wie es nur möglich ist. Dadurch ist der Limitierende Faktor das darunter liegende System oder primär die Bandbreite der Verbindung im Netzwerk.\\
+Der eben erwähnte Buffer ist nicht zwingend notwendig, aber für die Anwendung von Vorteil, da die Bilder so nicht direkt an das Display weitergegeben werden müssen, sondern in einem Zwischenspeicher gespeichert werden können. Dadurch können die kleinen Schwankungen in der Übertragungsgeschwindigkeit der Bilder ausgeglichen werden und die Bilder können so gleichmäßig wie möglich angezeigt werden. Jedoch bedeutet ein Buffer auch, dass die Bilder nicht in Echtzeit angezeigt werden können, sondern immer mit einer kleinen Verzögerung, weswegen der Buffer sebst so klein wie möglich gehalten werden sollte. Daher wurde sich in diesem Projekt für einen Ring-Buffer entschieden, welcher lediglich die letzten 5 Bilder speichert, da eine Verzögerung von 5 Bildern (bei 30\ac{FPS} etwa 0.166s) zwar schon als unnatürlich und störend wahrgenommen werden kann, aber in diesem Aufbau in Kauf genommen wird. Auf Verzögerungen durch die Trägheit der Kinematiken des Roboters wird in im späterne Verlauf unter \autoref{sec:Berechnungs-Node} nocheinmal separat eingegangen.\\
+Eine Besonderheit der Node ist, dass Sie nicht klassisch unter \textit{rclcpp} oder \textit{rclpy} implementiert wird, sondern über den \ac{ROS}-\ac{TCP}-Connector. Dieser ist ein Modul, bereitgestellt durch Unity, welches die Kommunikation zwischen \ac{ROS} und Unity ermöglicht. Dadruch werden die Nachrichten der \ac{ROS}-Topics direkt in Unity empfangen und können dort unter der Verwendung von C\# weiterverarbeitet werden. Durch die Nutzung der Programiersprache C\# verläuft das Empfangen und Speichern der Bilder in Unity deutlich schneller und effizienter als in Python, was wiederum die Latenzen der Bilder reduziert und die Anwendung flüssiger macht.\\
+Weiter wird ein Modul mit dem Namen \textit{openXR} genutzt, welches die Kommunikation zwischen Unity und der MetaQuest3 erheblich erleichter und standartisiert. Weiter ermöglicht es die App auf einem Windows-Rechner zu entwickeln und auszuführen, sodass die App nicht auf der Brille selbst ausgeführt wird. Dadurch kann Rechenleistung und Speicherplatz auf der Brille gespaart werden und die App kann auf einem leistungsstärkeren Rechner ausgeführt werden.\\
+
+Für die Erstellung der App wird ein neues Unity-Projekt erstellt und die benötigten Module \textit{openXR} und \textit{ROS-TCP-Connector} hinzugefügt. Die Module werden in Unity als \textit{.unitypackage} Datei bereitgestellt und werden über den Menüpunkt \textit{Assets} $\rightarrow$ \textit{Import Package} $\rightarrow$ \textit{Custom Package} hinzugefügt werden.\\
+Der Kern der Unity-App besteht aus der in \autoref{lst:unity-controller-data} gezeigten Klasse. Diese hier beispielhaft für den rechten Controller gezeigte Klasse, ist für die Aufnahme der Daten des Controllers zuständig und veröffentlicht diese in einem \ac{ROS}-Topic. Die Klasse wird in Unity als \textit{MonoBehaviour} implementiert und über die Funktionen \textit{Start()} und \textit{Update()} gesteuert. Die Funktion \textit{Start()} wird beim Start der App aufgerufen und initialisiert die Verbindung zu \ac{ROS} und registriert den Publisher für die Nachrichten. Die Funktion \textit{Update()} wird in jedem Frame aufgerufen und überprüft ob die Nachrichten veröffentlicht werden sollen. Die Nachrichten werden dabei in einem festen Intervall von 0.1s veröffentlicht, was wiederum der maximalen Frequenz des Peppers entspricht, und somit eine flüssige und efiziente Bewegung ermöglicht.\\
+\begin{lstlisting}[language=csh, caption=Abgreifen der Controller Daten, label=lst:unity-controller-data]
+    using UnityEngine;
+    using Unity.Robotics.ROSTCPConnector;
+    using RosMessageTypes.Geometry;
+    
+    public class ControllerPositionPublisher : MonoBehaviour
+    {
+        ROSConnection ros;
+        public string RController = "/AR/RController";
+        public GameObject rightController;
+        
+        public float publishMessageFrequency = 0.1f;
+    
+        void Start()
+        {
+            ros = ROSConnection.GetOrCreateInstance();
+            ros.RegisterPublisher<PoseStampedMsg>(RController);
+            timeElapsed = 0;
+        }
+    
+        void Update()
+        {
+            timeElapsed += Time.deltaTime;
+    
+            if (timeElapsed > publishMessageFrequency)
+            {
+                ros.Publish(topicName, GetControllerPose(rightController));
+    
+                timeElapsed = 0;
+            }
+        }
+    
+        PoseStampedMsg GetControllerPose(GameObject controller)
+        {
+            PoseStampedMsg poseMsg = new PoseStampedMsg();
+            poseMsg.header.frame_id = "unity";
+            poseMsg.header.stamp = ROSConnection.GetOrCreateInstance().GetROSTime();
+            
+            poseMsg.pose.position = new PointMsg(
+                controller.transform.position.x,
+                controller.transform.position.y,
+                controller.transform.position.z
+            );
+            
+            poseMsg.pose.orientation = new QuaternionMsg(
+                controller.transform.rotation.x,
+                controller.transform.rotation.y,
+                controller.transform.rotation.z,
+                controller.transform.rotation.w
+            );
+    
+            return poseMsg;
+        }
+    }
+\end{lstlisting}
+Das Bild der Kamera ist dagegen hat zu der einfachen Struktur des publishen der Controller-Daten eine weitere Komponente, den Ring-Buffer. Auch hier werden wieder die üblichen \ac{ROS} Funktionen initialiert. In der \textit{Start()} Funktion wird der Publisher für die Kamerabilder (z.9) registriert und der Buffer, wie in \autoref{lst:unity-image-data}(z.24) mit kleinen temporären Texturen gefüllt, initialisiert. Dazu werden Behelfsvariablen für die Größe des Buffers und die aktuelle Position im Buffer erstellt. In der \textit{Update()} Funktion wird dann in jedem Frame das Bild der Kamera in den Buffer geschrieben und die Nachricht veröffentlicht. Sobald in der Topic der Kamera ein Update stattfindet, wird die Funktion \textit{UpdateImage()} aufgerufen und das Bild aus der Nachricht in den Buffer geschrieben (z.34) und dessen Index erhöht (z.35). Zum schluss der Methode wird das Bild aus dem Buffer in die Textur des Renderers geschrieben und angezeigt (z.37).\\
+\begin{lstlisting}[language=csh, caption=Abgreifen der Kamerabilder, label=lst:unity-image-data]
+    using UnityEngine;
+    using Unity.Robotics.ROSTCPConnector;
+    using RosMessageTypes.Sensor;
+    using System;
+    using System.Runtime.InteropServices;
+
+    public class ImageSubscriber : MonoBehaviour
+    {
+        ROSConnection ros;
+        public string topicName = "/pepper_robot/camera/front/image_raw/compressed";
+        public Renderer imageRenderer;
+
+        private Texture2D[] imageBuffer;
+        private int bufferSize = 5;
+        private int currentIndex = 0;
+
+        void Start()
+        {
+            ros = ROSConnection.GetOrCreateInstance();
+            ros.Subscribe<ImageMsg>(topicName, UpdateImage);
+
+            imageBuffer = new Texture2D[bufferSize];
+            for (int i = 0; i < bufferSize; i++)
+            {
+                imageBuffer[i] = new Texture2D(2, 2, TextureFormat.RGB24, false);
+            }
+        }
+
+        void UpdateImage(ImageMsg imageMessage)
+        {
+            Texture2D texture = new Texture2D(imageMessage.width, imageMessage.height, TextureFormat.RGB24, false);
+            texture.LoadRawTextureData(imageMessage.data);
+            texture.Apply();
+
+            imageBuffer[currentIndex] = texture;
+            currentIndex = (currentIndex + 1) % bufferSize;
+
+            imageRenderer.material.mainTexture = imageBuffer[currentIndex];
+        }
+    }
+\end{lstlisting}
 
 
+\section{Berechnungs-Node}\label{sec:Berechnungs-Node}
+(nicht vollständig Implementiert)\\\\
+Die Berechnung der Kinematiken und der genauen Positionen der einzelnen Motoren werden über inverse Kinematiken gelöst, welche von der \textit{pyBullet} Bibliothek bereitgestellt werden. Dazu wird einen individuelle Node erstellt, welche die \textit{pyBullet} Bibliothek nutzt und die berechneten Positionen an die NAOqi\_bridge weitergibt. Die Node hat dabei eine Art Middleware-Funktion und übernimmt die Umrechnungen zwischen der MetaQuest3 und der NAOqi\_bridge.\\
+Die Node bindet die \textit{pyBullet} und die \textit{NAOqi\_bridge} Bibliotheken ein. Für die Berechnung abonniert sie als Input die Topics der MetaQuest3: \textit{/AR/position/LController}, \textit{/AR/position/RController}, \textit{/AR/position/Head} und \textit{/AR/button}. Der Output an die NAOqi\_bridge ist dagegen etwas breiter gefächtert, und ist eine direkte Kommunikation an die \ac{API}.\\
 
+Die Node besteht nicht wie jede Node aus einem Publisher-Teil und einem Subscriber-Teil. Sondern nur dem Subscriber-Teil, da die Node nur die Positionen der MetaQuest3 empfängt und an die NAOqi\_bridge weitergibt. Die Berechnung der Positionen und die Kommunikation mit der NAOqi\_bridge erfolgt in einem einzigen Teil der Node. Dazu ist maßgebend die Funktion \textit{callback} von Relevanz, da diese Aufgerufen wird sobald eine Nachricht in einem der abonnierten Topics ankommt. Als zweite zentrale Komponente dient hier die \textit{pyBullet} Bibliothek. Sie muss zunächst initialisiert werden und wie in \autoref{lst:berechnungs-node-pybullet} gezeigt die Kinematiken des Roboters über die \ac{URDF}-Datei des Peppers einlesen.\\
+\begin{lstlisting}[language=Python, caption=Berechnungs-Node-Initialisierung von PyBullet, label=lst:berechnungs-node-pybullet]
+    import pybullet as p
 
-\section{Pepper}
+    p.connect(p.DIRECT)
+
+    robot = p.loadURDF("pepper.urdf", [0, 0, 0], useFixedBase=True)
+\end{lstlisting}
+Sobald eine Nachricht empfangen wird, werden die Nachrichten aus den Arrays der Nachricht der MetaQuest3 entnommen und durch nach der Berechnung der inversen Kinematiken in die passenden Werte für die NAOqi\_bridge umgerechnet. Das Array der Positionen der MetaQuest3 wird wie in \autoref{lst:position-msg} beschrieben aufgebaut und enthält die Werte für x, y, z, roll, pitch und yaw, in genau dieser Reihenfolge. Die Werte werden dabei direkt per \texttt{rospy.Subscriber(``[Topic]''), [Type], [callback]} abonniert und in der Funktion \textit{callback} verarbeitet. Hier werden für jede Gelenkgruppe (Arme und Genick) eine separate callback-Funktion aufgerufen. Diese Gruppen werden zu Begin in einem Array aus den einzelnen Gelenken zusammengefasst und der jeweiligen Funktion übergeben. Aus der \ac{URDF}-Datei des Pepper werden die Gelenke und deren Positionen ausgelesen (\autoref{lst:pepper-urdf}) und in einem Dictionary gespeichert. Die Positionen der Gelenke werden dann in einem weiteren Dictionary gespeichert und an die \textit{pyBullet} Bibliothek übergeben. Aus der \ac{URDF}-Datei des Pepper können die Namen der Gelenke gelesen werden, und die Gelenke können über die Namen angesprochen werden und den Gruppen zugeordnet werden. Dazu wird der Code aus \autoref{lst:pepper-urdf} und \autoref{lst:gelenk-grupperierung} genutzt.\\
+\begin{lstlisting}[language=Python, caption=Ausschnitt der URDF-Datei des Pepper, label=lst:pepper-urdf]
+    <joint name="HeadYaw" type="continuous">
+        <parent link="base_link"/>
+        <child link="HeadYaw_link"/>
+        <origin xyz="0 0 0.126" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-2.0857" upper="2.0857"/>
+    </joint>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python, caption=Gelenk-Grupperierung, label=lst:gelenk-grupperierung]
+    joints = {
+        "Head": ["HeadYaw", "HeadPitch"],
+        "LArm": ["LShoulderPitch", "LShoulderRoll", "LElbowYaw", "LElbowRoll", "LWristYaw"],
+        "RArm": ["RShoulderPitch", "RShoulderRoll", "RElbowYaw", "RElbowRoll", "RWristYaw"]
+    }
+\end{lstlisting}
+Damit kann über \texttt{joints[``Gruppe'']} auf die einzelnen Gelenke zugegriffen werden und die Positionen der Gelenke gelesen und gesetzt werden. Die Berechnung der inversen Kinematiken erfolgt über die \textit{pyBullet} Bibliothek und die Funktion \texttt{p.calculateInverseKinematics([Robot], [Gelenk-Gruppe], [Position], [Orientierung])}. Dabei können die Positionen und Orientierungen der Gelenke direkt in der Funktion übergeben werden und die Funktion gibt die berechneten Positionen der Gelenke zurück.\\
+Diese Daten sind nun so aufbereitet, dass sie direkt an die NAOqi\_bridge übergeben werden können. Dazu wird zunächst der eine Session des Roboters geöffnet und dieser der Service \textit{ALMotion} über \texttt{m\_service = session.service(ALMotion)} gestartet. Die Positionen der Gelenke werden dann über den Service und der Funktion \texttt{m\_service.setAngles([Name], [Winkel], [MaxGeschwindigkeit])} an die NAOqi\_bridge übergeben und die Gelenke des Roboters werden in die gewünschte Position gebracht. Unter den Namen werden in diesem Projekt die folgenden Gelenke angesprochen:
+\begin{itemize}
+    \item \textit{/pepper\_robot/HeadYaw} - Die Position des Kopfes um die Y-Achse.
+    \item \textit{/pepper\_robot/HeadPitch} - Die Position des Kopfes um die X-Achse.
+    \item \textit{/pepper\_robot/[R,L]ShoulderPitch} - Die Position des Schultergelenks um die X-Achse.
+    \item \textit{/pepper\_robot/[R,L]ShoulderRoll} - Die Position des Schultergelenks um die Y-Achse.
+    \item \textit{/pepper\_robot/[R,L]ElbowYaw} - Die Position des Ellenbogengelenks um die Y-Achse.
+    \item \textit{/pepper\_robot/[R,L]ElbowRoll} - Die Position des Ellenbogengelenks um die X-Achse.
+    \item \textit{/pepper\_robot/[R,L]WristYaw} - Die Position des Handgelenks um die Y-Achse.
+    \item \textit{/pepper\_robot/WheelFL} - Die Position des linken Vorderrades.
+    \item \textit{/pepper\_robot/WheelFR} - Die Position des rechten Vorderrades.
+    \item \textit{/pepper\_robot/WheelB} - Die Position des hinteren Rades.
+\end{itemize}
+
+Diese Daten werden mit der maximalen Frequenz des Peppers von 10Hz an die NAOqi\_bridge übergeben womit bedingt durch die Bewegung des Users und die Trägheit eine Art Interpolation geschaffen wird und die Bewegungen des Roboters flüssiger und natürlicher wirken.\\
+
+\section{Fahrwerk-Node}\label{sec:Fahrwerk-Node}
+(nicht vollständig Implementiert)\\\\
+Das Fahrwerk des Pepper wird nicht direkt über die MetaQuest3 gesteuert, sondern über die Knöpfe der MetaQuest3. Dadurch kann hier weder mit Positionen gearbeitet werden, noch mit inversen Kinematiken. Ebenfalls platziert in der Berechnungs-Node, können die Variablen wie die \texttt{session} und der \texttt{m\_service} auch für diese Berechnungen genutzt werden. Für diesen Ansatz wird jedoch eine separate callback-Funktion benötigt. Sie reagiert auf die \textit{/AR/button} Nachrichten und lässt den Roboter entsprechend der Knöpfe bewegen. Hierzu werden keine aufwendigen Berechnungen benötigt, sondern nur die Knöpfe ausgelesen und eine Translation oder Rotation des Roboters durchgeführt.\\
+Die Knöpfe der MetaQuest3 sind in diesem Projekt wie folgt belegt:
+\begin{itemize}
+    \item \textit{A} - Vorwärtsbewegung
+    \item \textit{B} - Rückwärtsbewegung
+    \item \textit{X} - Drehung nach links
+    \item \textit{Y} - Drehung nach rechts
+\end{itemize}
+Auf die Knöpfe wird über die \textit{OVRInput}-Klasse von Unity zugegriffen und als einfacher charakter in der Topic übergeben. Dadurch kann zwar nur ein einzelner Befehl ausgeführt werden, was jedoch über die Tastenbelegung eher durch den User begrenzt wird. Auch das Fahrwerk kann über den \texttt{m\_service} angesprochen werden und die Räder des Roboters können über die Funktion \texttt{m\_service.moveToward([X], [Y], [Theta])} in die gewünschte Richtung bewegt werden. Die Werte für X und Y sind dabei die Geschwindigkeiten der Vorderräder und der Wert für Theta ist die Geschwindigkeit des hinteren Rades. Die Werte können dabei zwischen -1 und 1 liegen, wobei -1 die maximale Geschwindigkeit in die eine Richtung und 1 die maximale Geschwindigkeit in die andere Richtung bedeutet. Auch hier wird die Funktion mit 10Hz aufgerufen und der Roboter bewegt sich nur solange einer der Knöpfe gedrückt wird. Wird ein Knopf entlastet stoppt der Roboter. Die Bewegung des Roboters wird dabei durch die Trägheit des Roboters und die Reaktionszeit des Users begrenzt und wirkt so natürlicher und flüssiger.\\
