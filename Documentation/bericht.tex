@@ -155,6 +155,8 @@ Das Ziel der vorliegenden Studienarbeit ist es, eine mögliche Verbindung zwisch
 \end{abstract}
 
 \newpage
+\renewcommand{\thepage}{\Roman{page}}
+	\setcounter{page}{1}
 \tableofcontents           % Inhaltsverzeichnis hier ausgeben
 \listoffigures             % Liste der Abbildungen
 \listoftables              % Liste der Tabellen
@@ -163,7 +165,8 @@ Das Ziel der vorliegenden Studienarbeit ist es, eine mögliche Verbindung zwisch
 
 % Jetzt kommt der "eigentliche" Text
 \include{abk}              % Abkürzungsverzeichnis
-
+\renewcommand{\thepage}{\arabic{page}}
+	\setcounter{page}{1} 
 \include{Einleitung}
 \include{Grundlagen}
 \include{Technologieauswahl}
