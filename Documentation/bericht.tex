@@ -33,6 +33,7 @@
                                    % wird diese Input-Codierung benutzt.
 
 \usepackage{bericht}
+\usepackage{listings}
 
 
 %% ACHTUNG, wenn man eine eigene Formatdatei (bericht.fmt) benutzt, werden Änderungen an bericht.sty
@@ -102,7 +103,7 @@
 
 % Benutzt man das "biblatex"-Paket, dann muß das hier stehen:
 % siehe auch die mit BIBLATEX markierten Zeilen in bericht.sty
-\bibliography{T1000.bib}
+\bibliography{bericht.bib}
 \def\SymbReg{\textsuperscript{\textregistered}}
 \nocite{*}
 \begin{document}
@@ -112,7 +113,7 @@
 \begin{titlepage}
 \begin{center}
 \vspace*{-2cm}
-\includegraphics[width=4cm]{dhbw-logo}\\[2cm]
+\includegraphics[width=4cm]{Abbildungen/dhbw-logo.png}\\[2cm]
 {\Huge \Titel}\\[1cm]
 {\Huge\scshape \Was}\\[1cm]
 {\large für die Prüfung zum}\\[0.5cm]
@@ -136,6 +137,8 @@ Gutachter der Studienakademie	 & \BetreuerDHBW		\\
 \end{tabular}
 \end{titlepage}
 
+\include{Commands}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{erklaerung.tex}
@@ -144,29 +147,26 @@ Gutachter der Studienakademie	 & \BetreuerDHBW		\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-Das Ziel der vorliegenden Projektarbeit ist es, die agile Projektmanagement Methode Scrum auf Projekte der betrieblichen Ausbildung, im Speziellen auf das Umfeld der betrieblichen Ausbildung der Siemens AG, anzupassen. Dazu wurden zwei Projekte, die mit unterschiedlichen Ansätzen in der Ausbildungsabteilung durchgeführt wurden, betrachtet, Problematiken identifiziert und Lösungsansätze entwickelt. Aus den Betrachtungen geht hervor, dass das Scrum Framework grundsätzlich die Anforderungen der betrieblichen Ausbildungsabteilung der Siemens AG erfüllt, allerdings einige Anpassungen notwendig sind, auf welche im Kapitel 4 genauer eingegangen wird. Diese Arbeit richtet sich sowohl an bereits erfahrene Nutzer des Scrum Frameworks, als auch an Menschen die dieses Framework genauer kennenlernen möchten. Besonders widmet sich diese Arbeit an die Ausbilder im betrieblichen Umfeld, die an der Einführung eines neuen Projektmanagementansatzes interessiert sind und von den Erkenntnissen vergangener Projekte profitieren möchten.
-\newline
-\newline
-
-\noindent
-The goal of this project work was to adapt the agile project management method Scrum to projects of the company training, in particular to the environment of the company training of Siemens AG. For this purpose, two projects that were carried out with different approaches in the training department were examined, problems identified and solutions developed. From the observations it emerges that the Scrum framework basically meets the requirements of the corporate training department of Siemens AG, but that some adaptations are necessary, which will be discussed in more detail in Chapter 4. This work addresses both already experienced users of the Scrum framework and people who would like to get to know this framework in more detail. In particular, this work is dedicated to trainers in the operational environment who are interested in introducing a new project management approach and who would like to benefit from the findings of past projects.
-
-
+Das Ziel der vorliegenden Studienarbeit ist es, eine Verbindung zwischen einer Virtual-Reality Brille und dem humanoiden Roboter Pepper herzustellen. Das Kamerabild des Roboters soll auf der Brille angezeigt werden, ebenfalls soll es möglich sein, den Roboter mit Hilfe der Controller der Brille zu steuern.
 \end{abstract}
 
 \newpage
 \tableofcontents           % Inhaltsverzeichnis hier ausgeben
 \listoffigures             % Liste der Abbildungen
-%\listoftables              % Liste der Tabellen
-%\lstlistoflistings         % Liste der Listings
-%\listofequations           % Liste der Formeln
+\listoftables              % Liste der Tabellen
+\lstlistoflistings         % Liste der Listings
+\listofequations           % Liste der Formeln
 
 % Jetzt kommt der "eigentliche" Text
-%\include{abk}              % Abkürzungsverzeichnis
+\include{abk}              % Abkürzungsverzeichnis
+
 \include{Einleitung}
 \include{Grundlagen}
-\include{DieProjekte}
-\include{ReflexionUndAusblick}
+\include{Technologieauswahl}
+\include{Umsetzung}
+\include{Anwendungsgebiete}
+\include{Fazit}
+\include{Fortsetzung}
 
 
 
