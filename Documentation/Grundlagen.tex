@@ -211,7 +211,11 @@ Colcon ist ein Kommandozeilenwerkzeug zur Verbesserung des Arbeitsablaufs beim E
 
 
 \section{Programming Languages}
-Wie bereits in \autoref{subsec:ROS2NutzerBibliotheken} erwähnt, bietet \ac{ROS} 2 die Möglichkeit, Nodes in verschiedenen Programmiersprachen zu schreiben. Dabei sind die beiden Hauptprogrammiersprachen, die von \ac{ROS} 2 unterstützt werden, C++ und Python.\\
+Wie bereits in \autoref{subsec:ROS2NutzerBibliotheken} erwähnt, bietet \ac{ROS} 2 die Möglichkeit, Nodes in verschiedenen Programmiersprachen zu schreiben. Dabei sind die beiden Hauptprogrammiersprachen, die von \ac{ROS} 2 unterstützt werden, C++ und Python. 
+\\
+
+\noindent
+Für die Entwicklung in den Entwicklungsumgebungen für die VR-Brille wird C\# verwendet, deshalb wird auch diese Programmiersprache im folgenden vorgestellt.
 
 \subsection{C++}\label{subsec:Cpp}
 C++ ist eine von Bjarne Stroustrup entwickelte, weit verbreitete Programmiersprache, die ursprünglich als Erweiterung der Programmiersprache C konzipiert wurde \cite{CppWikipedia}. Sie ist bekannt für ihre Leistungsfähigkeit und Flexibilität. Die Sprache bietet Funktionen wie starke Typisierung, effiziente Ressourcenverwaltung und die Möglichkeit der Hardwarezugriffssteuerung, was sie zu einer beliebten Wahl für die Entwicklung von Systemsoftware, Betriebssystemen und Embedded-Programmierung macht.\\
@@ -307,6 +311,7 @@ Welche dieser Arten der Interpolation verwendet wird, hängt im Endeffekt von de
 \subsection{Inverse Kinematik}\label{subsec:InverseKinematik}
 Die inverse Kinematik ist ein mathematisches Problem, bei dem die Gelenkwinkel eines Roboters berechnet werden, um eine bestimmte Position und Orientierung des Endeffektors zu erreichen. Sie ist das Gegenstück zur direkten Kinematik, bei der die Position und Orientierung des Endeffektors aus den Gelenkwinkeln berechnet werden.\\
 \normfig{Inverse-Kinematik}{1}{wiki_inverse_kinematics}
+\noindent
 Das Problem der inversen Kinematik ist in der Regel nicht trivial, da es oft mehrere Lösungen gibt oder die Lösung nicht eindeutig ist. Es gibt verschiedene Methoden zur Lösung des Problems der inversen Kinematik, darunter geometrische Methoden, numerische Methoden und optimierungsorientierte Methoden.\\
 Geometrische Methoden basieren auf der Geometrie des Roboters und verwenden trigonometrische Beziehungen, um die Gelenkwinkel zu berechnen. Numerische Methoden verwenden iterative Verfahren, um die Gelenkwinkel schrittweise zu approximieren. Optimierungsorientierte Methoden formulieren das Problem der inversen Kinematik als Optimierungsproblem und verwenden Optimierungsalgorithmen, um die Gelenkwinkel zu berechnen.\\
 Die Wahl der Methode hängt von der Komplexität des Roboters, der Genauigkeit der Lösung und den Anforderungen der Anwendung ab. In der Praxis werden oft Kombinationen verschiedener Methoden verwendet, um das Problem der inversen Kinematik zu lösen.\\

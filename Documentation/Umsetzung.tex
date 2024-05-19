@@ -1,5 +1,21 @@
 \chapter{Umsetzung}
 \section{MetaQuest3}
+Die MetaQuest 3 VR-Brille spielt eine zentrale Rolle in der Umsetzung dieses Projekts, da sie als Hauptschnittstelle für die Steuerung des humanoiden Roboters Pepper dient. Im Folgenden werden die wesentlichen Schritte und Herausforderungen bei der Implementierung und Integration der MetaQuest 3 beschrieben:
+
+\subsection{Einrichtung der MetaQuest 3}
+Die erste Aufgabe bestand darin, die MetaQuest 3 VR-Brille einzurichten und mit der notwendigen Software auszustatten. Dies umfasste die Installation der MetaQuest-App auf einem kompatiblen Smartphone, die Verbindung der Brille mit dem WLAN und die Aktualisierung der Firmware, um sicherzustellen, dass die neueste Version verwendet wird. Zusätzlich wurde die Brille an die spezifischen Anforderungen des Projekts angepasst, indem Einstellungen wie Bildschirmauflösung und Tracking-Präzision optimiert wurden.
+
+\subsection{Integration mit Unity}
+Die MetaQuest 3 wurde über die Oculus Integration in die Unity-Entwicklungsumgebung eingebunden. Dieses Plugin stellt die notwendigen APIs und Tools bereit, um die VR-Funktionalitäten in Unity-Projekten zu nutzen. Die Integration erforderte die Einrichtung des Unity-Projekts, einschließlich der Konfiguration der VR-Einstellungen und der Implementierung von VR-spezifischen Steuerungen und Interaktionen. Zusätzlich wurden die grafischen Ressourcen und Assets für die VR-Umgebung entsprechend angepasst, um eine optimale Darstellung und Leistung auf der MetaQuest 3 zu gewährleisten.
+
+\subsection{Datenübertragung und Latenzoptimierung}
+Eine der größten Herausforderungen war die Optimierung der Datenübertragung zwischen der MetaQuest 3 und dem Steuersystem des Roboters Pepper, um eine minimale Latenz und eine reibungslose Steuerung zu gewährleisten. Hierfür wurde eine robuste Netzwerkverbindung eingerichtet und spezielle Protokolle und Datenkompressionsalgorithmen implementiert, um den Datenverkehr zu optimieren. Darüber hinaus wurden verschiedene Techniken zur Latenzkompensation angewendet, um sicherzustellen, dass die Bewegungen des Bedieners in Echtzeit auf den Roboter übertragen werden.
+
+\subsection{Benutzerinteraktion und Feedback}
+Die Benutzerinteraktion und das Feedback spielten eine entscheidende Rolle für die Benutzerfreundlichkeit und Effektivität des Systems. Hierfür wurden intuitive Steuerelemente und Interaktionsmöglichkeiten implementiert, die es dem Bediener ermöglichen, den Roboter Pepper präzise und intuitiv zu steuern. Zusätzlich wurden visuelle und haptische Feedbackmechanismen integriert, um dem Bediener Rückmeldung über den Status des Roboters und die Auswirkungen seiner Aktionen zu geben.
+
+\subsection{Test und Validierung}
+Nach Abschluss der Implementierung wurden umfangreiche Tests und Validierungen durchgeführt, um die Funktionalität und Leistungsfähigkeit der MetaQuest 3 in Verbindung mit der Steuerung des humanoiden Roboters Pepper zu überprüfen. Hierbei wurden verschiedene Szenarien und Anwendungsfälle simuliert, um die Zuverlässigkeit und Praxistauglichkeit des Systems zu gewährleisten und sicherzustellen, dass die Anforderungen an eine präzise und immersive Steuerung erfüllt werden.
 
 \section{ROS-Topics}\label{sec:ros-topics}
 Die allgemeine Datenkommunikation des Projektes wird zwischen den Komponenten ausschließlich über \ac{ROS}-Topics abgewickelt und über \ac{ROS} verwaltet. Welche dabei standardmäßig von welchen Komponenten angeboten werden und welche noch zusätzlich hinzugefügt werden müssen werden im folgenden Abschnitt beschrieben.\\
