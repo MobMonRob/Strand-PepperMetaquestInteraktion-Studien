@@ -211,7 +211,11 @@ Colcon ist ein Kommandozeilenwerkzeug zur Verbesserung des Arbeitsablaufs beim E
 
 
 \section{Programming Languages}
-Wie bereits in \autoref{subsec:ROS2NutzerBibliotheken} erwähnt, bietet \ac{ROS} 2 die Möglichkeit, Nodes in verschiedenen Programmiersprachen zu schreiben. Dabei sind die beiden Hauptprogrammiersprachen, die von \ac{ROS} 2 unterstützt werden, C++ und Python.\\
+Wie bereits in \autoref{subsec:ROS2NutzerBibliotheken} erwähnt, bietet \ac{ROS} 2 die Möglichkeit, Nodes in verschiedenen Programmiersprachen zu schreiben. Dabei sind die beiden Hauptprogrammiersprachen, die von \ac{ROS} 2 unterstützt werden, C++ und Python. 
+\\
+
+\noindent
+Für die Entwicklung in den Entwicklungsumgebungen für die VR-Brille wird C\# verwendet, deshalb wird auch diese Programmiersprache im folgenden vorgestellt.
 
 \subsection{C++}\label{subsec:Cpp}
 C++ ist eine von Bjarne Stroustrup entwickelte, weit verbreitete Programmiersprache, die ursprünglich als Erweiterung der Programmiersprache C konzipiert wurde \cite{CppWikipedia}. Sie ist bekannt für ihre Leistungsfähigkeit und Flexibilität. Die Sprache bietet Funktionen wie starke Typisierung, effiziente Ressourcenverwaltung und die Möglichkeit der Hardwarezugriffssteuerung, was sie zu einer beliebten Wahl für die Entwicklung von Systemsoftware, Betriebssystemen und Embedded-Programmierung macht.\\
@@ -226,7 +230,38 @@ Python ist aufgrund seiner Lesbarkeit, Benutzerfreundlichkeit und großartigen B
 \subsubsection{pyBullet}\label{subsubsec:pyBullet}
 \texttt{pyBullet} ist eine Python-Bibliothek, die eine einfache Schnittstelle zur Simulation von Robotern und anderen physikalischen Systemen bietet. Sie basiert auf der Bullet Physics Engine, einer Open-Source-Physik-Engine, die für die Simulation von starren Körpern, Flüssigkeiten, Stoffen und anderen physikalischen Phänomenen verwendet wird. \texttt{pyBullet} ermöglicht es, Robotermodelle zu erstellen, ihre Kinematik und Dynamik zu simulieren und ihre Bewegung zu steuern.\\
 Für eben diese Berechnung der inversen Kinematik wird auf Grund der einfachen Handhabung und der guten Dokumentation \texttt{pyBullet} verwendet. Die Bibliothek bietet eine Vielzahl von Funktionen und Methoden, die es ermöglichen, die Gelenkwinkel eines Roboters zu berechnen, um eine bestimmte Position und Orientierung des Endeffektors zu erreichen. Die einizige Voraussetzung ist, dass das Modell des Roboters in \texttt{pyBullet} geladen und konfiguriert ist. Dazu wird das Modell in einer \texttt{.urdf}-Datei, siehe \autoref{subsec:DarstellungKinematik}, beschrieben und in \texttt{pyBullet} geladen. Anschließend können die Gelenkwinkel des Roboters berechnet werden, um die gewünschte Position und Orientierung des Endeffektors zu erreichen.\\
+\subsection{C\#}
+C\# (ausgesprochen "C-Sharp") ist eine moderne, objektorientierte Programmiersprache, die von Microsoft im Jahr 2000 als Teil seiner .NET-Initiative entwickelt wurde. Die Sprache wurde unter der Leitung von Anders Hejlsberg entwickelt und ist stark von anderen populären Sprachen wie C, C++ und Java inspiriert. C\# ist für seine Vielseitigkeit, Robustheit und Benutzerfreundlichkeit bekannt und wird in einer Vielzahl von Anwendungen eingesetzt, von Desktop- und Web-Anwendungen bis hin zu mobilen Apps und Spielen, insbesondere in der Entwicklung mit der Unity-Engine.
 
+\subsection{Syntax und Grundstruktur}
+
+Die Syntax von C\# ist einfach und klar, was es für Entwickler leicht macht, die Sprache zu erlernen und zu verwenden.
+\subsection{Objektorientierte Programmierung (OOP)}
+
+C\# unterstützt die vier Hauptprinzipien der objektorientierten Programmierung:
+\\
+
+\noindent
+1. \textbf{Abstraktion}: Das Verbergen komplexer Implementierungsdetails und das Zeigen nur der notwendigen Eigenschaften eines Objekts.
+\newline
+2. \textbf{Kapselung}: Das Zusammenfassen von Daten und Methoden, die auf diese Daten zugreifen, innerhalb einer Klasse und das Verbergen der Details der Implementierung vor anderen Klassen.
+\newline
+3. \textbf{Vererbung}: Die Fähigkeit einer Klasse, die Eigenschaften und Methoden einer anderen Klasse zu erben, was Code-Wiederverwendung und Hierarchien ermöglicht.
+\newline
+4. \textbf{Polymorphismus}: Die Fähigkeit, eine Methode auf verschiedene Weise zu implementieren oder zu überschreiben, was eine flexible und dynamische Nutzung von Methoden ermöglicht.
+\subsection{Vorteile von C\#}
+
+C\# bietet mehrere Vorteile, die es zu einer beliebten Wahl für Entwickler machen:
+\\
+
+\noindent
+- \textbf{Einfach zu erlernen}: Die klare Syntax und die umfangreiche Dokumentation machen C\# zu einer anfängerfreundlichen Sprache.
+\newline
+- \textbf{Leistungsfähig und flexibel}: C\# ist leistungsfähig genug für komplexe Anwendungen und flexibel genug für schnelle Entwicklung.
+\newline
+- \textbf{Große Community und Ressourcen}: Die große Entwicklergemeinschaft und die Fülle an Online-Ressourcen, Tutorials und Foren machen es einfach, Unterstützung zu finden und Wissen auszutauschen.
+\newline
+- \textbf{Integrierte Entwicklungsumgebungen (IDEs)}: Tools wie Visual Studio und Visual Studio Code bieten leistungsstarke Entwicklungsumgebungen mit Debugging- und Code-Analyse-Funktionen.
 
 \section{Kinematische Grundlagen}\label{sec:KinematischeGrundlagen}
 
@@ -276,6 +311,7 @@ Welche dieser Arten der Interpolation verwendet wird, hängt im Endeffekt von de
 \subsection{Inverse Kinematik}\label{subsec:InverseKinematik}
 Die inverse Kinematik ist ein mathematisches Problem, bei dem die Gelenkwinkel eines Roboters berechnet werden, um eine bestimmte Position und Orientierung des Endeffektors zu erreichen. Sie ist das Gegenstück zur direkten Kinematik, bei der die Position und Orientierung des Endeffektors aus den Gelenkwinkeln berechnet werden.\\
 \normfig{Inverse-Kinematik}{1}{wiki_inverse_kinematics}
+\noindent
 Das Problem der inversen Kinematik ist in der Regel nicht trivial, da es oft mehrere Lösungen gibt oder die Lösung nicht eindeutig ist. Es gibt verschiedene Methoden zur Lösung des Problems der inversen Kinematik, darunter geometrische Methoden, numerische Methoden und optimierungsorientierte Methoden.\\
 Geometrische Methoden basieren auf der Geometrie des Roboters und verwenden trigonometrische Beziehungen, um die Gelenkwinkel zu berechnen. Numerische Methoden verwenden iterative Verfahren, um die Gelenkwinkel schrittweise zu approximieren. Optimierungsorientierte Methoden formulieren das Problem der inversen Kinematik als Optimierungsproblem und verwenden Optimierungsalgorithmen, um die Gelenkwinkel zu berechnen.\\
 Die Wahl der Methode hängt von der Komplexität des Roboters, der Genauigkeit der Lösung und den Anforderungen der Anwendung ab. In der Praxis werden oft Kombinationen verschiedener Methoden verwendet, um das Problem der inversen Kinematik zu lösen.\\
@@ -302,65 +338,6 @@ Zusammen bieten \ac{URDF} und \ac{SRDF} eine vollständige Beschreibung eines Ro
 
 
 
-\section{Virtual Reality}
-Virtual Reality (VR) hat sich in den letzten Jahrzehnten von einem visionären Konzept zu einer greifbaren Technologie entwickelt, die in zahlreichen Bereichen unseres Lebens Anwendung findet. VR bezeichnet computergenerierte, dreidimensionale Umgebungen, die durch spezielle Hardware wie VR-Brillen und Bewegungssensoren eine immersive Erfahrung ermöglichen. Benutzer können in diese virtuellen Welten eintauchen und mit ihnen interagieren, was das Gefühl vermittelt, tatsächlich dort anwesend zu sein.
-\\
-
-\noindent
-Die Wurzeln der VR-Technologie reichen bis in die 1960er Jahre zurück. Einer der frühesten Vorläufer moderner VR-Systeme war das Sensorama, das 1962 von Morton Heilig entwickelt wurde. Das Sensorama bot multisensorische Erlebnisse und kann als eines der ersten Systeme betrachtet werden, das den Nutzer vollständig in eine künstliche Umgebung eintauchen ließ \cite{heilig1962}. Ein weiterer bedeutender Meilenstein war das "Sword of Damocles", das erste echte VR-Headset, das 1968 von Ivan Sutherland entwickelt wurde. Es war ein klobiges Gerät, das an der Decke montiert werden musste, und bot eine rudimentäre Form der virtuellen Realität \cite{sutherland1968}.
-\\
-
-\noindent
-In den 1980er und 1990er Jahren erlebte VR einen weiteren Aufschwung, insbesondere durch die Arbeit von Jaron Lanier, der den Begriff „Virtual Reality“ populär machte und die Firma VPL Research gründete, die einige der ersten kommerziellen VR-Produkte entwickelte \cite{lanier1992}. Trotz dieser Fortschritte blieb VR lange Zeit eine Nischentechnologie, hauptsächlich aufgrund der hohen Kosten und technischen Einschränkungen.
-\\
-
-\noindent
-Erst in den 2010er Jahren, mit der Einführung moderner, kostengünstigerer VR-Headsets wie der Oculus Rift, entwickelte sich VR zu einer breiter zugänglichen Technologie. Die Oculus Rift, ursprünglich 2012 auf Kickstarter finanziert, revolutionierte den Markt und führte zu einer neuen Welle von Innovationen in der VR-Technologie \cite{luckey2012}. Kurz darauf folgten andere bedeutende Systeme wie die HTC Vive und PlayStation VR, die die VR-Erfahrung weiter verbesserten und breitere Zielgruppen erreichten.
-\\
-
-\noindent
-Die heutige VR-Technologie zeichnet sich durch hochauflösende Displays, präzises Tracking und eine Vielzahl von Eingabemethoden aus, die eine immersive und interaktive Erfahrung ermöglichen. Meta Quest 3 (ehemals Oculus Quest 3) ist ein Beispiel für ein modernes, eigenständiges VR-Headset, das keine Verbindung zu einem leistungsstarken PC benötigt und dennoch eine beeindruckende Leistung bietet \cite{meta2023}.
-\\
-
-\noindent
-Die Anwendungsbereiche von VR sind vielfältig und umfassen nicht nur Unterhaltung und Spiele, sondern auch Bildung, medizinische Therapie, Training und Simulationen, Architektur und Design sowie viele andere Felder. Zum Beispiel wird VR in der Medizin zur Behandlung von Phobien, in der Schmerztherapie und in der Rehabilitation eingesetzt \cite{rizzo2017}. In der Ausbildung ermöglicht VR realitätsnahe Trainingsumgebungen, die sicher und kontrolliert sind, was insbesondere in der Luftfahrt und der Medizin von großem Nutzen ist \cite{huang2018}.
-\\
-
-\noindent
-Die rapide Weiterentwicklung von Hardware und Software sowie die steigende Akzeptanz und Integration von VR in verschiedenen Lebensbereichen zeigen, dass diese Technologie das Potenzial hat, unsere Interaktion mit digitalen Inhalten und unsere Wahrnehmung von Realität grundlegend zu verändern. Die folgenden Abschnitte dieser Arbeit werden die technologischen Grundlagen von VR, verschiedene Anwendungsbereiche sowie die aktuellen Herausforderungen und Zukunftsaussichten der Technologie detailliert untersuchen.
-
-\subsection{C\#}
-C\# (ausgesprochen "C-Sharp") ist eine moderne, objektorientierte Programmiersprache, die von Microsoft im Jahr 2000 als Teil seiner .NET-Initiative entwickelt wurde. Die Sprache wurde unter der Leitung von Anders Hejlsberg entwickelt und ist stark von anderen populären Sprachen wie C, C++ und Java inspiriert. C\# ist für seine Vielseitigkeit, Robustheit und Benutzerfreundlichkeit bekannt und wird in einer Vielzahl von Anwendungen eingesetzt, von Desktop- und Web-Anwendungen bis hin zu mobilen Apps und Spielen, insbesondere in der Entwicklung mit der Unity-Engine.
-
-\subsection{Syntax und Grundstruktur}
-
-Die Syntax von C\# ist einfach und klar, was es für Entwickler leicht macht, die Sprache zu erlernen und zu verwenden.
-\subsection{Objektorientierte Programmierung (OOP)}
-
-C\# unterstützt die vier Hauptprinzipien der objektorientierten Programmierung:
-\\
-
-\noindent
-1. \textbf{Abstraktion}: Das Verbergen komplexer Implementierungsdetails und das Zeigen nur der notwendigen Eigenschaften eines Objekts.
-\newline
-2. \textbf{Kapselung}: Das Zusammenfassen von Daten und Methoden, die auf diese Daten zugreifen, innerhalb einer Klasse und das Verbergen der Details der Implementierung vor anderen Klassen.
-\newline
-3. \textbf{Vererbung}: Die Fähigkeit einer Klasse, die Eigenschaften und Methoden einer anderen Klasse zu erben, was Code-Wiederverwendung und Hierarchien ermöglicht.
-\newline
-4. \textbf{Polymorphismus}: Die Fähigkeit, eine Methode auf verschiedene Weise zu implementieren oder zu überschreiben, was eine flexible und dynamische Nutzung von Methoden ermöglicht.
-\subsection{Vorteile von C\#}
-
-C\# bietet mehrere Vorteile, die es zu einer beliebten Wahl für Entwickler machen:
-\\
-
-\noindent
-- \textbf{Einfach zu erlernen}: Die klare Syntax und die umfangreiche Dokumentation machen C\# zu einer anfängerfreundlichen Sprache.
-\newline
-- \textbf{Leistungsfähig und flexibel}: C\# ist leistungsfähig genug für komplexe Anwendungen und flexibel genug für schnelle Entwicklung.
-\newline
-- \textbf{Große Community und Ressourcen}: Die große Entwicklergemeinschaft und die Fülle an Online-Ressourcen, Tutorials und Foren machen es einfach, Unterstützung zu finden und Wissen auszutauschen.
-\newline
-- \textbf{Integrierte Entwicklungsumgebungen (IDEs)}: Tools wie Visual Studio und Visual Studio Code bieten leistungsstarke Entwicklungsumgebungen mit Debugging- und Code-Analyse-Funktionen.
 \section{Virtual Reality}
 Virtual Reality (VR) hat sich in den letzten Jahrzehnten von einem visionären Konzept zu einer greifbaren Technologie entwickelt, die in zahlreichen Bereichen unseres Lebens Anwendung findet. VR bezeichnet computergenerierte, dreidimensionale Umgebungen, die durch spezielle Hardware wie VR-Brillen und Bewegungssensoren eine immersive Erfahrung ermöglichen. Benutzer können in diese virtuellen Welten eintauchen und mit ihnen interagieren, was das Gefühl vermittelt, tatsächlich dort anwesend zu sein.
 \\
