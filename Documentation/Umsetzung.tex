@@ -1,4 +1,5 @@
 \chapter{Umsetzung}
+In diesem Kapitel wird nun die theoretische Umsetzung des Projektes in den vorher beschriebenen Technologien beschrieben. Da das Projekt leider nicht umgesetzt werden konnte, wird hier lediglich eine mögliche Vorgehensweise beschrieben.
 \section{MetaQuest3}
 Die MetaQuest 3 VR-Brille spielt eine zentrale Rolle in der Umsetzung dieses Projekts, da sie als Hauptschnittstelle für die Steuerung des humanoiden Roboters Pepper dient. Im Folgenden werden die wesentlichen Schritte und Herausforderungen bei der Implementierung und Integration der MetaQuest 3 beschrieben:
 
@@ -21,16 +22,28 @@ Nach Abschluss der Implementierung wurden umfangreiche Tests und Validierungen d
 Die allgemeine Datenkommunikation des Projektes wird zwischen den Komponenten ausschließlich über \ac{ROS}-Topics abgewickelt und über \ac{ROS} verwaltet. Welche dabei standardmäßig von welchen Komponenten angeboten werden und welche noch zusätzlich hinzugefügt werden müssen werden im folgenden Abschnitt beschrieben.\\
 \subsection{Videostream und Kamerabilder}\label{subsec:Videostream}
 (nicht vollständig Implementiert)\\\\
-Einen Videostream wie man ihn von einem normalen Video-Player kennt, ist in \ac{ROS} nicht direkt möglich. Stattdessen wird der Stream als eine Abfolge von Bildern übertragen. Diese Bilder werden in einer Node, die Zugriff auf die Kamera hat, aufgenommen, nach Bedarf verarbeitet und schließlich über ein \ac{ROS}-Topic veröffentlicht.\\
-Dieser pseudo-Stream wird standardmäßig von der \textit{NAOqi\_bridge} bereitgestellt. Dadurch ist nicht nur der Zugriff auf die front-Kamera des Roboters gegeben, sondern alle Kameras und Sensoren des Roboters. Bei den Kameras kann zwischen der front-Kamera und der bottom-Kamera gewählt werden, wobei die NAOqi\_bridge die Bilder der Kameras in verschiedenen Topics veröffentlicht wodurch verschiedene Features der Kameras genutzt werden können.\\
+Einen Videostream wie man ihn von einem normalen Video-Player kennt, ist in \ac{ROS} nicht direkt möglich. Stattdessen wird der Stream als eine Abfolge von Bildern übertragen. Diese Bilder werden in einer Node, die Zugriff auf die Kamera hat, aufgenommen, nach Bedarf verarbeitet und schließlich über ein \ac{ROS}-Topic veröffentlicht.
+\\
+
+\noindent
+Dieser pseudo-Stream wird standardmäßig von der \textit{NAOqi\_bridge} bereitgestellt. Dadurch ist nicht nur der Zugriff auf die front-Kamera des Roboters gegeben, sondern alle Kameras und Sensoren des Roboters. Bei den Kameras kann zwischen der front-Kamera und der bottom-Kamera gewählt werden, wobei die NAOqi\_bridge die Bilder der Kameras in verschiedenen Topics veröffentlicht wodurch verschiedene Features der Kameras genutzt werden können.
+\\
+
+\noindent
 Die verschiedenen Topics sind kaskadiert aufgebaut und liegen unter dem Topic \textit{/pepper\_robot/camera/front/}, \textit{/pepper\_robot/camera/bottom/} und \textit{/naoqi\_bridge/camera/depth}  wobei für das Projekt nur die Frontkamera relevant ist. Sie bietet folgende Topics an:
 \begin{itemize}
     \item \textit{image\_raw} - Das unverarbeitete Bild der Kamera in voller Auflösung und Farbtiefe
     \item \textit{image\_raw/compressed} - Das komprimierte Bild der Kamera komprimiert durch die \ac{JPEG}-Kompression
     \item \textit{image\_raw/theora} - Das komprimierte Bild der Kamera im Theora-Format ebenfalls komprimiert mit Theora
 \end{itemize}
-Das Projekt nutzt das Topic \textit{image\_raw/compressed} um die Bilder der Kamera zu empfangen. Eine direkte Übertragung der Bilder unkomprimiert, ist in der Theorie zwar möglich ist aber für eine \ac{AR} Anwendung nicht von Vorteil, da die Bilder in der Regel nicht in voller Auflösung benötigt werden und die Übertragung der Bilder unkomprimiert zu einer hohen Netzwerkauslastung führen würde, was wiederum die Latenz der Bilder erhöhen und die Anzahl der Bilder pro Sekunde begrenzen würde. Dies wiederum würde im Umkehrschluss die Qualität der \ac{AR} Anwendung drastisch verschlechtern und ein magelhaftes Erlebnis bieten, welches bis hin zur Übelkeit des Nutzers reichen könnte.\\
-Die Bilder werden von der NAOqi\_bridge in einem festen Intervall von 30 Bildern pro Sekunde veröffentlicht. Diese Rate ist bekannt als die niedrigste Rate, die der Mensch als flüssige Bewegung wahrnimmt und damit für die Anwendung ausreichend.\\
+Das Projekt nutzt das Topic \textit{image\_raw/compressed} um die Bilder der Kamera zu empfangen. Eine direkte Übertragung der Bilder unkomprimiert, ist in der Theorie zwar möglich ist aber für eine \ac{AR} Anwendung nicht von Vorteil, da die Bilder in der Regel nicht in voller Auflösung benötigt werden und die Übertragung der Bilder unkomprimiert zu einer hohen Netzwerkauslastung führen würde, was wiederum die Latenz der Bilder erhöhen und die Anzahl der Bilder pro Sekunde begrenzen würde. Dies wiederum würde im Umkehrschluss die Qualität der \ac{AR} Anwendung drastisch verschlechtern und ein magelhaftes Erlebnis bieten, welches bis hin zur Übelkeit des Nutzers reichen könnte.
+\\
+
+\noindent
+Die Bilder werden von der NAOqi\_bridge in einem festen Intervall von 30 Bildern pro Sekunde veröffentlicht. Diese Rate ist bekannt als die niedrigste Rate, die der Mensch als flüssige Bewegung wahrnimmt und damit für die Anwendung ausreichend.
+\\
+
+\noindent
 Mit einer \ac{HD} Auflösung von 1280x720 Pixel, 8-Bit Farbtiefe und einer angenommenen Kompressionsrate von 0.5 durch \ac{JPEG}, ergibt sich bei den genannten 30 Bildern pro Sekunde unkomprimiert eine Datenrate von etw. 663Mbit/s und mit Kompression etwa 331.5Mbit/s.\\
 \begin{equation}
     1280px \cdot 720px \cdot 8bit \cdot 30fps = 663Mbit/s
@@ -43,8 +56,14 @@ Mit einer \ac{HD} Auflösung von 1280x720 Pixel, 8-Bit Farbtiefe und einer angen
 
 \subsection{Teleoperationspositionen}
 (nicht vollständig Implementiert)\\\\
-Der Roboter selbst besitzt drei maßgebende Kinematiken, welche für die Teleoperation genutzt werden. Diese sind die beiden Arme  \textit{LArm} und \textit{RArm} und der Kopf \textit{Head}. Eine Ausnahme bildet das Fahrwerk, welches nicht direkt über Teleoperation gesteruert wir, aber trotzdem eine unabdingliche Rolle für die Teleoperation und dem Nutzen des Roboters spielt. Über die NAOqi\_bridge können Positionen der einzelnen Gelenke der Kinematiken abgefragt und gesetzt werden, was für das Fahrwerk und das Kopfgelenk direkt genutzt werdenk kann, jedoch für die Arme aber durch die hohe Anzahl an Gelenken zuerst weiter verarbeitet werden muss.\\
-Die Rohdaten für die gewünschte Position der Kinematiken werden von der MetaQuest3 Anwendung beziehungsweise Node bereitgestellt und über das Topic \textit{/AR/position/} mit den sub-Topics \textit{/LController}, \textit{/RController} und \textit{/Head} veröffentlicht. Wiederum eine Ausnahme bildet das Fahrwerk, welches indirekt seine Daten aus den Kontroller-Knöpfen der MetaQuest3 bezieht und unter dem Topic \textit{/AR/button} veröffentlicht.\\
+Der Roboter selbst besitzt drei maßgebende Kinematiken, welche für die Teleoperation genutzt werden. Diese sind die beiden Arme  \textit{LArm} und \textit{RArm} und der Kopf \textit{Head}. Eine Ausnahme bildet das Fahrwerk, welches nicht direkt über Teleoperation gesteruert wir, aber trotzdem eine unabdingliche Rolle für die Teleoperation und dem Nutzen des Roboters spielt. Über die NAOqi\_bridge können Positionen der einzelnen Gelenke der Kinematiken abgefragt und gesetzt werden, was für das Fahrwerk und das Kopfgelenk direkt genutzt werdenk kann, jedoch für die Arme aber durch die hohe Anzahl an Gelenken zuerst weiter verarbeitet werden muss.
+\\
+
+\noindent
+Die Rohdaten für die gewünschte Position der Kinematiken werden von der MetaQuest3 Anwendung beziehungsweise Node bereitgestellt und über das Topic \textit{/AR/position/} mit den sub-Topics \textit{/LController}, \textit{/RController} und \textit{/Head} veröffentlicht. Wiederum eine Ausnahme bildet das Fahrwerk, welches indirekt seine Daten aus den Kontroller-Knöpfen der MetaQuest3 bezieht und unter dem Topic \textit{/AR/button} veröffentlicht.
+\\
+
+\noindent
 Eine Position besteht sowohl aus der aktuellen und relativen Position der Komponente zu der Brille, als auch aus der aktuellen Winkel der Komponente. Diese beiden Werte werden in der Anwendung in einem festen Format gespeichert und über die Topics, einzeln für jede Kinematik-Gruppe veröffentlicht. Die dazugehörige Nachricht ist in Listing \autoref{lst:position-msg} zu sehen.\\
 \begin{lstlisting}[language=Python, caption=Positions Topic, label=lst:position-msg]
     float64 x
@@ -54,19 +73,41 @@ Eine Position besteht sowohl aus der aktuellen und relativen Position der Kompon
     float64 pitch
     float64 yaw
 \end{lstlisting}
-Im Gegensatz dazu die Winkel um die Achsen x, y und z, zu benennen ist es in der Robotik üblich diese als Roll, Pitch und Yaw zu bezeichnen. Diese Werte sind daher auch in der Nachricht als \textit{roll}, \textit{pitch} und \textit{yaw} zu finden. Sie werden statt in Winkel 0-360Grad in Radiant angegeben und können von -$\pi$ bis $\pi$ reichen. Die Positionen werden ebenfalls gemäß dem Standard in Metern angegeben und können in dem im Headset genullten Koordinatensystem frei bewegt werden.\\
+Im Gegensatz dazu die Winkel um die Achsen x, y und z, zu benennen ist es in der Robotik üblich diese als Roll, Pitch und Yaw zu bezeichnen. Diese Werte sind daher auch in der Nachricht als \textit{roll}, \textit{pitch} und \textit{yaw} zu finden. Sie werden statt in Winkel 0-360Grad in Radiant angegeben und können von -$\pi$ bis $\pi$ reichen. Die Positionen werden ebenfalls gemäß dem Standard in Metern angegeben und können in dem im Headset genullten Koordinatensystem frei bewegt werden.
+\\
+
+\noindent
 Wieder die Ausnahme bildet das Fahrwerk, welches nicht in einem 3D Raum bewegt wird, sondern nur in einer Ebene. Daher wird die Position des Fahrwerks nur in x und y angegeben und die Winkel nur in yaw. Die restlichen Werte werden ignoriert und für die Berechnung auf 0 gesetzt.\\
 
 \section{Streaming-Node}\label{sec:Streaming-Node}
-(nicht vollständig Implementiert)\\\\
-Für die Übertragung der Kamerabilder wie sie in \autoref{subsec:Videostream} beschrieben sind, wird eine eigene Node für die MetaQuest3 erstellt. Sie hat die einzig und alleinige Aufgabe die Kamerabilder des Pepper, aus der, von der NAOqi\_bridge zur Verfügung gestellten Topic \textit{/pepper\_robot/camera/front/compressed} aufzunehmen, in einem möglichst kleinen Zwischenspeicher (Buffer) zu speichern und mit möglichst geringer Latenz an die Brille weiter zu senden.\\
-Dazu wird in der \ac{AR}-App (die \ac{ROS} Node), die Topic \textit{/pepper\_robot/camera/front /image\_raw/compressed} abonniert. Die Bilder werden von dieser Topic so schnell wie es \ac{ROS} ermöglicht abgegriffen, und ind den Buffer geschrieben. Dadurch kann es zwar vorkommen, dass das selbe Bild mehrere male aus der Topic gelesen wird, jedoch ist es eine einfache Methode die Bilder zu übertragen und die Latenz gering zu halten um wiederum den pseudo-Stream so flüssig und responsiv zu gestalten wie es nur möglich ist. Dadurch ist der Limitierende Faktor das darunter liegende System oder primär die Bandbreite der Verbindung im Netzwerk.\\
-Der eben erwähnte Buffer ist nicht zwingend notwendig, aber für die Anwendung von Vorteil, da die Bilder so nicht direkt an das Display weitergegeben werden müssen, sondern in einem Zwischenspeicher gespeichert werden können. Dadurch können die kleinen Schwankungen in der Übertragungsgeschwindigkeit der Bilder ausgeglichen werden und die Bilder können so gleichmäßig wie möglich angezeigt werden. Jedoch bedeutet ein Buffer auch, dass die Bilder nicht in Echtzeit angezeigt werden können, sondern immer mit einer kleinen Verzögerung, weswegen der Buffer sebst so klein wie möglich gehalten werden sollte. Daher wurde sich in diesem Projekt für einen Ring-Buffer entschieden, welcher lediglich die letzten 5 Bilder speichert, da eine Verzögerung von 5 Bildern (bei 30\ac{FPS} etwa 0.166s) zwar schon als unnatürlich und störend wahrgenommen werden kann, aber in diesem Aufbau in Kauf genommen wird. Auf Verzögerungen durch die Trägheit der Kinematiken des Roboters wird in im späterne Verlauf unter \autoref{sec:Berechnungs-Node} nocheinmal separat eingegangen.\\
-Eine Besonderheit der Node ist, dass Sie nicht klassisch unter \textit{rclcpp} oder \textit{rclpy} implementiert wird, sondern über den \ac{ROS}-\ac{TCP}-Connector. Dieser ist ein Modul, bereitgestellt durch Unity, welches die Kommunikation zwischen \ac{ROS} und Unity ermöglicht. Dadruch werden die Nachrichten der \ac{ROS}-Topics direkt in Unity empfangen und können dort unter der Verwendung von C\# weiterverarbeitet werden. Durch die Nutzung der Programiersprache C\# verläuft das Empfangen und Speichern der Bilder in Unity deutlich schneller und effizienter als in Python, was wiederum die Latenzen der Bilder reduziert und die Anwendung flüssiger macht.\\
-Weiter wird ein Modul mit dem Namen \textit{openXR} genutzt, welches die Kommunikation zwischen Unity und der MetaQuest3 erheblich erleichter und standartisiert. Weiter ermöglicht es die App auf einem Windows-Rechner zu entwickeln und auszuführen, sodass die App nicht auf der Brille selbst ausgeführt wird. Dadurch kann Rechenleistung und Speicherplatz auf der Brille gespaart werden und die App kann auf einem leistungsstärkeren Rechner ausgeführt werden.\\
 
-Für die Erstellung der App wird ein neues Unity-Projekt erstellt und die benötigten Module \textit{openXR} und \textit{ROS-TCP-Connector} hinzugefügt. Die Module werden in Unity als \textit{.unitypackage} Datei bereitgestellt und werden über den Menüpunkt \textit{Assets} $\rightarrow$ \textit{Import Package} $\rightarrow$ \textit{Custom Package} hinzugefügt werden.\\
-Der Kern der Unity-App besteht aus der in \autoref{lst:unity-controller-data} gezeigten Klasse. Diese hier beispielhaft für den rechten Controller gezeigte Klasse, ist für die Aufnahme der Daten des Controllers zuständig und veröffentlicht diese in einem \ac{ROS}-Topic. Die Klasse wird in Unity als \textit{MonoBehaviour} implementiert und über die Funktionen \textit{Start()} und \textit{Update()} gesteuert. Die Funktion \textit{Start()} wird beim Start der App aufgerufen und initialisiert die Verbindung zu \ac{ROS} und registriert den Publisher für die Nachrichten. Die Funktion \textit{Update()} wird in jedem Frame aufgerufen und überprüft ob die Nachrichten veröffentlicht werden sollen. Die Nachrichten werden dabei in einem festen Intervall von 0.1s veröffentlicht, was wiederum der maximalen Frequenz des Peppers entspricht, und somit eine flüssige und efiziente Bewegung ermöglicht.\\
+Für die Übertragung der Kamerabilder wie sie in \autoref{subsec:Videostream} beschrieben sind, wird eine eigene Node für die MetaQuest3 erstellt. Sie hat die einzig und alleinige Aufgabe die Kamerabilder des Pepper, aus der, von der NAOqi\_bridge zur Verfügung gestellten Topic \textit{/pepper\_robot/camera/front/compressed} aufzunehmen, in einem möglichst kleinen Zwischenspeicher (Buffer) zu speichern und mit möglichst geringer Latenz an die Brille weiter zu senden.\\
+
+\noindent
+Dazu wird in der \ac{AR}-App (die \ac{ROS} Node), die Topic \textit{/pepper\_robot/camera/front /image\_raw/compressed} abonniert. Die Bilder werden von dieser Topic so schnell wie es \ac{ROS} ermöglicht abgegriffen, und ind den Buffer geschrieben. Dadurch kann es zwar vorkommen, dass das selbe Bild mehrere male aus der Topic gelesen wird, jedoch ist es eine einfache Methode die Bilder zu übertragen und die Latenz gering zu halten um wiederum den pseudo-Stream so flüssig und responsiv zu gestalten wie es nur möglich ist. Dadurch ist der Limitierende Faktor das darunter liegende System oder primär die Bandbreite der Verbindung im Netzwerk.
+\\
+
+\noindent
+Der eben erwähnte Buffer ist nicht zwingend notwendig, aber für die Anwendung von Vorteil, da die Bilder so nicht direkt an das Display weitergegeben werden müssen, sondern in einem Zwischenspeicher gespeichert werden können. Dadurch können die kleinen Schwankungen in der Übertragungsgeschwindigkeit der Bilder ausgeglichen werden und die Bilder können so gleichmäßig wie möglich angezeigt werden. Jedoch bedeutet ein Buffer auch, dass die Bilder nicht in Echtzeit angezeigt werden können, sondern immer mit einer kleinen Verzögerung, weswegen der Buffer sebst so klein wie möglich gehalten werden sollte. Daher wurde sich in diesem Projekt für einen Ring-Buffer entschieden, welcher lediglich die letzten 5 Bilder speichert, da eine Verzögerung von 5 Bildern (bei 30\ac{FPS} etwa 0.166s) zwar schon als unnatürlich und störend wahrgenommen werden kann, aber in diesem Aufbau in Kauf genommen wird. Auf Verzögerungen durch die Trägheit der Kinematiken des Roboters wird in im späterne Verlauf unter \autoref{sec:Berechnungs-Node} nocheinmal separat eingegangen.
+\\
+
+\noindent
+Eine Besonderheit der Node ist, dass Sie nicht klassisch unter \textit{rclcpp} oder \textit{rclpy} implementiert wird, sondern über den \ac{ROS}-\ac{TCP}-Connector. Dieser ist ein Modul, bereitgestellt durch Unity, welches die Kommunikation zwischen \ac{ROS} und Unity ermöglicht. Dadruch werden die Nachrichten der \ac{ROS}-Topics direkt in Unity empfangen und können dort unter der Verwendung von C\# weiterverarbeitet werden. Durch die Nutzung der Programiersprache C\# verläuft das Empfangen und Speichern der Bilder in Unity deutlich schneller und effizienter als in Python, was wiederum die Latenzen der Bilder reduziert und die Anwendung flüssiger macht.
+\\
+
+\noindent
+Weiter wird ein Modul mit dem Namen \textit{openXR} genutzt, welches die Kommunikation zwischen Unity und der MetaQuest3 erheblich erleichter und standartisiert. Weiter ermöglicht es die App auf einem Windows-Rechner zu entwickeln und auszuführen, sodass die App nicht auf der Brille selbst ausgeführt wird. Dadurch kann Rechenleistung und Speicherplatz auf der Brille gespaart werden und die App kann auf einem leistungsstärkeren Rechner ausgeführt werden.
+\\
+
+\noindent
+Für die Erstellung der App wird ein neues Unity-Projekt erstellt und die benötigten Module \textit{openXR} und \textit{ROS-TCP-Connector} hinzugefügt. Die Module werden in Unity als \textit{.unitypackage} Datei bereitgestellt und werden über den Menüpunkt \textit{Assets} $\rightarrow$ \textit{Import Package} $\rightarrow$ \textit{Custom Package} hinzugefügt werden.
+\\
+
+\noindent
+Der Kern der Unity-App besteht aus der in \autoref{lst:unity-controller-data} gezeigten Klasse. Diese hier beispielhaft für den rechten Controller gezeigte Klasse, ist für die Aufnahme der Daten des Controllers zuständig und veröffentlicht diese in einem \ac{ROS}-Topic. Die Klasse wird in Unity als \textit{MonoBehaviour} implementiert und über die Funktionen \textit{Start()} und \textit{Update()} gesteuert. Die Funktion \textit{Start()} wird beim Start der App aufgerufen und initialisiert die Verbindung zu \ac{ROS} und registriert den Publisher für die Nachrichten. Die Funktion \textit{Update()} wird in jedem Frame aufgerufen und überprüft ob die Nachrichten veröffentlicht werden sollen. Die Nachrichten werden dabei in einem festen Intervall von 0.1s veröffentlicht, was wiederum der maximalen Frequenz des Peppers entspricht, und somit eine flüssige und efiziente Bewegung ermöglicht.
+\\
+
+\noindent
 \begin{lstlisting}[language=csh, caption=Abgreifen der Controller Daten, label=lst:unity-controller-data]
     using UnityEngine;
     using Unity.Robotics.ROSTCPConnector;
@@ -181,11 +222,19 @@ Das Bild der Kamera ist dagegen hat zu der einfachen Struktur des publishen der 
 
 
 \section{Berechnungs-Node}\label{sec:Berechnungs-Node}
-(nicht vollständig Implementiert)\\\\
-Die Berechnung der Kinematiken und der genauen Positionen der einzelnen Motoren werden über inverse Kinematiken gelöst, welche von der \textit{pyBullet} Bibliothek bereitgestellt werden. Dazu wird einen individuelle Node erstellt, welche die \textit{pyBullet} Bibliothek nutzt und die berechneten Positionen an die NAOqi\_bridge weitergibt. Die Node hat dabei eine Art Middleware-Funktion und übernimmt die Umrechnungen zwischen der MetaQuest3 und der NAOqi\_bridge.\\
-Die Node bindet die \textit{pyBullet} und die \textit{NAOqi\_bridge} Bibliotheken ein. Für die Berechnung abonniert sie als Input die Topics der MetaQuest3: \textit{/AR/position/LController}, \textit{/AR/position/RController}, \textit{/AR/position/Head} und \textit{/AR/button}. Der Output an die NAOqi\_bridge ist dagegen etwas breiter gefächtert, und ist eine direkte Kommunikation an die \ac{API}.\\
 
-Die Node besteht nicht wie jede Node aus einem Publisher-Teil und einem Subscriber-Teil. Sondern nur dem Subscriber-Teil, da die Node nur die Positionen der MetaQuest3 empfängt und an die NAOqi\_bridge weitergibt. Die Berechnung der Positionen und die Kommunikation mit der NAOqi\_bridge erfolgt in einem einzigen Teil der Node. Dazu ist maßgebend die Funktion \textit{callback} von Relevanz, da diese Aufgerufen wird sobald eine Nachricht in einem der abonnierten Topics ankommt. Als zweite zentrale Komponente dient hier die \textit{pyBullet} Bibliothek. Sie muss zunächst initialisiert werden und wie in \autoref{lst:berechnungs-node-pybullet} gezeigt die Kinematiken des Roboters über die \ac{URDF}-Datei des Peppers einlesen.\\
+Die Berechnung der Kinematiken und der genauen Positionen der einzelnen Motoren werden über inverse Kinematiken gelöst, welche von der \textit{pyBullet} Bibliothek bereitgestellt werden. Dazu wird einen individuelle Node erstellt, welche die \textit{pyBullet} Bibliothek nutzt und die berechneten Positionen an die NAOqi\_bridge weitergibt. Die Node hat dabei eine Art Middleware-Funktion und übernimmt die Umrechnungen zwischen der MetaQuest3 und der NAOqi\_bridge.
+\\
+
+\noindent
+Die Node bindet die \textit{pyBullet} und die \textit{NAOqi\_bridge} Bibliotheken ein. Für die Berechnung abonniert sie als Input die Topics der MetaQuest3: \textit{/AR/position/LController}, \textit{/AR/position/RController}, \textit{/AR/position/Head} und \textit{/AR/button}. Der Output an die NAOqi\_bridge ist dagegen etwas breiter gefächtert, und ist eine direkte Kommunikation an die \ac{API}.
+\\
+
+\noindent
+Die Node besteht nicht wie jede Node aus einem Publisher-Teil und einem Subscriber-Teil. Sondern nur dem Subscriber-Teil, da die Node nur die Positionen der MetaQuest3 empfängt und an die NAOqi\_bridge weitergibt. Die Berechnung der Positionen und die Kommunikation mit der NAOqi\_bridge erfolgt in einem einzigen Teil der Node. Dazu ist maßgebend die Funktion \textit{callback} von Relevanz, da diese Aufgerufen wird sobald eine Nachricht in einem der abonnierten Topics ankommt. Als zweite zentrale Komponente dient hier die \textit{pyBullet} Bibliothek. Sie muss zunächst initialisiert werden und wie in \autoref{lst:berechnungs-node-pybullet} gezeigt die Kinematiken des Roboters über die \ac{URDF}-Datei des Peppers einlesen.
+\\
+
+\noindent
 \begin{lstlisting}[language=Python, caption=Berechnungs-Node-Initialisierung von PyBullet, label=lst:berechnungs-node-pybullet]
     import pybullet as p
 
@@ -195,7 +244,10 @@ Die Node besteht nicht wie jede Node aus einem Publisher-Teil und einem Subscrib
             [0, 0, 0],
             useFixedBase=True)
 \end{lstlisting}
-Sobald eine Nachricht empfangen wird, werden die Nachrichten aus den Arrays der Nachricht der MetaQuest3 entnommen und durch nach der Berechnung der inversen Kinematiken in die passenden Werte für die NAOqi\_bridge umgerechnet. Das Array der Positionen der MetaQuest3 wird wie in \autoref{lst:position-msg} beschrieben aufgebaut und enthält die Werte für x, y, z, roll, pitch und yaw, in genau dieser Reihenfolge. Die Werte werden dabei direkt per \texttt{rospy.Subscriber(``[Topic]''), [Type], [callback]} abonniert und in der Funktion \textit{callback} verarbeitet. Hier werden für jede Gelenkgruppe (Arme und Genick) eine separate callback-Funktion aufgerufen. Diese Gruppen werden zu Begin in einem Array aus den einzelnen Gelenken zusammengefasst und der jeweiligen Funktion übergeben. Aus der \ac{URDF}-Datei des Pepper werden die Gelenke und deren Positionen ausgelesen (\autoref{lst:pepper-urdf}) und in einem Dictionary gespeichert. Die Positionen der Gelenke werden dann in einem weiteren Dictionary gespeichert und an die \textit{pyBullet} Bibliothek übergeben. Aus der \ac{URDF}-Datei des Pepper können die Namen der Gelenke gelesen werden, und die Gelenke können über die Namen angesprochen werden und den Gruppen zugeordnet werden. Dazu wird der Code aus \autoref{lst:pepper-urdf} und \autoref{lst:gelenk-grupperierung} genutzt.\\
+Sobald eine Nachricht empfangen wird, werden die Nachrichten aus den Arrays der Nachricht der MetaQuest3 entnommen und durch nach der Berechnung der inversen Kinematiken in die passenden Werte für die NAOqi\_bridge umgerechnet. Das Array der Positionen der MetaQuest3 wird wie in \autoref{lst:position-msg} beschrieben aufgebaut und enthält die Werte für x, y, z, roll, pitch und yaw, in genau dieser Reihenfolge. Die Werte werden dabei direkt per \texttt{rospy.Subscriber(``[Topic]''), [Type], [callback]} abonniert und in der Funktion \textit{callback} verarbeitet. Hier werden für jede Gelenkgruppe (Arme und Genick) eine separate callback-Funktion aufgerufen. Diese Gruppen werden zu Begin in einem Array aus den einzelnen Gelenken zusammengefasst und der jeweiligen Funktion übergeben. Aus der \ac{URDF}-Datei des Pepper werden die Gelenke und deren Positionen ausgelesen (\autoref{lst:pepper-urdf}) und in einem Dictionary gespeichert. Die Positionen der Gelenke werden dann in einem weiteren Dictionary gespeichert und an die \textit{pyBullet} Bibliothek übergeben. Aus der \ac{URDF}-Datei des Pepper können die Namen der Gelenke gelesen werden, und die Gelenke können über die Namen angesprochen werden und den Gruppen zugeordnet werden. Dazu wird der Code aus \autoref{lst:pepper-urdf} und \autoref{lst:gelenk-grupperierung} genutzt.
+\\
+
+\noindent
 \begin{lstlisting}[language=Python, caption=Ausschnitt der URDF-Datei des Pepper, label=lst:pepper-urdf]
     <joint name="HeadYaw" type="continuous">
         <parent link="base_link"/>
@@ -221,7 +273,10 @@ Sobald eine Nachricht empfangen wird, werden die Nachrichten aus den Arrays der 
                 "RWristYaw"]
     }
 \end{lstlisting}
-Damit kann über \texttt{joints[``Gruppe'']} auf die einzelnen Gelenke zugegriffen werden und die Positionen der Gelenke gelesen und gesetzt werden. Die Berechnung der inversen Kinematiken erfolgt über die \textit{pyBullet} Bibliothek und die Funktion \texttt{p.calculateInverseKinematics ([Robot], [Gelenk-Gruppe], [Position], [Orientierung])}. Dabei können die Positionen und Orientierungen der Gelenke direkt in der Funktion übergeben werden und die Funktion gibt die berechneten Positionen der Gelenke zurück.\\
+Damit kann über \texttt{joints[``Gruppe'']} auf die einzelnen Gelenke zugegriffen werden und die Positionen der Gelenke gelesen und gesetzt werden. Die Berechnung der inversen Kinematiken erfolgt über die \textit{pyBullet} Bibliothek und die Funktion \texttt{p.calculateInverseKinematics ([Robot], [Gelenk-Gruppe], [Position], [Orientierung])}. Dabei können die Positionen und Orientierungen der Gelenke direkt in der Funktion übergeben werden und die Funktion gibt die berechneten Positionen der Gelenke zurück.
+\\
+
+\noindent
 Diese Daten sind nun so aufbereitet, dass sie direkt an die NAOqi\_bridge übergeben werden können. Dazu wird zunächst der eine Session des Roboters geöffnet und dieser der Service \textit{ALMotion} über \texttt{m\_service = session.service(ALMotion)} gestartet. Die Positionen der Gelenke werden dann über den Service und der Funktion \texttt{m\_service.setAngles([Name], [Winkel], [MaxGeschwindigkeit])} an die NAOqi\_bridge übergeben und die Gelenke des Roboters werden in die gewünschte Position gebracht. Unter den Namen werden in diesem Projekt die folgenden Gelenke angesprochen:
 \begin{itemize}
     \item \textit{/pepper\_robot/HeadYaw} - Die Position des Kopfes um die Y-Achse.
@@ -239,7 +294,7 @@ Diese Daten sind nun so aufbereitet, dass sie direkt an die NAOqi\_bridge überg
 Diese Daten werden mit der maximalen Frequenz des Peppers von 10Hz an die NAOqi\_bridge übergeben womit bedingt durch die Bewegung des Users und die Trägheit eine Art Interpolation geschaffen wird und die Bewegungen des Roboters flüssiger und natürlicher wirken.\\
 
 \section{Fahrwerk-Node}\label{sec:Fahrwerk-Node}
-(nicht vollständig Implementiert)\\\\
+
 Das Fahrwerk des Pepper wird nicht direkt über die MetaQuest3 gesteuert, sondern über die Knöpfe der MetaQuest3. Dadurch kann hier weder mit Positionen gearbeitet werden, noch mit inversen Kinematiken. Ebenfalls platziert in der Berechnungs-Node, können die Variablen wie die \texttt{session} und der \texttt{m\_service} auch für diese Berechnungen genutzt werden. Für diesen Ansatz wird jedoch eine separate callback-Funktion benötigt. Sie reagiert auf die \textit{/AR/button} Nachrichten und lässt den Roboter entsprechend der Knöpfe bewegen. Hierzu werden keine aufwendigen Berechnungen benötigt, sondern nur die Knöpfe ausgelesen und eine Translation oder Rotation des Roboters durchgeführt.\\
 Die Knöpfe der MetaQuest3 sind in diesem Projekt wie folgt belegt:
 \begin{itemize}

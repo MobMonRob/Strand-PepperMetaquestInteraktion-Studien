@@ -1,4 +1,5 @@
 \chapter{Technologieauswahl}
+In diesem Kapitel wird beschrieben aus welchen Gründen wir uns für die genutzten Technologien entschieden haben.
 \section{Pepper}
 Die Auswahl des humanoiden Roboters Pepper für das Projekt, wurde aufgrund seiner vielseitigen Anwendungsmöglichkeiten und seiner Benutzerfreundlichkeit getroffen. Die Hauptgründe für die Auswahl von Pepper sind im Folgenden erläutert:
 \begin{enumerate}
@@ -23,19 +24,40 @@ Auch wenn Pepper in diesem Projekt gewählt wurde, ist er auf dem Markt der huma
 Letztlich muss man jedoch auch erwähnen, dass für diese Projekt primär der Pepper Roboter vorgeschlagen wurde und die Wahl auch durch die gegebenen Umstände und Materialien beeinflusst wurde.
 
 \section{ROS}
-Einer der Hauptvorteile von \ac{ROS} ist seine Modularität und Wiederverwendbarkeit. Die modulare Architektur ermöglicht es den Entwicklern, die Robotersoftware in kleine, wiederverwendbare Komponenten, so genannte Nodes, zu zerlegen, die jeweils bestimmte Aufgaben übernehmen. Dies fördert nicht nur eine bessere Organisation und Wartung, sondern ermöglicht auch eine erhebliche Wiederverwendung von Code. Die große Anzahl an Paketen und Bibliotheken, die in ROS zur Verfügung stehen, beschleunigt die Entwicklung, da die Entwickler vorhandene Funktionen wiederverwenden und integrieren können.\\
-Die sogenannte Interoperabilität ist ein weiterer wichtiger Vorteil von \ac{ROS}. Es standardisiert die Kommunikation zwischen Knoten durch das Publish-/Subscribe-Nachrichtenmodell, das die nahtlose Integration verschiedener Softwarekomponenten und Sensoren ermöglicht, unabhängig von der zugrunde liegenden Implementierung. Darüber hinaus unterstützt \ac{ROS} mehrere Programmiersprachen, hauptsächlich Python und C++ so, dass Entwickler die Sprache wählen können, die ihren Aufgaben am besten entspricht.\\
-Auch das umfangreiche Ökosystem von \ac{ROS} ist ein entscheidender Vorteil. Mit einer großen und aktiven Community von Entwicklern und Forschern bietet \ac{ROS} umfangreiche Unterstützung durch Foren, Tutorials und Dokumentation. Die große Auswahl an verfügbaren Paketen für verschiedene Roboterfunktionen wie Wahrnehmung, Navigation, Manipulation und Steuerung erleichtert das schnelle Prototyping und die Entwicklung.\\
-\ac{ROS} bietet leistungsstarke Tools für Debugging, Visualisierung und Simulation. Mit Tools wie \textit{Rviz} und \textit{rqt} können Entwickler Sensordaten und Roboterzustände visualisieren beziehungsweise grafische Benutzeroberflächen erstellen. Weiter lässt sich \c{ROS} gut in Simulationsumgebungen wie etwa \textit{Gazebo} integrieren, so dass Entwickler ihre Algorithmen in einer simulierten Welt testen und validieren können, bevor sie sie auf physischen Robotern einsetzen.\\
-Auch im Thema Skalierbarkeit bietet \ac{ROS} umfangreiche Unterstüzung. Es wurde für die Unterstützung verteilter Datenverarbeitung entwickelt und ermöglicht die Zusammenarbeit mehrerer Computer und Roboter in vernetzten Umgebungen, was für komplexe Robotersysteme, die erhebliche Rechenressourcen benötigen, unerlässlich ist. Seine Architektur macht es einfach, neue Funktionen hinzuzufügen und bestehende zu erweitern, so dass sich das System mit den sich ändernden Anforderungen weiterentwickeln kann und Komponenten unabhängig bleiben.\\
-\ac{ROS} ist sowohl in der Wissenschaft als auch in der Industrie weit verbreitet und hat sich zu einem Standard in der Robotikgemeinschaft entwickelt. Seine Verwendung in Spitzenforschungsprojekten stellt sicher, dass es bei der Weiterentwicklung der Robotertechnologie an vorderster Front bleibt. Die akademische und industrielle Akzeptanz von ROS unterstreicht seine Zuverlässigkeit und Effektivität in verschiedenen Anwendungen.\\
-Ein weiterer Hauptgrund für die Wahl von \ac{ROS} ist, dass \ac{ROS} ein Open-Source-Projekt ist. Das ermöglicht auch Einzelpersonen, Start-ups und Organisationen kostengünstig und ohne teure Lizenzgebühren eine mächtige Roboterlösung. Der Open-Source-Charakter von \ac{ROS} ermöglicht es Entwicklern auch, den Quellcode zu prüfen, zu ändern und an spezielle Anforderungen anzupassen, wodurch die volle Kontrolle über die Software gewährleistet ist und \ac{ROS} immer auf dem aktuellsten Stand der Technik und Sicherheit hält.\\
+Einer der Hauptvorteile von \ac{ROS} ist seine Modularität und Wiederverwendbarkeit. Die modulare Architektur ermöglicht es den Entwicklern, die Robotersoftware in kleine, wiederverwendbare Komponenten, so genannte Nodes, zu zerlegen, die jeweils bestimmte Aufgaben übernehmen. Dies fördert nicht nur eine bessere Organisation und Wartung, sondern ermöglicht auch eine erhebliche Wiederverwendung von Code. Die große Anzahl an Paketen und Bibliotheken, die in ROS zur Verfügung stehen, beschleunigt die Entwicklung, da die Entwickler vorhandene Funktionen wiederverwenden und integrieren können.
+\\
+
+\noindent
+Die sogenannte Interoperabilität ist ein weiterer wichtiger Vorteil von \ac{ROS}. Es standardisiert die Kommunikation zwischen Knoten durch das Publish-/Subscribe-Nachrichtenmodell, das die nahtlose Integration verschiedener Softwarekomponenten und Sensoren ermöglicht, unabhängig von der zugrunde liegenden Implementierung. Darüber hinaus unterstützt \ac{ROS} mehrere Programmiersprachen, hauptsächlich Python und C++ so, dass Entwickler die Sprache wählen können, die ihren Aufgaben am besten entspricht.
+\\
+
+\noindent
+Auch das umfangreiche Ökosystem von \ac{ROS} ist ein entscheidender Vorteil. Mit einer großen und aktiven Community von Entwicklern und Forschern bietet \ac{ROS} umfangreiche Unterstützung durch Foren, Tutorials und Dokumentation. Die große Auswahl an verfügbaren Paketen für verschiedene Roboterfunktionen wie Wahrnehmung, Navigation, Manipulation und Steuerung erleichtert das schnelle Prototyping und die Entwicklung.
+\\
+
+\noindent
+\ac{ROS} bietet leistungsstarke Tools für Debugging, Visualisierung und Simulation. Mit Tools wie \textit{Rviz} und \textit{rqt} können Entwickler Sensordaten und Roboterzustände visualisieren beziehungsweise grafische Benutzeroberflächen erstellen. Weiter lässt sich \c{ROS} gut in Simulationsumgebungen wie etwa \textit{Gazebo} integrieren, so dass Entwickler ihre Algorithmen in einer simulierten Welt testen und validieren können, bevor sie sie auf physischen Robotern einsetzen.
+\\
+
+\noindent
+Auch im Thema Skalierbarkeit bietet \ac{ROS} umfangreiche Unterstüzung. Es wurde für die Unterstützung verteilter Datenverarbeitung entwickelt und ermöglicht die Zusammenarbeit mehrerer Computer und Roboter in vernetzten Umgebungen, was für komplexe Robotersysteme, die erhebliche Rechenressourcen benötigen, unerlässlich ist. Seine Architektur macht es einfach, neue Funktionen hinzuzufügen und bestehende zu erweitern, so dass sich das System mit den sich ändernden Anforderungen weiterentwickeln kann und Komponenten unabhängig bleiben.
+\\
+
+\noindent
+\ac{ROS} ist sowohl in der Wissenschaft als auch in der Industrie weit verbreitet und hat sich zu einem Standard in der Robotikgemeinschaft entwickelt. Seine Verwendung in Spitzenforschungsprojekten stellt sicher, dass es bei der Weiterentwicklung der Robotertechnologie an vorderster Front bleibt. Die akademische und industrielle Akzeptanz von ROS unterstreicht seine Zuverlässigkeit und Effektivität in verschiedenen Anwendungen.
+\\
+
+\noindent
+Ein weiterer Hauptgrund für die Wahl von \ac{ROS} ist, dass \ac{ROS} ein Open-Source-Projekt ist. Das ermöglicht auch Einzelpersonen, Start-ups und Organisationen kostengünstig und ohne teure Lizenzgebühren eine mächtige Roboterlösung. Der Open-Source-Charakter von \ac{ROS} ermöglicht es Entwicklern auch, den Quellcode zu prüfen, zu ändern und an spezielle Anforderungen anzupassen, wodurch die volle Kontrolle über die Software gewährleistet ist und \ac{ROS} immer auf dem aktuellsten Stand der Technik und Sicherheit hält.
+\\
+
+\noindent
 Abschließend ist, dass \ac{ROS} ein robustes, flexibles und gut unterstütztes Framework für die Entwicklung von Roboteranwendungen. Seine modulare Architektur, das umfangreiche Ökosystem, die leistungsstarken Tools und die aktive Community machen es zu einer ausgezeichneten Wahl für dieses Projekt.\\
 
 
 
 
-\section{VR-Brillen}
+\section{VR-Brille}
 Die Auswahl der Technologie für die Entwicklung von Virtual-Reality-Anwendungen ist von entscheidender Bedeutung für den Erfolg eines Projekts. Bei der DHBW wurde die Entscheidung getroffen, die Metaquest 3 für das VR-Projekt zu verwenden. Diese Entscheidung wurde aufgrund mehrerer Faktoren getroffen, die im Folgenden erläutert werden.
 \\
 
